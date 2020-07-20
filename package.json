@@ -8,6 +8,7 @@
     "cypress"
   ],
   "scripts": {
+    "start": "serve --listen ${PORT:-8080}",
     "test": "npm start & cypress run"
   },
   "author": "Ethan Israel",
