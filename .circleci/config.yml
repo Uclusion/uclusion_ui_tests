@@ -9,8 +9,3 @@ workflows:
   build:
     jobs:
       - cypress/run
-          filters:
-            tags:
-              only: /^ui_test.*/
-            branches:
-              ignore: /.*/
