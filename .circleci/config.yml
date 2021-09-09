@@ -70,7 +70,7 @@ workflows:
             branches:
               ignore: /.*/
           context: stage
-      - cypress/install
+      - cypress/install:
           filters:
             tags:
               ignore: /.*/
