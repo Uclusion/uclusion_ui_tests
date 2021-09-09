@@ -6,6 +6,7 @@ defaults: &defaults
 
 orbs:
   ruby: circleci/ruby@1.1.4
+  aws-cli: circleci/aws-cli@2.0.3
 version: 2.1
 
 jobs:
@@ -15,6 +16,7 @@ jobs:
       - checkout
       - ruby/install:
           version: '2.7'
+      - aws-cli/install
       - run:
           name: install keys
           command: |
