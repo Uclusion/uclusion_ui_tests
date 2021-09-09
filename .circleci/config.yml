@@ -4,6 +4,8 @@ defaults: &defaults
   docker:
     - image: circleci/python:3.7.3-node
 
+orbs:
+  ruby: circleci/ruby@1.1.4
 version: 2.1
 
 jobs:
@@ -11,6 +13,8 @@ jobs:
     <<: *defaults
     steps:
       - checkout
+      - ruby/install:
+          version: '2.7'
       - run:
           name: install keys
           command: |
