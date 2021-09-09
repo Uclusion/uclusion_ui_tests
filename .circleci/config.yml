@@ -63,6 +63,13 @@ jobs:
 workflows:
   test-stage:
     jobs:
+      - prepare:
+          filters:
+            tags:
+              only: /^stage_only.*/
+            branches:
+              ignore: /.*/
+          context: stage
       - record:
           requires:
             - prepare
