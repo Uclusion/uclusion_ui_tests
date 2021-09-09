@@ -66,14 +66,14 @@ workflows:
       - prepare:
           filters:
             tags:
-              ignore: /.*/
+              only: /^stage_only.*/
             branches:
               ignore: /.*/
           context: stage
       - cypress/install:
           filters:
             tags:
-              ignore: /.*/
+              only: /^stage_only.*/
             branches:
               ignore: /.*/
       - cypress/run:
@@ -83,7 +83,7 @@ workflows:
           install-command: 'npm install --no-optional --unsafe-perm'
           filters:
             tags:
-              ignore: /.*/
+              only: /^stage_only.*/
             branches:
               ignore: /.*/
           context: stage
