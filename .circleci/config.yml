@@ -26,8 +26,8 @@ jobs:
       - run:
           name: bless
           command: |
-            cd ~/circleci_orbs
-            python -m scripts.test_user_deleter --poolId=${pool_id}
+            cd ~/circleci_orbs/scripts
+            ./test_user_deleter.rb --poolId=${pool_id}
       - run:
           name: Get the required npm modules and run Cypress tests
           command: |
