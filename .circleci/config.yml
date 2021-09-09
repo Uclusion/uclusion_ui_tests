@@ -1,11 +1,57 @@
-# Javascript Node CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/blog/mobile-and-browser-testing-on-circleci-simple-setup-easy-management-increased-confidence/ for more details
-#
+
+defaults: &defaults
+  working_directory: ~/src
+  docker:
+    - image: circleci/python:3.7.3-node
+
 version: 2.1
-orbs:
-  cypress: cypress-io/cypress@1.0.1
+
+jobs:
+  test:
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          name: install keys
+          command: |
+            mkdir ~/.ssh/ && echo -e "Host github.com\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
+            mkdir ~/.aws
+            echo -e "[default]\naws_access_key_id=$aws_access_key_id\naws_secret_access_key=$aws_secret_access_key\n" > ~/.aws/credentials
+      - run:
+          name: Check out and prepare utils repo
+          command: |
+            cd ~/
+            mkdir circleci_orbs
+            git clone git@github.com:Uclusion/circleci_orbs.git ./circleci_orbs
+      - run:
+          name: bless
+          command: |
+            cd ~/circleci_orbs
+            python -m scripts.test_user_deleter --poolId=${pool_id}
+      - run:
+          name: Get the required npm modules and run Cypress tests
+          command: |
+            cd ~/src
+            npm install
+            ./node_modules/.bin/cypress run
+      - run:
+          name: install latest pip and python modules
+          command: |
+            sudo pip install --upgrade pip
+            pip install --user PyGithub
+      - run:
+          name: bless
+          command: |
+            cd ~/circleci_orbs
+            python -m scripts.test_and_bless -e ${env_name} -a ${github_token} -t ../nodejs_sdk -u true
+
 workflows:
-  build:
+  test-stage:
     jobs:
-      - cypress/run
+      - test:
+          filters:
+            tags:
+              only: /^stage_only.*/
+            branches:
+              ignore: /.*/
+          context: stage
