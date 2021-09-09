@@ -11,11 +11,9 @@ orbs:
 version: 2.1
 
 jobs:
-  test:
+  prepare:
     <<: *defaults
     steps:
-      - checkout
-      - cypress/install
       - ruby/install:
           version: '2.7'
       - aws-cli/install
@@ -38,11 +36,19 @@ jobs:
           command: |
             cd ~/circleci_orbs/scripts
             ./test_user_deleter.rb --poolId=${pool_id}
+  record:
+    <<: *defaults
+    steps:
       - run:
-          name: Get the required npm modules and run Cypress tests
+          name: disable strict host checking
           command: |
-            cd ~/src
-            npm install
+            mkdir ~/.ssh/ && echo -e "Host github.com\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
+      - run:
+          name: Check out and prepare utils repo
+          command: |
+            cd ~/
+            mkdir circleci_orbs
+            git clone git@github.com:Uclusion/circleci_orbs.git ./circleci_orbs
       - run:
           name: install latest pip and python modules
           command: |
@@ -52,12 +58,15 @@ jobs:
           name: bless
           command: |
             cd ~/circleci_orbs
-            python -m scripts.test_and_bless -e ${env_name} -a ${github_token} -t ../nodejs_sdk -u true
+            python -m scripts.test_and_bless -e ${env_name} -a ${github_token} -u true
 
 workflows:
   test-stage:
     jobs:
-      - test:
+      - record:
+          requires:
+            - prepare
+            - cypress/run
           filters:
             tags:
               only: /^stage_only.*/
