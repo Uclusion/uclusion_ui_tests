@@ -20,7 +20,7 @@ jobs:
       - aws-cli/setup:
           aws-region: aws_region
           aws-access-key-id: aws_access_key_id
-          aws_secret_access_key: aws_secret_access_key
+          aws-secret-access-key: aws_secret_access_key
       - run:
           name: disable strict host checking
           command: |
