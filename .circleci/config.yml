@@ -17,6 +17,8 @@ jobs:
       - ruby/install:
           version: '2.7'
       - aws-cli/install
+      - aws-cli/setup:
+          aws-region: 'us-west-2'
       - run:
           name: install keys
           command: |
