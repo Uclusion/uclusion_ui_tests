@@ -7,6 +7,7 @@ defaults: &defaults
 orbs:
   ruby: circleci/ruby@1.1.4
   aws-cli: circleci/aws-cli@2.0.3
+  cypress: cypress-io/cypress@1.29.0
 version: 2.1
 
 jobs:
@@ -14,6 +15,7 @@ jobs:
     <<: *defaults
     steps:
       - checkout
+      - cypress/install
       - ruby/install:
           version: '2.7'
       - aws-cli/install
@@ -32,7 +34,7 @@ jobs:
             mkdir circleci_orbs
             git clone git@github.com:Uclusion/circleci_orbs.git ./circleci_orbs
       - run:
-          name: bless
+          name: delete tusers from Cognito
           command: |
             cd ~/circleci_orbs/scripts
             ./test_user_deleter.rb --poolId=${pool_id}
@@ -41,7 +43,6 @@ jobs:
           command: |
             cd ~/src
             npm install
-            ./node_modules/.bin/cypress run
       - run:
           name: install latest pip and python modules
           command: |
