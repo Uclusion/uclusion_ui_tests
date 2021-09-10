@@ -1,3 +1,6 @@
 {
-  "projectId": "4b7344"
+  "projectId": "4b7344",
+  "viewportHeight": 850,
+  "viewportWidth": 1700,
+  "chromeWebSecurity": false
 }
