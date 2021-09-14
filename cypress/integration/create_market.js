@@ -90,8 +90,8 @@ describe('Authenticator:', function() {
         cy.get('#adminManageCollaborators').click();
         // https://github.com/cypress-io/cypress/issues/5827
         cy.get('#email1').should('not.be.disabled').type(thirdUserEmail, {force: true});
-        cy.get('#emailsSentList').contains(thirdUserEmail);
         cy.get('#addressAddSaveButton').click();
+        cy.get('#emailsSentList').contains(thirdUserEmail);
         logOut();
         return waitForEmail(thirdUserEmail, `${destination}/invite`, inviteSubject);
       }).then((url) => {
