@@ -64,7 +64,7 @@ describe('Authenticator:', function() {
   });
 
   describe('Check market creation', () => {
-    it('signs up and creates template market and verifies', () => {
+    it('signs up and creates template market and verifies', { scrollBehavior: false }, () => {
       const firstUserEmail = 'tuser+01@uclusion.com';
       const secondUserEmail = 'tuser+02@uclusion.com';
       const thirdUserEmail = 'tuser@uclusion.com';
