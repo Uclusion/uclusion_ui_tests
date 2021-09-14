@@ -22,8 +22,8 @@ function logOut() {
 }
 
 function createAndTourTemplate() {
-  cy.get('#createTemplateWorkspaceButton', { timeout: 8000 }).click();
-  cy.get('[title=Next]', { timeout: 7000 }).click();
+  cy.get('#createTemplateWorkspaceButton', { timeout: 10000 }).click();
+  cy.get('[title=Next]', { timeout: 10000 }).click();
   cy.get('[title=Next]').click();
   cy.get('[title=Close]').first().click();
 }
@@ -88,7 +88,8 @@ describe('Authenticator:', function() {
         signIn(url, secondUserEmail, userPassword);
         takeInvitedTour();
         cy.get('#adminManageCollaborators').click();
-        cy.get('#email1').should('not.be.disabled').type(thirdUserEmail);
+        // https://github.com/cypress-io/cypress/issues/5827
+        cy.get('#email1').should('not.be.disabled').type(thirdUserEmail, {force: true});
         cy.get('#addressAddSaveButton').click();
         logOut();
         return waitForEmail(thirdUserEmail, `${destination}/invite`, inviteSubject);
@@ -99,6 +100,9 @@ describe('Authenticator:', function() {
         cy.get('#repeat').type(userPassword);
         cy.get('#terms').click();
         cy.get('#signupButton').click();
+        // Not forcing a third entry of the password here would be nice - have put in a when convenient for it
+        cy.get('#password').type(userPassword);
+        cy.get('#signinButton').click();
         takeInvitedTour();
       });
     });
