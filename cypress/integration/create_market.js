@@ -22,14 +22,14 @@ function logOut() {
 }
 
 function createAndTourTemplate() {
-  cy.get('#createTemplateWorkspaceButton', { timeout: 10000 }).click();
-  cy.get('[title=Next]', { timeout: 10000 }).click();
+  cy.get('#createTemplateWorkspaceButton', { timeout: 20000 }).click();
+  cy.get('[title=Next]', { timeout: 20000 }).click();
   cy.get('[title=Next]').click();
   cy.get('[title=Close]').first().click();
 }
 
 function takeInvitedTour() {
-  cy.get('[title=Next]', { timeout: 10000 }).click();
+  cy.get('[title=Next]', { timeout: 20000 }).click();
   cy.get('[title=Next]').click();
   cy.get('[title=Next]').click();
   cy.get('[title=Next]').click();
