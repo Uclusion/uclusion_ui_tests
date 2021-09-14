@@ -62,7 +62,7 @@ describe('Authenticator:', function() {
   beforeEach(function() {
     Cypress.on('uncaught:exception', (err, runnable) => {
       // returning false here prevents Cypress from failing the test
-      return false
+      return false;
     });
   });
 
@@ -105,8 +105,10 @@ describe('Authenticator:', function() {
         cy.get('#repeat').type(userPassword);
         cy.get('#terms').click();
         cy.get('#signupButton').click();
+        // Prevent typing in before on new page
+        cy.contains('Sign In');
         // Not requiring a third entry of the password here would be nice - have put in a when convenient for it
-        cy.get('#password').type(userPassword, {force: true});
+        cy.get('#password').type(userPassword);
         cy.get('#signinButton').click();
         takeInvitedTour();
       });
