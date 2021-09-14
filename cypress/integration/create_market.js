@@ -22,7 +22,7 @@ function logOut() {
 }
 
 function createAndTourTemplate() {
-  cy.get('#createTemplateWorkspaceButton', { timeout: 7000 }).click();
+  cy.get('#createTemplateWorkspaceButton', { timeout: 8000 }).click();
   cy.get('[title=Next]', { timeout: 7000 }).click();
   cy.get('[title=Next]').click();
   cy.get('[title=Close]').first().click();
