@@ -60,11 +60,15 @@ describe('Authenticator:', function() {
   const destination = 'https://stage.uclusion.com';
   // Step 1: setup the application state
   beforeEach(function() {
-
+    Cypress.on('uncaught:exception', (err, runnable) => {
+      // returning false here prevents Cypress from failing the test
+      return false
+    });
   });
 
+  //Make screen vertically larger if want to use { scrollBehavior: false } in test for that bug
   describe('Check market creation', () => {
-    it('signs up and creates template market and verifies', { scrollBehavior: false }, () => {
+    it('signs up and creates template market and verifies', () => {
       const firstUserEmail = 'tuser+01@uclusion.com';
       const secondUserEmail = 'tuser+02@uclusion.com';
       const thirdUserEmail = 'tuser@uclusion.com';
@@ -101,8 +105,8 @@ describe('Authenticator:', function() {
         cy.get('#repeat').type(userPassword);
         cy.get('#terms').click();
         cy.get('#signupButton').click();
-        // Not forcing a third entry of the password here would be nice - have put in a when convenient for it
-        cy.get('#password').type(userPassword);
+        // Not requiring a third entry of the password here would be nice - have put in a when convenient for it
+        cy.get('#password').type(userPassword, {force: true});
         cy.get('#signinButton').click();
         takeInvitedTour();
       });
