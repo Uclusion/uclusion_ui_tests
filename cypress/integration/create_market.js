@@ -88,7 +88,7 @@ describe('Authenticator:', function() {
         signIn(url, secondUserEmail, userPassword);
         takeInvitedTour();
         cy.get('#adminManageCollaborators').click();
-        cy.get('#email1').type(thirdUserEmail);
+        cy.get('#email1').should('not.be.disabled').type(thirdUserEmail);
         cy.get('#addressAddSaveButton').click();
         logOut();
         return waitForEmail(thirdUserEmail, `${destination}/invite`, inviteSubject);
