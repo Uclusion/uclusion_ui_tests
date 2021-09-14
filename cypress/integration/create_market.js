@@ -74,7 +74,7 @@ describe('Authenticator:', function() {
       fillSignupForm(`${destination}?utm_campaign=test#signup`, 'Tester One Uclusion', firstUserEmail,
           userPassword);
       waitForEmail(firstUserEmail, destination, verifySubject).then((url) => {
-        signIn(url, userEmail, userPassword);
+        signIn(url, firstUserEmail, userPassword);
         createAndTourTemplate();
         cy.get('#adminManageCollaborators').click();
         return cy.get('#inviteLinker').find('input');
