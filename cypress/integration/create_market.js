@@ -37,12 +37,12 @@ function takeInvitedTour() {
   cy.get('[title=Close]').first().click();
 }
 
-function waitForEmailAndSignIn(userEmail, userPassword, destination) {
+function waitForEmail(userEmail, destination, subject) {
   const testStartDate = new Date();
   return cy.task("gmail:check", {
     from: "support@uclusion.com",
     to: userEmail,
-    subject: "Please verify your email address",
+    subject,
     after: testStartDate,
     include_body: true
   }).then(emails => {
@@ -52,8 +52,7 @@ function waitForEmailAndSignIn(userEmail, userPassword, destination) {
     const searchString = emails[0].body.html;
     const begin = searchString.indexOf(`href="${destination}`) + 6;
     const end = searchString.indexOf('"', begin);
-    const url = searchString.substring(begin, end);
-    signIn(url, userEmail, userPassword);
+    return searchString.substring(begin, end);
   });
 }
 
@@ -67,21 +66,39 @@ describe('Authenticator:', function() {
   describe('Check market creation', () => {
     it('signs up and creates template market and verifies', () => {
       const firstUserEmail = 'tuser+01@uclusion.com';
+      const secondUserEmail = 'tuser+02@uclusion.com';
+      const thirdUserEmail = 'tuser@uclusion.com';
       const userPassword = 'Testme;1';
+      const verifySubject = 'Please verify your email address';
+      const inviteSubject = 'Tester Two Uclusion has invited you to join a Uclusion Workspace';
       fillSignupForm(`${destination}?utm_campaign=test#signup`, 'Tester One Uclusion', firstUserEmail,
           userPassword);
-      waitForEmailAndSignIn(firstUserEmail, userPassword, destination).then(() => {
+      waitForEmail(firstUserEmail, destination, verifySubject).then((url) => {
+        signIn(url, userEmail, userPassword);
         createAndTourTemplate();
         cy.get('#adminManageCollaborators').click();
         return cy.get('#inviteLinker').find('input');
       }).then(input => {
         const inviteUrl = input.attr('value');
         logOut();
-        const secondUserEmail = 'tuser+02@uclusion.com';
         cy.visit(inviteUrl, {failOnStatusCode: false});
         fillSignupForm(inviteUrl, 'Tester Two Uclusion', secondUserEmail, userPassword);
-        return waitForEmailAndSignIn(secondUserEmail, userPassword, destination);
-      }).then(() => {
+        return waitForEmail(secondUserEmail, destination, verifySubject);
+      }).then((url) => {
+        signIn(url, secondUserEmail, userPassword);
+        takeInvitedTour();
+        cy.get('#adminManageCollaborators').click();
+        cy.get('#email1').type(thirdUserEmail);
+        cy.get('#addressAddSaveButton').click();
+        logOut();
+        return waitForEmail(thirdUserEmail, `${destination}/invite`, inviteSubject);
+      }).then((url) => {
+        cy.visit(url, {failOnStatusCode: false});
+        cy.get('#name').type('Tester Uclusion');
+        cy.get('#password').type(userPassword);
+        cy.get('#repeat').type(userPassword);
+        cy.get('#terms').click();
+        cy.get('#signupButton').click();
         takeInvitedTour();
       });
     });
