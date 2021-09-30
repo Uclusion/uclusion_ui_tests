@@ -21,9 +21,14 @@ function logOut() {
   cy.get('#signoutButton').click();
 }
 
-function createAndTourTemplate() {
-  cy.get('#createTemplateWorkspaceButton', { timeout: 20000 }).click();
+function createAndTourWorkspace() {
+  cy.get('#OnboardingWizardContinue', { timeout: 20000 }).click();
+  cy.get('#workspaceName').type('Workspace created from UI tests');
+  cy.get('#OnboardingWizardFinish').click();
+  cy.get('#addressAddCancel').click();
   cy.get('[title=Next]', { timeout: 20000 }).click();
+  cy.get('[title=Next]').click();
+  cy.get('[title=Next]').click();
   cy.get('[title=Next]').click();
   cy.get('[title=Close]').first().click();
 }
@@ -79,7 +84,7 @@ describe('Authenticator:', function() {
           userPassword);
       waitForEmail(firstUserEmail, destination, verifySubject).then((url) => {
         signIn(url, firstUserEmail, userPassword);
-        createAndTourTemplate();
+        createAndTourWorkspace();
         cy.get('#adminManageCollaborators').click();
         return cy.get('#inviteLinker').find('input');
       }).then(input => {
