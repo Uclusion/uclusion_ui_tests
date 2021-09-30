@@ -6,7 +6,7 @@ function fillSignupForm(url, userName, userEmail, userPassword) {
   cy.get('#password').type(userPassword);
   cy.get('#repeat').type(userPassword);
   cy.get('#terms').click();
-  cy.get('#signupButton').click();
+  cy.get('#signupButton').should('not.be.disabled').click();
 }
 
 function signIn(url, userEmail, userPassword) {
