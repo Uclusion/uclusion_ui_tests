@@ -5,17 +5,16 @@ defaults: &defaults
     - image: circleci/python:3.7.3-node
 
 orbs:
-  ruby: circleci/ruby@1.2.0
   aws-cli: circleci/aws-cli@2.0.3
   cypress: cypress-io/cypress@1.29.0
 version: 2.1
 
 jobs:
   prepare:
-    <<: *defaults
+    working_directory: ~/src
+    docker:
+        - image: circleci/ruby:2.7
     steps:
-      - ruby/install:
-          version: '2.7'
       - aws-cli/install
       - aws-cli/setup:
           aws-region: aws_region
