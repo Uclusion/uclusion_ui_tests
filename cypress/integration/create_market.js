@@ -26,16 +26,11 @@ function createAndTourWorkspace() {
   cy.get('#workspaceName').type('Workspace created from UI tests');
   cy.get('#OnboardingWizardFinish').click();
   cy.get('#addressAddCancel', { timeout: 20000 }).click();
-  cy.get('[title=Next]', { timeout: 20000 }).click();
-  cy.get('[title=Next]').click();
-  cy.get('[title=Next]').click();
-  cy.get('[title=Next]').click();
-  cy.get('[title=Close]').first().click();
+  takeInvitedTour();
 }
 
 function takeInvitedTour() {
   cy.get('[title=Next]', { timeout: 20000 }).click();
-  cy.get('[title=Next]').click();
   cy.get('[title=Next]').click();
   cy.get('[title=Next]').click();
   cy.get('[title=Next]').click();
