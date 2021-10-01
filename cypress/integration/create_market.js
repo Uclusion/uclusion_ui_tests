@@ -1,7 +1,7 @@
 
 function fillSignupForm(url, userName, userEmail, userPassword) {
   cy.visit(url, {failOnStatusCode: false});
-  cy.get('#name').type(userName);
+  cy.get('#name', { timeout: 5000 }).type(userName);
   cy.get('#email').type(userEmail);
   cy.get('#password').type(userPassword);
   cy.get('#repeat').type(userPassword);
@@ -11,7 +11,7 @@ function fillSignupForm(url, userName, userEmail, userPassword) {
 
 function signIn(url, userEmail, userPassword) {
   cy.visit(url, {failOnStatusCode: false});
-  cy.get('#username').type(userEmail);
+  cy.get('#username', { timeout: 5000 }).type(userEmail);
   cy.get('#password').type(userPassword);
   cy.get('#signinButton').click();
 }
