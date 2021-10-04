@@ -77,8 +77,7 @@ workflows:
               ignore: /.*/
       - cypress/run:
           post-steps:
-            - store_artifacts:
-                path: ui-test-report
+            - store_artifacts: true
           requires:
             - prepare
             - cypress/install
