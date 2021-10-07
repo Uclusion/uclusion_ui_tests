@@ -25,7 +25,6 @@ function createAndTourWorkspace() {
   cy.get('#OnboardingWizardContinue', { timeout: 20000 }).click();
   cy.get('#workspaceName').type('Workspace created from UI tests');
   cy.get('#OnboardingWizardFinish').click();
-  cy.get('#addressAddCancel', { timeout: 20000 }).click();
   takeInvitedTour();
 }
 
