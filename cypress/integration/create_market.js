@@ -33,7 +33,6 @@ function takeInvitedTour() {
   cy.get('[title=Next]', { timeout: 20000 }).click();
   cy.get('[title=Next]').click();
   cy.get('[title=Next]').click();
-  cy.get('[title=Next]').click();
   cy.get('[title=Close]').first().click();
 }
 
