@@ -78,7 +78,6 @@ describe('Authenticator:', function() {
       waitForEmail(firstUserEmail, destination, verifySubject).then((url) => {
         signIn(url, firstUserEmail, userPassword);
         createAndTourWorkspace();
-        cy.get('#adminManageCollaborators').click();
         return cy.get('#inviteLinker').find('input');
       }).then(input => {
         const inviteUrl = input.attr('value');
