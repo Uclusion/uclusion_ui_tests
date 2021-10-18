@@ -92,8 +92,19 @@ describe('Authenticator:', function() {
         cy.get('#email1').should('not.be.disabled').type(thirdUserEmail, {force: true});
         cy.get('#addressAddSaveButton').click();
         cy.get('#emailsSentList').contains(thirdUserEmail);
-        logOut();
-        return waitForEmail(thirdUserEmail, `${destination}/invite`, inviteSubject);
+        // add a story for third user with vote from swimlane
+        cy.get('#Assigned').click();
+        cy.get('#swimLanes').find('Tuser Uclusion.com').parent().find('div[role=button]').click();
+        return cy.url().then(url => {
+          const begin = url.indexOf('dialog') + 7;
+          const marketId =  url.substring(begin);
+          cy.get(`#editorBox-${marketId}-planning-inv-add`).type('Creating this story to test placeholder gets it');
+          cy.get('input[value=75]').click();
+          cy.get('#planningInvestibleAddButton').click();
+          cy.get('#Description', { timeout: 10000 }).should('be.visible');
+          logOut();
+          return waitForEmail(thirdUserEmail, `${destination}/invite`, inviteSubject);
+        });
       }).then((url) => {
         cy.visit(url, {failOnStatusCode: false});
         cy.get('#name').type('Tester Uclusion');
@@ -107,6 +118,9 @@ describe('Authenticator:', function() {
         cy.get('#password').type(userPassword);
         cy.get('#signinButton').click();
         takeInvitedTour();
+        cy.get('#Assigned').click();
+        cy.get('#swimLanes').find('Creating this story to test placeholder gets it').click();
+        cy.contains('Certain', { timeout: 10000 }).should('be.visible');
       });
     });
   });
