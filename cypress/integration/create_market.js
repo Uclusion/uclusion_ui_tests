@@ -95,7 +95,7 @@ describe('Authenticator:', function() {
         // add a story for third user with vote from swimlane
         cy.get('#Assigned').click();
         const placeholderName = thirdUserEmail.replace('@', ' ');
-        cy.get('#swimLanes').find(placeholderName).parent().find('div[role=button]').click();
+        cy.get('#swimLanes').contains(placeholderName).parent().find('div[role=button]').click();
         return cy.url().then(url => {
           const begin = url.indexOf('dialog') + 7;
           const marketId =  url.substring(begin);
@@ -120,7 +120,7 @@ describe('Authenticator:', function() {
         cy.get('#signinButton').click();
         takeInvitedTour();
         cy.get('#Assigned').click();
-        cy.get('#swimLanes').find('Creating this story to test placeholder gets it').click();
+        cy.get('#swimLanes').contains('Creating this story to test placeholder gets it').click();
         cy.contains('Certain', { timeout: 10000 }).should('be.visible');
       });
     });
