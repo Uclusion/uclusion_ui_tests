@@ -94,7 +94,8 @@ describe('Authenticator:', function() {
         cy.get('#emailsSentList').contains(thirdUserEmail);
         // add a story for third user with vote from swimlane
         cy.get('#Assigned').click();
-        cy.get('#swimLanes').find('Tuser Uclusion.com').parent().find('div[role=button]').click();
+        const placeholderName = thirdUserEmail.replace('@', ' ');
+        cy.get('#swimLanes').find(placeholderName).parent().find('div[role=button]').click();
         return cy.url().then(url => {
           const begin = url.indexOf('dialog') + 7;
           const marketId =  url.substring(begin);
