@@ -24,13 +24,14 @@ function logOut() {
 function createAndTourWorkspace() {
   cy.get('#workspaceName', { timeout: 20000 }).type('Workspace created from UI tests');
   cy.get('#OnboardingWizardNext').click();
-  takeInvitedTour();
+  takeInvitedTour(true);
 }
 
-function takeInvitedTour() {
+function takeInvitedTour(isCreator) {
   cy.get('[title=Next]', { timeout: 5000 }).click();
-  cy.get('[title=Next]').click();
-  cy.get('[title=Next]').click();
+  if (!isCreator) {
+    cy.get('[title=Next]').click();
+  }
   cy.get('[title=Close]').first().click();
 }
 
@@ -86,7 +87,7 @@ describe('Authenticator:', function() {
         return waitForEmail(secondUserEmail, destination, verifySubject);
       }).then((url) => {
         signIn(url, secondUserEmail, userPassword);
-        takeInvitedTour();
+        takeInvitedTour(false);
         cy.get('#adminManageCollaborators').click();
         // https://github.com/cypress-io/cypress/issues/5827
         cy.get('#email1').should('not.be.disabled').type(thirdUserEmail, {force: true});
@@ -118,7 +119,7 @@ describe('Authenticator:', function() {
         // Not requiring a third entry of the password here would be nice - have put in a when convenient for it
         cy.get('#password').type(userPassword);
         cy.get('#signinButton').click();
-        takeInvitedTour();
+        takeInvitedTour(false);
         cy.get('#Assigned').click();
         cy.get('#swimLanesChildren').contains('Creating this story to test placeholder gets it', { timeout: 20000 }).click();
         cy.contains('Certain', { timeout: 10000 }).should('be.visible');
