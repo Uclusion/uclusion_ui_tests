@@ -120,7 +120,7 @@ describe('Authenticator:', function() {
         cy.get('#password').type(userPassword);
         cy.get('#signinButton').click();
         takeInvitedTour(false);
-        cy.get('#Assigned').click();
+        cy.get('#Swimlanes').click();
         cy.get('#swimLanesChildren').contains('Creating this story to test placeholder gets it', { timeout: 20000 }).click();
         cy.contains('Certain', { timeout: 10000 }).should('be.visible');
       });
