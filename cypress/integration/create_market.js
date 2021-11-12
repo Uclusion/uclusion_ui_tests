@@ -94,7 +94,7 @@ describe('Authenticator:', function() {
         cy.get('#addressAddSaveButton').click();
         cy.get('#emailsSentList').contains(thirdUserEmail);
         // add a story for third user with vote from swimlane
-        cy.get('#Assigned').click();
+        cy.get('#swimLanes').click();
         const placeholderName = thirdUserEmail.replace('@', ' ');
         cy.get('#swimLanesChildren').contains(placeholderName).parent().find('div[role=button]').click();
         return cy.url().then(url => {
