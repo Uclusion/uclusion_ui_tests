@@ -29,7 +29,7 @@ function createAndTourWorkspace() {
 
 function takeInvitedTour(isCreator) {
   // Need the timeouts because market can still be loading
-  cy.get('[title=Next]', { timeout: 5000 }).click();
+  cy.get('[title=Next]', { timeout: 8000 }).click();
   if (!isCreator) {
     cy.get('[title=Next]').click();
   }
