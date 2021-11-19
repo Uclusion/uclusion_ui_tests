@@ -100,7 +100,8 @@ describe('Authenticator:', function() {
         cy.get('#swimLanesChildren').contains(placeholderName).parent().find('div[role=button]').click();
         return cy.url().then(url => {
           const begin = url.indexOf('dialog') + 7;
-          const marketId =  url.substring(begin);
+          const end = url.indexOf('#');
+          const marketId =  end > 0 ? url.substring(begin, end) : url.substring(begin);
           cy.get(`#editorBox-${marketId}-planning-inv-add`, { timeout: 10000 }).type('Creating this story to test placeholder gets it');
           cy.get('input[value=75]').click();
           cy.get('#planningInvestibleAddButton').click();
