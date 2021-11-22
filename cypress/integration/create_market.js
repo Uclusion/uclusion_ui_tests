@@ -95,7 +95,7 @@ describe('Authenticator:', function() {
         cy.get('#addressAddSaveButton').click();
         cy.get('#emailsSentList').contains(thirdUserEmail);
         // add a story for third user with vote from swimlane
-        cy.get('#Swimlanes').click();
+        cy.get('#storiesSection').click();
         const placeholderName = thirdUserEmail.replace('@', ' ');
         cy.get('#swimLanesChildren').contains(placeholderName).parent().find('div[role=button]').click();
         return cy.url().then(url => {
@@ -122,7 +122,7 @@ describe('Authenticator:', function() {
         cy.get('#password').type(userPassword);
         cy.get('#signinButton').click();
         takeInvitedTour(false);
-        cy.get('#Swimlanes').click();
+        cy.get('#storiesSection').click();
         cy.get('#swimLanesChildren').contains('Creating this story to test placeholder gets it', { timeout: 20000 }).click();
         cy.contains('Certain', { timeout: 10000 }).should('be.visible');
       });
