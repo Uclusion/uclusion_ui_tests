@@ -36,8 +36,7 @@ function takeInvitedTour(isCreator) {
   cy.get('[title=Close]').first().click();
 }
 
-function waitForEmail(userEmail, destination, subject) {
-  const testStartDate = new Date();
+function waitForEmail(userEmail, destination, subject, testStartDate) {
   return cy.task("gmail:check", {
     from: "support@uclusion.com",
     to: userEmail,
@@ -74,9 +73,10 @@ describe('Authenticator:', function() {
       const userPassword = 'Testme;1';
       const verifySubject = 'Please verify your email address';
       const inviteSubject = 'Tester Two Uclusion has invited you to join a Uclusion Workspace';
+      const testStartDate = new Date();
       fillSignupForm(`${destination}?utm_campaign=test#signup`, 'Tester One Uclusion', firstUserEmail,
           userPassword);
-      waitForEmail(firstUserEmail, destination, verifySubject).then((url) => {
+      waitForEmail(firstUserEmail, destination, verifySubject, testStartDate).then((url) => {
         signIn(url, firstUserEmail, userPassword);
         createAndTourWorkspace();
         return cy.get('#inviteLinker').find('input');
@@ -85,7 +85,7 @@ describe('Authenticator:', function() {
         logOut();
         cy.visit(inviteUrl, {failOnStatusCode: false});
         fillSignupForm(inviteUrl, 'Tester Two Uclusion', secondUserEmail, userPassword);
-        return waitForEmail(secondUserEmail, destination, verifySubject);
+        return waitForEmail(secondUserEmail, destination, verifySubject, testStartDate);
       }).then((url) => {
         signIn(url, secondUserEmail, userPassword);
         takeInvitedTour(false);
@@ -107,7 +107,7 @@ describe('Authenticator:', function() {
           cy.get('#planningInvestibleAddButton').click();
           cy.get('#Description', { timeout: 10000 }).should('be.visible');
           logOut();
-          return waitForEmail(thirdUserEmail, `${destination}/invite`, inviteSubject);
+          return waitForEmail(thirdUserEmail, `${destination}/invite`, inviteSubject, testStartDate);
         });
       }).then((url) => {
         cy.visit(url, {failOnStatusCode: false});
