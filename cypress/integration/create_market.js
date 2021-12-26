@@ -24,7 +24,7 @@ function logOut() {
 function createAndTourWorkspace() {
   cy.get('#Workspace', { timeout: 20000 }).click();
   cy.get('#workspaceName').type('Workspace created from UI tests');
-  cy.get('#OnboardingWizardNext').click();
+  cy.get('#OnboardingWizardFinish').click();
   takeInvitedTour(true);
 }
 
