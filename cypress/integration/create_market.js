@@ -103,7 +103,7 @@ describe('Authenticator:', function() {
           const begin = url.indexOf('dialog') + 7;
           const end = url.indexOf('#');
           const marketId =  end > 0 ? url.substring(begin, end) : url.substring(begin);
-          cy.get(`#editorBox-${marketId}-planning-inv-add`, { timeout: 10000 }).type('Creating this story to test placeholder gets it');
+          cy.get(`#editorBox-${marketId}-planning-inv-add`).type('Creating this story to test placeholder gets it');
           cy.get('input[value=75]').click();
           cy.get('#planningInvestibleAddButton').click();
           cy.get('#Description', { timeout: 10000 }).should('be.visible');
