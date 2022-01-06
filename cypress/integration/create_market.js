@@ -95,10 +95,10 @@ describe('Authenticator:', function() {
         cy.get('#email1').should('not.be.disabled').type(thirdUserEmail, {force: true});
         cy.get('#addressAddSaveButton').click();
         cy.get('#emailsSentList').contains(thirdUserEmail);
-        // add a story for third user with vote from swimlane
+        // add a story for third user with vote
         cy.get('#Tasks').click();
-        const placeholderName = thirdUserEmail.replace('@', ' ');
-        cy.get('#swimLanesChildren').contains(placeholderName).parent().find('div[role=button]').click();
+        cy.get('#AddTask').click();
+        cy.get(`#${thirdUserEmail}`).click();
         return cy.url().then(url => {
           const begin = url.indexOf('dialog') + 7;
           const end = url.indexOf('#');
