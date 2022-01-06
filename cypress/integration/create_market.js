@@ -98,7 +98,7 @@ describe('Authenticator:', function() {
         // add a story for third user with vote
         cy.get('#AddTask').click();
         const emailSafe = thirdUserEmail.replace('@', '');
-        cy.get(`#${emailSafe}`, { timeout: 10000 }).click();
+        cy.get(`#${emailSafe}`, { timeout: 30000 }).click();
         return cy.url().then(url => {
           const begin = url.indexOf('dialog') + 7;
           const end = url.indexOf('#');
