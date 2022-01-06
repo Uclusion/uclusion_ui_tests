@@ -94,11 +94,11 @@ describe('Authenticator:', function() {
         // https://github.com/cypress-io/cypress/issues/5827
         cy.get('#email1').should('not.be.disabled').type(thirdUserEmail, {force: true});
         cy.get('#addressAddSaveButton').click();
-        cy.get('#emailsSentList').contains(thirdUserEmail);
+        cy.get('#emailsSentList', { timeout: 10000 }).contains(thirdUserEmail);
         // add a story for third user with vote
         cy.get('#AddTask').click();
         const emailSafe = thirdUserEmail.replace('@', '');
-        cy.get(`#${emailSafe}`, { timeout: 30000 }).click();
+        cy.get(`#${emailSafe}`, { timeout: 10000 }).click();
         return cy.url().then(url => {
           const begin = url.indexOf('dialog') + 7;
           const end = url.indexOf('#');
