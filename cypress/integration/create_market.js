@@ -97,7 +97,7 @@ describe('Authenticator:', function() {
         cy.get('#emailsSentList', { timeout: 10000 }).contains(thirdUserEmail);
         // add a story for third user with vote
         cy.get('#AddTask').click();
-        const emailSafe = thirdUserEmail.replace('@', '');
+        const emailSafe = thirdUserEmail.replace('@', '').replace('.', '');
         cy.get(`#${emailSafe}`, { timeout: 10000 }).click();
         return cy.url().then(url => {
           const begin = url.indexOf('dialog') + 7;
