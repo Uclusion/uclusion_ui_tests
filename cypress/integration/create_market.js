@@ -30,11 +30,10 @@ function createAndTourWorkspace() {
 
 function takeInvitedTour(isCreator) {
   // Need the timeouts because market can still be loading
-  cy.get('[title=Next]', { timeout: 8000 }).click();
   if (!isCreator) {
-    cy.get('[title=Next]').click();
+    cy.get('[title=Next]', { timeout: 8000 }).click();
   }
-  cy.get('[title=Close]').first().click();
+  cy.get('[title=Close]', { timeout: 8000 }).first().click();
 }
 
 function waitForEmail(userEmail, destination, subject, testStartDate) {
