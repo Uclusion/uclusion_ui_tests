@@ -79,7 +79,7 @@ describe('Authenticator:', function() {
       waitForEmail(firstUserEmail, destination, verifySubject, testStartDate).then((url) => {
         signIn(url, firstUserEmail, userPassword);
         createAndTourWorkspace();
-        return cy.get('#inviteLinker').find('input');
+        return cy.get('#inviteLinker', { timeout: 5000 }).find('input');
       }).then(input => {
         const inviteUrl = input.attr('value');
         logOut();
