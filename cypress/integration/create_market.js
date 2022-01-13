@@ -98,7 +98,8 @@ describe('Authenticator:', function() {
       }).then((url) => {
         signIn(url, secondUserEmail, userPassword);
         takeInvitedTour(false);
-        cy.get('#Discussion').contains('This is your option to vote for', { timeout: 5000 });
+        cy.get('#Discussion').click();
+        cy.get('#currentVoting', { timeout: 10000 });
         cy.get('#Details').click();
         cy.get('#adminManageCollaborators').click();
         // https://github.com/cypress-io/cypress/issues/5827
