@@ -79,6 +79,11 @@ describe('Authenticator:', function() {
       waitForEmail(firstUserEmail, destination, verifySubject, testStartDate).then((url) => {
         signIn(url, firstUserEmail, userPassword);
         createAndTourWorkspace();
+        cy.get('#Discussion').click();
+        cy.get('#commentAddLabelQUESTION').click().type('Did you receive this question?');
+        cy.get('#commentSaveButton').click();
+        cy.get('[id^=inlineAdd]', { timeout: 5000 }).click().type('This is your option to vote for');
+        cy.get('#decisionInvestibleSaveButton').click();
         return cy.get('#inviteLinker', { timeout: 5000 }).find('input');
       }).then(input => {
         const inviteUrl = input.attr('value');
@@ -89,6 +94,8 @@ describe('Authenticator:', function() {
       }).then((url) => {
         signIn(url, secondUserEmail, userPassword);
         takeInvitedTour(false);
+        cy.get('#Discussion').contains('This is your option to vote for', { timeout: 5000 });
+        cy.get('#Details').click();
         cy.get('#adminManageCollaborators').click();
         // https://github.com/cypress-io/cypress/issues/5827
         cy.get('#email1').should('not.be.disabled').type(thirdUserEmail, {force: true});
