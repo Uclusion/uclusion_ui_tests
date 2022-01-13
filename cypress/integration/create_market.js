@@ -86,6 +86,8 @@ describe('Authenticator:', function() {
         cy.get('[id^=inlineAdd]', { timeout: 5000 }).click();
         cy.focused().type('This is your option to vote for');
         cy.get('#decisionInvestibleSaveButton').click();
+        cy.get('#currentVoting', { timeout: 8000 });
+        cy.get('#Details').click();
         return cy.get('#inviteLinker', { timeout: 5000 }).find('input');
       }).then(input => {
         const inviteUrl = input.attr('value');
