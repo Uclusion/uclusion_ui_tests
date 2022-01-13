@@ -80,9 +80,11 @@ describe('Authenticator:', function() {
         signIn(url, firstUserEmail, userPassword);
         createAndTourWorkspace();
         cy.get('#Discussion').click();
-        cy.get('#commentAddLabelQUESTION').click().type('Did you receive this question?');
+        cy.get('#commentAddLabelQUESTION').click();
+        cy.focused().type('Did you receive this question?');
         cy.get('#commentSaveButton').click();
-        cy.get('[id^=inlineAdd]', { timeout: 5000 }).click().type('This is your option to vote for');
+        cy.get('[id^=inlineAdd]', { timeout: 5000 }).click();
+        cy.focused().type('This is your option to vote for');
         cy.get('#decisionInvestibleSaveButton').click();
         return cy.get('#inviteLinker', { timeout: 5000 }).find('input');
       }).then(input => {
