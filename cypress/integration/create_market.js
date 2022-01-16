@@ -74,6 +74,7 @@ describe('Authenticator:', function() {
       const verifySubject = 'Please verify your email address';
       const inviteSubject = 'Tester Two Uclusion has invited you to join a Uclusion Workspace';
       const testStartDate = new Date();
+      const optionText = 'This is your option to vote for';
       fillSignupForm(`${destination}?utm_campaign=test#signup`, 'Tester One Uclusion', firstUserEmail,
           userPassword);
       waitForEmail(firstUserEmail, destination, verifySubject, testStartDate).then((url) => {
@@ -84,9 +85,9 @@ describe('Authenticator:', function() {
         cy.focused().type('Did you receive this question?');
         cy.get('#commentSaveButton').click();
         cy.get('[id^=inlineAdd]', { timeout: 5000 }).click();
-        cy.focused().type('This is your option to vote for');
+        cy.focused().type(optionText);
         cy.get('#decisionInvestibleSaveButton').click();
-        cy.get('#currentVoting', { timeout: 8000 });
+        cy.get('#currentVoting', { timeout: 8000 }).contains(optionText);
         cy.get('#Details').click();
         return cy.get('#inviteLinker', { timeout: 5000 }).find('input');
       }).then(input => {
@@ -99,7 +100,7 @@ describe('Authenticator:', function() {
         signIn(url, secondUserEmail, userPassword);
         takeInvitedTour(false);
         cy.get('#Discussion').click();
-        cy.get('#currentVoting', { timeout: 10000 });
+        cy.get('#currentVoting', { timeout: 10000 }).contains(optionText);
         cy.get('#Details').click();
         cy.get('#adminManageCollaborators').click();
         // https://github.com/cypress-io/cypress/issues/5827
