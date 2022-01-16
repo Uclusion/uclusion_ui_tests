@@ -87,7 +87,7 @@ describe('Authenticator:', function() {
         cy.get('[id^=inlineAdd]', { timeout: 5000 }).click();
         cy.focused().type(optionText);
         cy.get('#decisionInvestibleSaveButton').click();
-        cy.get('#currentVoting', { timeout: 8000 }).contains(optionText);
+        cy.get('#currentVotingChildren', { timeout: 8000 }).contains(optionText);
         cy.get('#Details').click();
         return cy.get('#inviteLinker', { timeout: 5000 }).find('input');
       }).then(input => {
@@ -100,7 +100,7 @@ describe('Authenticator:', function() {
         signIn(url, secondUserEmail, userPassword);
         takeInvitedTour(false);
         cy.get('#Discussion').click();
-        cy.get('#currentVoting', { timeout: 10000 }).contains(optionText);
+        cy.get('#currentVotingChildren', { timeout: 10000 }).contains(optionText);
         cy.get('#Details').click();
         cy.get('#adminManageCollaborators').click();
         // https://github.com/cypress-io/cypress/issues/5827
