@@ -19,6 +19,8 @@ function signIn(url, userEmail, userPassword) {
 function logOut() {
   cy.get('#identityButton').click();
   cy.get('#signoutButton').click();
+  // Verify the sign out happened before allow Cypress to continue
+  cy.get('#username', { timeout: 5000 });
 }
 
 function createAndTourWorkspace() {
