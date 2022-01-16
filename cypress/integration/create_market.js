@@ -100,7 +100,7 @@ describe('Authenticator:', function() {
         signIn(url, secondUserEmail, userPassword);
         takeInvitedTour(false);
         cy.get('#Discussion').click();
-        cy.get('#currentVotingChildren', { timeout: 10000 }).contains(optionText);
+        cy.get('#currentVotingChildren', { timeout: 60000 }).contains(optionText);
         cy.get('#Details').click();
         cy.get('#adminManageCollaborators').click();
         // https://github.com/cypress-io/cypress/issues/5827
