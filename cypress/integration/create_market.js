@@ -107,7 +107,7 @@ describe('Authenticator:', function() {
         cy.get('#adminManageCollaborators').click();
         // https://github.com/cypress-io/cypress/issues/5827
         cy.get('#email1').should('not.be.disabled').type(thirdUserEmail, {force: true});
-        cy.get('#addressAddSaveButton').click();
+        cy.get('#addressAddSaveButton').should('not.be.disabled').click();
         cy.get('#emailsSentList', { timeout: 10000 }).contains(thirdUserEmail);
         // add a story for third user with vote
         cy.get('#AddJob').click();
