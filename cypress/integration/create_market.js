@@ -111,15 +111,13 @@ describe('Authenticator:', function() {
         cy.get('#emailsSentList', { timeout: 10000 }).contains(thirdUserEmail);
         // add a story for third user with vote
         cy.get('#AddJob').click();
-        const emailSafe = thirdUserEmail.replace('@', '').replace('.', '');
-        cy.get(`#${emailSafe}`, { timeout: 10000 }).click();
+        cy.get('#addAssignment').select(thirdUserEmail.replace('@', ' '));
+        cy.get('addAssignmentButton').click();
         return cy.url().then(url => {
           const begin = url.indexOf('dialog') + 7;
           const end = url.indexOf('#');
           const marketId =  end > 0 ? url.substring(begin, end) : url.substring(begin);
           cy.get(`#editorBox-${marketId}-planning-inv-add`).type('Creating this story to test placeholder gets it');
-          cy.get('#addAssignment').select(thirdUserEmail.replace('@', ' '));
-          cy.get('addAssignmentButton').click();
           cy.get('#planningInvestibleAddButton').click();
           cy.get('#Description', { timeout: 10000 }).should('be.visible');
           logOut();
