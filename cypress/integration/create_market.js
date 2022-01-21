@@ -90,7 +90,7 @@ describe('Authenticator:', function() {
         cy.focused().type(optionText);
         cy.get('#decisionInvestibleSaveButton').click();
         cy.get('#currentVotingChildren', { timeout: 8000 }).contains(optionText);
-        cy.get('#Details').click();
+        cy.get('#AddCollaborators').click();
         return cy.get('#inviteLinker', { timeout: 5000 }).find('input');
       }).then(input => {
         const inviteUrl = input.attr('value');
@@ -103,7 +103,7 @@ describe('Authenticator:', function() {
         takeInvitedTour(false);
         cy.get('#Discussion').click();
         cy.get('#currentVotingChildren', { timeout: 60000 }).contains(optionText);
-        cy.get('#Details').click();
+        cy.get('#AddCollaborators').click();
         cy.get('#adminManageCollaborators').click();
         // https://github.com/cypress-io/cypress/issues/5827
         cy.get('#email1').should('not.be.disabled').type(thirdUserEmail, {force: true});
