@@ -112,7 +112,7 @@ describe('Authenticator:', function() {
         // add a story for third user with vote
         cy.get('#AddJob').click();
         cy.get('#addAssignment').type(thirdUserEmail);
-        cy.get('addAssignmentButton').click();
+        cy.get('#addAssignmentButton').click();
         return cy.url().then(url => {
           const begin = url.indexOf('dialog') + 7;
           const end = url.indexOf('#');
