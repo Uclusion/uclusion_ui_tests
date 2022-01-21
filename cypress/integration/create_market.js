@@ -104,7 +104,6 @@ describe('Authenticator:', function() {
         cy.get('#Discussion').click();
         cy.get('#currentVotingChildren', { timeout: 60000 }).contains(optionText);
         cy.get('#AddCollaborators').click();
-        cy.get('#adminManageCollaborators').click();
         // https://github.com/cypress-io/cypress/issues/5827
         cy.get('#email1').should('not.be.disabled').type(thirdUserEmail, {force: true});
         cy.get('#addressAddSaveButton').should('not.be.disabled').click();
