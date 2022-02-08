@@ -74,7 +74,7 @@ describe('Authenticator:', function() {
       const thirdUserEmail = 'tuser@uclusion.com';
       const userPassword = 'Testme;1';
       const verifySubject = 'Please verify your email address';
-      const inviteSubject = 'Tester Two Uclusion has invited you to join a Uclusion Workspace';
+      const inviteSubject = 'Tester Two Uclusion invites you to a Uclusion channel';
       const testStartDate = new Date();
       const optionText = 'This is your option to vote for';
       fillSignupForm(`${destination}?utm_campaign=test#signup`, 'Tester One Uclusion', firstUserEmail,
