@@ -137,7 +137,9 @@ describe('Authenticator:', function() {
         takeInvitedTour(false);
         cy.get('#Jobs').click();
         cy.get('#swimLanesChildren').contains('Creating this story to test placeholder gets it', { timeout: 20000 }).click();
-        cy.get('span', { timeout: 10000 }).filter(':visible').contains('Certain', { timeout: 10000 });
+        // Have to use wait here because otherwise contains can find the inbox not visible or job visible
+        cy.wait(10000);
+        cy.get('span').filter(':visible').contains('Certain');
       });
     });
   });
