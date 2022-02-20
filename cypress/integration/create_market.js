@@ -137,7 +137,7 @@ describe('Authenticator:', function() {
         takeInvitedTour(false);
         cy.get('#Jobs').click();
         cy.get('#swimLanesChildren').contains('Creating this story to test placeholder gets it', { timeout: 20000 }).click();
-        cy.contains('Certain', { timeout: 10000 }).filter(':visible').should('be.visible');
+        cy.get('li').filter(':visible').contains('Certain', { timeout: 5000 });
       });
     });
   });
