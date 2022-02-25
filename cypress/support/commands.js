@@ -83,6 +83,49 @@ Cypress.Commands.add("takeInvitedTour", (isCreator) => {
     cy.get('[title=Close]', { timeout: 8000 }).first().click();
 })
 
+Cypress.Commands.add("createComment", (type, description) => {
+    cy.get(`#commentAddLabel${type}`).click();
+    cy.focused().type(description);
+    cy.get('#commentSaveButton').click();
+})
+
+Cypress.Commands.add("createQuestionOption", (name, description, isFirst) => {
+    if (isFirst) {
+        cy.get('[id^=inlineAdd]', { timeout: 5000 }).click();
+    } else {
+        cy.get('[title="New approvable option"]', { timeout: 5000 }).click();
+    }
+    cy.focused().type(name);
+    if (description) {
+        cy.get('[id^=editorBox-]').type(description);
+    }
+    cy.get('#decisionInvestibleSaveButton').click();
+    cy.get('#currentVotingChildren', { timeout: 8000 }).contains(name);
+})
+
+Cypress.Commands.add("createJob", (name, description, assigneeName, certainty, justification) => {
+    cy.get('#AddJob').click();
+    if (assigneeName) {
+        cy.get('#addAssignment').type(assigneeName + '{enter}', {delay: 60});
+    }
+    cy.url().then(url => {
+        const begin = url.indexOf('dialog') + 7;
+        const end = url.indexOf('#');
+        const marketId = end > 0 ? url.substring(begin, end) : url.substring(begin);
+        if (description) {
+            cy.get(`#editorBox-${marketId}-planning-inv-add`).type(description);
+        }
+        if (certainty) {
+            cy.get(`input[value=${certainty}]`).click();
+        }
+        if (justification) {
+            cy.get(`#editorBox-${marketId}-add-initial-vote`).type(justification);
+        }
+        cy.get('#planningInvestibleAddButton').click();
+        cy.get('#Description', {timeout: 10000}).should('be.visible');
+    });
+})
+
 Cypress.Commands.add("createAndTourWorkspace", (channeName) => {
     cy.get('#Channel', { timeout: 20000 }).click();
     cy.get('#workspaceName').type(channeName);

@@ -24,6 +24,17 @@ describe('Demo:', function() {
         cy.createAndTourWorkspace('Demo Channel');
         cy.createAdditionalUser(destination, secondUserEmail, firstUserName, secondUserName, userPassword);
         cy.createAdditionalUser(destination, thirdUserEmail, secondUserName, thirdUserName, userPassword);
+        cy.createJob('Quantum random key', 'Generate a truly random number and seed the application with it.');
+        cy.createComment('SUGGEST', 'See qRNG.');
+        cy.createJob('Automatic AI animation of logo', 'Provide macros for walking, talking, smiling and laughing.',
+            secondUserName, 75, 'Will be adorable.');
+        cy.createJob('Database scaling', 'Consider total cost and max latency.', firstUserName, 50,
+            'Already have several examples of potential optimizations.');
+        cy.createJob('New data compression algorithm', 'Looking to reduce size by half.', thirdUserName);
+        cy.createComment('QUESTION', 'Which algorithm?');
+        cy.createQuestionOption('DEFLATE', undefined, true);
+        cy.createQuestionOption('LZMA2', undefined, false);
+        cy.createQuestionOption('MLP', 'Based on neighboring data via backpropagation.', false);
       });
     });
   });
