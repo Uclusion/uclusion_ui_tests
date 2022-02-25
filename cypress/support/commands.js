@@ -66,17 +66,17 @@ Cypress.Commands.add("logOut", () => {
     cy.get('#username', { timeout: 5000 });
 })
 
-Cypress.Commands.add("createAndTourWorkspace", () => {
-    cy.get('#Channel', { timeout: 20000 }).click();
-    cy.get('#workspaceName').type('Workspace created from UI tests');
-    cy.get('#OnboardingWizardFinish').click();
-    takeInvitedTour(true);
-})
-
 Cypress.Commands.add("takeInvitedTour", (isCreator) => {
     // Need the timeouts because market can still be loading
     if (!isCreator) {
         cy.get('[title=Next]', { timeout: 8000 }).click();
     }
     cy.get('[title=Close]', { timeout: 8000 }).first().click();
+})
+
+Cypress.Commands.add("createAndTourWorkspace", () => {
+    cy.get('#Channel', { timeout: 20000 }).click();
+    cy.get('#workspaceName').type('Workspace created from UI tests');
+    cy.get('#OnboardingWizardFinish').click();
+    cy.takeInvitedTour(true);
 })
