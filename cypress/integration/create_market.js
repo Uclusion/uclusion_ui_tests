@@ -1,61 +1,4 @@
 
-function fillSignupForm(url, userName, userEmail, userPassword) {
-  cy.visit(url, {failOnStatusCode: false});
-  cy.get('#name', { timeout: 5000 }).type(userName);
-  cy.get('#email').type(userEmail);
-  cy.get('#password').type(userPassword);
-  cy.get('#repeat').type(userPassword);
-  cy.get('#terms').click();
-  cy.get('#signupButton').should('not.be.disabled').click();
-}
-
-function signIn(url, userEmail, userPassword) {
-  cy.visit(url, {failOnStatusCode: false});
-  cy.get('#username', { timeout: 5000 }).type(userEmail);
-  cy.get('#password').type(userPassword);
-  cy.get('#signinButton').click();
-}
-
-function logOut() {
-  cy.get('#identityButton').click();
-  cy.get('#signoutButton').click();
-  // Verify the sign out happened before allow Cypress to continue
-  cy.get('#username', { timeout: 5000 });
-}
-
-function createAndTourWorkspace() {
-  cy.get('#Channel', { timeout: 20000 }).click();
-  cy.get('#workspaceName').type('Workspace created from UI tests');
-  cy.get('#OnboardingWizardFinish').click();
-  takeInvitedTour(true);
-}
-
-function takeInvitedTour(isCreator) {
-  // Need the timeouts because market can still be loading
-  if (!isCreator) {
-    cy.get('[title=Next]', { timeout: 8000 }).click();
-  }
-  cy.get('[title=Close]', { timeout: 8000 }).first().click();
-}
-
-function waitForEmail(userEmail, destination, subject, testStartDate) {
-  return cy.task("gmail:check", {
-    from: "support@uclusion.com",
-    to: userEmail,
-    subject,
-    after: testStartDate,
-    include_body: true
-  }).then(emails => {
-    assert.isNotNull(emails, 'No email returned');
-    assert.isNotEmpty(emails, 'Email was not found');
-    assert.lengthOf(emails, 1, 'Too many emails - maybe concurrent tests');
-    const searchString = emails[0].body.html;
-    const begin = searchString.indexOf(`href="${destination}`) + 6;
-    const end = searchString.indexOf('"', begin);
-    return searchString.substring(begin, end);
-  });
-}
-
 describe('Authenticator:', function() {
   const destination = 'https://stage.uclusion.com';
   // Step 1: setup the application state
@@ -77,11 +20,11 @@ describe('Authenticator:', function() {
       const inviteSubject = 'Tester Two Uclusion invites you to a Uclusion channel';
       const testStartDate = new Date();
       const optionText = 'This is your option to vote for';
-      fillSignupForm(`${destination}?utm_campaign=test#signup`, 'Tester One Uclusion', firstUserEmail,
+      cy.fillSignupForm(`${destination}?utm_campaign=test#signup`, 'Tester One Uclusion', firstUserEmail,
           userPassword);
-      waitForEmail(firstUserEmail, destination, verifySubject, testStartDate).then((url) => {
-        signIn(url, firstUserEmail, userPassword);
-        createAndTourWorkspace();
+      cy.waitForEmail(firstUserEmail, destination, verifySubject, testStartDate).then((url) => {
+        cy.signIn(url, firstUserEmail, userPassword);
+        cy.createAndTourWorkspace();
         cy.get('#Discussion').click();
         cy.get('#commentAddLabelQUESTION').click();
         cy.focused().type('Did you receive this question?');
@@ -94,13 +37,13 @@ describe('Authenticator:', function() {
         return cy.get('#inviteLinker', { timeout: 5000 }).find('input');
       }).then(input => {
         const inviteUrl = input.attr('value');
-        logOut();
+        cy.logOut();
         cy.visit(inviteUrl, {failOnStatusCode: false});
-        fillSignupForm(inviteUrl, 'Tester Two Uclusion', secondUserEmail, userPassword);
-        return waitForEmail(secondUserEmail, destination, verifySubject, testStartDate);
+        cy.fillSignupForm(inviteUrl, 'Tester Two Uclusion', secondUserEmail, userPassword);
+        cy.waitForEmail(secondUserEmail, destination, verifySubject, testStartDate);
       }).then((url) => {
-        signIn(url, secondUserEmail, userPassword);
-        takeInvitedTour(false);
+        cy.signIn(url, secondUserEmail, userPassword);
+        cy.takeInvitedTour(false);
         cy.get('#Discussion').click();
         cy.get('#currentVotingChildren', { timeout: 60000 }).contains(optionText);
         cy.get('#AddCollaborators').click();
@@ -119,8 +62,8 @@ describe('Authenticator:', function() {
           cy.get('input[value=75]').click();
           cy.get('#planningInvestibleAddButton').click();
           cy.get('#Description', { timeout: 10000 }).should('be.visible');
-          logOut();
-          return waitForEmail(thirdUserEmail, `${destination}/invite`, inviteSubject, testStartDate);
+          cy.logOut();
+          return cy.waitForEmail(thirdUserEmail, `${destination}/invite`, inviteSubject, testStartDate);
         });
       }).then((url) => {
         cy.visit(url, {failOnStatusCode: false});
@@ -134,7 +77,7 @@ describe('Authenticator:', function() {
         // Not requiring a third entry of the password here would be nice - have put in a when convenient for it
         cy.get('#password').type(userPassword);
         cy.get('#signinButton').click();
-        takeInvitedTour(false);
+        cy.takeInvitedTour(false);
         cy.get('#Jobs').click();
         cy.get('#swimLanesChildren').contains('Creating this story to test placeholder gets it', { timeout: 20000 }).click();
         // Have to use wait here because otherwise contains can find the inbox not visible or job visible
