@@ -104,7 +104,7 @@ Cypress.Commands.add("createQuestionOption", (name, description, isFirst) => {
 })
 
 Cypress.Commands.add("createJob", (name, description, assigneeName, certainty, justification) => {
-    cy.get('#AddJob').click();
+    cy.get('#AddJob', { timeout: 5000 }).click();
     if (assigneeName) {
         cy.get('#addAssignment').type(assigneeName + '{enter}', {delay: 60});
     }

@@ -17,6 +17,7 @@ describe('Demo:', function() {
       const thirdUserEmail = 'tuser@uclusion.com';
       const thirdUserName = 'Awesome More';
       const userPassword = 'Testme;1';
+      const returnToChannel = '#DemoChannel';
       cy.fillSignupForm(`${destination}?utm_campaign=test#signup`, firstUserName, firstUserEmail,
           userPassword);
       cy.waitForEmail(firstUserEmail, destination, 'Please verify your email address', new Date()).then((url) => {
@@ -26,10 +27,13 @@ describe('Demo:', function() {
         cy.createAdditionalUser(destination, thirdUserEmail, secondUserName, thirdUserName, userPassword);
         cy.createJob('Quantum random key', 'Generate a truly random number and seed the application with it.');
         cy.createComment('SUGGEST', 'See qRNG.');
+        cy.get(returnToChannel).click();
         cy.createJob('Automatic AI animation of logo', 'Provide macros for walking, talking, smiling and laughing.',
             secondUserName, 75, 'Will be adorable.');
+        cy.get(returnToChannel).click();
         cy.createJob('Database scaling', 'Consider total cost and max latency.', firstUserName, 50,
             'Already have several examples of potential optimizations.');
+        cy.get(returnToChannel).click();
         cy.createJob('New data compression algorithm', 'Looking to reduce size by half.', thirdUserName);
         cy.createComment('QUESTION', 'Which algorithm?');
         cy.createQuestionOption('DEFLATE', undefined, true);
