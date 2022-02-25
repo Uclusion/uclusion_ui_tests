@@ -24,7 +24,7 @@ describe('Authenticator:', function() {
           userPassword);
       cy.waitForEmail(firstUserEmail, destination, verifySubject, testStartDate).then((url) => {
         cy.signIn(url, firstUserEmail, userPassword);
-        cy.createAndTourWorkspace();
+        cy.createAndTourWorkspace('UI Smoke Channel');
         cy.get('#Discussion').click();
         cy.get('#commentAddLabelQUESTION').click();
         cy.focused().type('Did you receive this question?');

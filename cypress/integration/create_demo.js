@@ -21,7 +21,7 @@ describe('Demo:', function() {
           userPassword);
       cy.waitForEmail(firstUserEmail, destination, 'Please verify your email address', new Date()).then((url) => {
         cy.signIn(url, firstUserEmail, userPassword);
-        cy.createAndTourWorkspace();
+        cy.createAndTourWorkspace('Demo Channel');
         cy.createAdditionalUser(destination, secondUserEmail, firstUserName, secondUserName, userPassword);
         cy.createAdditionalUser(destination, thirdUserEmail, secondUserName, thirdUserName, userPassword);
       });

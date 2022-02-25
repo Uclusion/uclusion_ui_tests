@@ -83,9 +83,9 @@ Cypress.Commands.add("takeInvitedTour", (isCreator) => {
     cy.get('[title=Close]', { timeout: 8000 }).first().click();
 })
 
-Cypress.Commands.add("createAndTourWorkspace", () => {
+Cypress.Commands.add("createAndTourWorkspace", (channeName) => {
     cy.get('#Channel', { timeout: 20000 }).click();
-    cy.get('#workspaceName').type('Workspace created from UI tests');
+    cy.get('#workspaceName').type(channeName);
     cy.get('#OnboardingWizardFinish').click();
     cy.takeInvitedTour(true);
 })
