@@ -66,17 +66,9 @@ describe('Authenticator:', function() {
           return cy.waitForEmail(thirdUserEmail, `${destination}/invite`, inviteSubject, testStartDate);
         });
       }).then((url) => {
-        cy.visit(url, {failOnStatusCode: false});
-        cy.get('#name').type('Tester Uclusion');
-        cy.get('#password').type(userPassword);
-        cy.get('#repeat').type(userPassword);
-        cy.get('#terms').click();
-        cy.get('#signupButton').click();
-        // Prevent typing in before on new page
-        cy.contains('Sign In');
+        cy.fillSignupForm(url, 'Tester Uclusion', undefined, userPassword);
         // Not requiring a third entry of the password here would be nice - have put in a when convenient for it
-        cy.get('#password').type(userPassword);
-        cy.get('#signinButton').click();
+        cy.signIn(undefined, undefined, userPassword);
         cy.takeInvitedTour(false);
         cy.get('#Jobs').click();
         cy.get('#swimLanesChildren').contains('Creating this story to test placeholder gets it', { timeout: 20000 }).click();

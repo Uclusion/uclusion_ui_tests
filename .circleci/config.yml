@@ -60,6 +60,34 @@ jobs:
             python -m scripts.test_and_bless -e ${env_name} -a ${github_token} -u true
 
 workflows:
+  create-demo:
+    jobs:
+      - prepare:
+          filters:
+            tags:
+              only: /^demo_only.*/
+            branches:
+              ignore: /.*/
+          context: stage
+      - cypress/install:
+          filters:
+            tags:
+              only: /^demo_only.*/
+            branches:
+              ignore: /.*/
+      - cypress/run:
+          store_artifacts: true
+          requires:
+            - prepare
+            - cypress/install
+          install-command: 'npm install --no-optional --unsafe-perm'
+          spec: cypress/integration/create_demo.js
+          filters:
+            tags:
+              only: /^demo_only.*/
+            branches:
+              ignore: /.*/
+          context: stage
   test-stage:
     jobs:
       - prepare:
@@ -81,6 +109,7 @@ workflows:
             - prepare
             - cypress/install
           install-command: 'npm install --no-optional --unsafe-perm'
+          spec: cypress/integration/create_market.js
           filters:
             tags:
               only: /^stage_only.*/

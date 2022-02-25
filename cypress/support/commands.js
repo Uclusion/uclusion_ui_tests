@@ -27,7 +27,9 @@
 Cypress.Commands.add("fillSignupForm", (url, userName, userEmail, userPassword) => {
     cy.visit(url, {failOnStatusCode: false});
     cy.get('#name', { timeout: 5000 }).type(userName);
-    cy.get('#email').type(userEmail);
+    if (userEmail) {
+        cy.get('#email').type(userEmail);
+    }
     cy.get('#password').type(userPassword);
     cy.get('#repeat').type(userPassword);
     cy.get('#terms').click();
@@ -53,8 +55,15 @@ Cypress.Commands.add("waitForEmail", (userEmail, destination, subject, testStart
 })
 
 Cypress.Commands.add("signIn", (url, userEmail, userPassword) => {
-    cy.visit(url, {failOnStatusCode: false});
-    cy.get('#username', { timeout: 5000 }).type(userEmail);
+    if (url) {
+        cy.visit(url, {failOnStatusCode: false});
+    } else {
+        // Prevent typing in before on new page
+        cy.contains('Sign In');
+    }
+    if (userEmail) {
+        cy.get('#username', {timeout: 5000}).type(userEmail);
+    }
     cy.get('#password').type(userPassword);
     cy.get('#signinButton').click();
 })
@@ -79,4 +88,20 @@ Cypress.Commands.add("createAndTourWorkspace", () => {
     cy.get('#workspaceName').type('Workspace created from UI tests');
     cy.get('#OnboardingWizardFinish').click();
     cy.takeInvitedTour(true);
+})
+
+Cypress.Commands.add("createAdditionalUser", (destination, userEmail, invitingUserName, userName,
+                                              userPassword) => {
+    const testStartDate = new Date();
+    const inviteSubject = `${invitingUserName} invites you to a Uclusion channel`;
+    cy.get('#AddCollaborators').click();
+    cy.get('#email1').should('not.be.disabled').type(userEmail, {force: true});
+    cy.get('#addressAddSaveButton').should('not.be.disabled').click();
+    cy.get('#emailsSentList', { timeout: 10000 }).contains(userEmail);
+    cy.logOut();
+    cy.waitForEmail(userEmail, `${destination}/invite`, inviteSubject, testStartDate).then((url) =>{
+        cy.fillSignupForm(url, userName, undefined, userPassword);
+        cy.signIn(undefined, undefined, userPassword);
+        cy.takeInvitedTour(false);
+    });
 })
