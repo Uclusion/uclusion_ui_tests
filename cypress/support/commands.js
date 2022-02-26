@@ -95,17 +95,24 @@ Cypress.Commands.add("createComment", (type, description, hasWarning=false, hasT
     }
 })
 
-Cypress.Commands.add("createQuestionOption", (name, description, isFirst) => {
-    if (isFirst) {
-        cy.get('[id^=inlineAdd]', { timeout: 5000 }).click();
-    } else {
-        cy.get('[title="New approvable option"]', { timeout: 10000 }).click();
+Cypress.Commands.add("createQuestionOption", (name, description, isFirst, doAddAnother=false,
+                                              isAddAnother=false) => {
+    if (!isAddAnother) {
+        if (isFirst) {
+            cy.get('[id^=inlineAdd]', {timeout: 5000}).click();
+        } else {
+            cy.get('[title="New approvable option"]', {timeout: 10000}).click();
+        }
     }
     cy.focused().type(name);
     if (description) {
         cy.get('[id^=editorBox-]').type(description);
     }
-    cy.get('#decisionInvestibleSaveButton').click();
+    if (doAddAnother) {
+        cy.get('#decisionInvestibleSaveAddAnotherButton').click();
+    } else {
+        cy.get('#decisionInvestibleSaveButton').click();
+    }
     cy.get('#currentVotingChildren', { timeout: 8000 }).contains(name);
 })
 

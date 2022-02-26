@@ -37,8 +37,8 @@ describe('Demo:', function() {
         cy.createJob('New data compression algorithm', 'Looking to reduce size by half.', thirdUserName);
         cy.createComment('QUESTION', 'Which algorithm?', true);
         cy.createQuestionOption('DEFLATE', undefined, true);
-        cy.createQuestionOption('LZMA2', undefined, false);
-        cy.createQuestionOption('MLP', 'Based on neighboring data via backpropagation.', false);
+        cy.createQuestionOption('LZMA2', undefined, false, true);
+        cy.createQuestionOption('MLP', 'Based on neighboring data via backpropagation.', false, false, true);
       });
     });
   });
