@@ -39,6 +39,15 @@ describe('Demo:', function() {
         cy.createQuestionOption('DEFLATE', undefined, true);
         cy.createQuestionOption('LZMA2', undefined, false, true);
         cy.createQuestionOption('MLP', 'Based on neighboring data via backpropagation.', false, false, true);
+        cy.get(returnToChannel).click();
+        const jobName = 'Open source our deployment scripts';
+        cy.createJob(jobName, 'We should not be solely owning any of it.', thirdUserName);
+        cy.createComment('SUGGEST', 'Convert everything we can to shared orbs.', true, false);
+        cy.logOut();
+        cy.signIn(undefined, secondUserEmail, userPassword);
+        cy.get(returnToChannel).click();
+        cy.navigateIntoJob(jobName);
+        //TODO - need vote on suggestion
       });
     });
   });

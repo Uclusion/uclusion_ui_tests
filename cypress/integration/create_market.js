@@ -20,6 +20,7 @@ describe('Authenticator:', function() {
       const inviteSubject = 'Tester Two Uclusion invites you to a Uclusion channel';
       const testStartDate = new Date();
       const optionText = 'This is your option to vote for';
+      const jobName = 'Creating this story to test placeholder gets it';
       cy.fillSignupForm(`${destination}?utm_campaign=test#signup`, 'Tester One Uclusion', firstUserEmail,
           userPassword);
       cy.waitForEmail(firstUserEmail, destination, verifySubject, testStartDate).then((url) => {
@@ -47,7 +48,7 @@ describe('Authenticator:', function() {
         cy.get('#addressAddSaveButton').should('not.be.disabled').click();
         cy.get('#emailsSentList', { timeout: 10000 }).contains(thirdUserEmail);
         // add a story for third user with vote
-        cy.createJob(undefined, 'Creating this story to test placeholder gets it', thirdUserEmail, 75);
+        cy.createJob(undefined, jobName, thirdUserEmail, 75);
         cy.logOut();
         return cy.waitForEmail(thirdUserEmail, `${destination}/invite`, inviteSubject, testStartDate);
       }).then((url) => {
@@ -55,8 +56,7 @@ describe('Authenticator:', function() {
         // Not requiring a third entry of the password here would be nice - have put in a when convenient for it
         cy.signIn(undefined, undefined, userPassword);
         cy.takeInvitedTour(false);
-        cy.get('#Jobs').click();
-        cy.get('#swimLanesChildren').contains('Creating this story to test placeholder gets it', { timeout: 20000 }).click();
+        cy.navigateIntoJob(jobName);
         // Have to use wait here because otherwise contains can find the inbox not visible or job visible
         cy.wait(10000);
         cy.get('span').filter(':visible').contains('Certain');

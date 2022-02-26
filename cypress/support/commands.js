@@ -95,6 +95,11 @@ Cypress.Commands.add("createComment", (type, description, hasWarning=false, hasT
     }
 })
 
+Cypress.Commands.add("navigateIntoJob", (name) => {
+    cy.get('#Jobs').click();
+    cy.get('#swimLanesChildren').contains(name, {timeout: 20000}).click();
+})
+
 Cypress.Commands.add("createQuestionOption", (name, description, isFirst, doAddAnother=false,
                                               isAddAnother=false) => {
     if (!isAddAnother) {
