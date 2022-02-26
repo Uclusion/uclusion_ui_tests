@@ -26,13 +26,8 @@ describe('Authenticator:', function() {
         cy.signIn(url, firstUserEmail, userPassword);
         cy.createAndTourWorkspace('UI Smoke Channel');
         cy.get('#Discussion').click();
-        cy.get('#commentAddLabelQUESTION').click();
-        cy.focused().type('Did you receive this question?');
-        cy.get('#commentSaveButton').click();
-        cy.get('[id^=inlineAdd]', { timeout: 5000 }).click();
-        cy.focused().type(optionText);
-        cy.get('#decisionInvestibleSaveButton').click();
-        cy.get('#currentVotingChildren', { timeout: 8000 }).contains(optionText);
+        cy.createComment('QUESTION', 'Did you receive this question?');
+        cy.createQuestionOption(optionText, undefined, true);
         cy.get('#AddCollaborators').click();
         return cy.get('#inviteLinker', { timeout: 5000 }).find('input');
       }).then(input => {
@@ -52,19 +47,9 @@ describe('Authenticator:', function() {
         cy.get('#addressAddSaveButton').should('not.be.disabled').click();
         cy.get('#emailsSentList', { timeout: 10000 }).contains(thirdUserEmail);
         // add a story for third user with vote
-        cy.get('#AddJob').click();
-        cy.get('#addAssignment').type(thirdUserEmail+'{enter}', {delay: 60});
-        return cy.url().then(url => {
-          const begin = url.indexOf('dialog') + 7;
-          const end = url.indexOf('#');
-          const marketId =  end > 0 ? url.substring(begin, end) : url.substring(begin);
-          cy.get(`#editorBox-${marketId}-planning-inv-add`).type('Creating this story to test placeholder gets it');
-          cy.get('input[value=75]').click();
-          cy.get('#planningInvestibleAddButton').click();
-          cy.get('#Description', { timeout: 10000 }).should('be.visible');
-          cy.logOut();
-          return cy.waitForEmail(thirdUserEmail, `${destination}/invite`, inviteSubject, testStartDate);
-        });
+        cy.createJob(undefined, 'Creating this story to test placeholder gets it', thirdUserEmail, 75);
+        cy.logOut();
+        return cy.waitForEmail(thirdUserEmail, `${destination}/invite`, inviteSubject, testStartDate);
       }).then((url) => {
         cy.fillSignupForm(url, 'Tester Uclusion', undefined, userPassword);
         // Not requiring a third entry of the password here would be nice - have put in a when convenient for it

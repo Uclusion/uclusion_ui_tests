@@ -99,7 +99,7 @@ Cypress.Commands.add("createQuestionOption", (name, description, isFirst) => {
     if (isFirst) {
         cy.get('[id^=inlineAdd]', { timeout: 5000 }).click();
     } else {
-        cy.get('[title="New approvable option"]', { timeout: 5000 }).click();
+        cy.get('[title="New approvable option"]', { timeout: 10000 }).click();
     }
     cy.focused().type(name);
     if (description) {
@@ -118,6 +118,9 @@ Cypress.Commands.add("createJob", (name, description, assigneeName, certainty, j
         const begin = url.indexOf('dialog') + 7;
         const end = url.indexOf('#');
         const marketId = end > 0 ? url.substring(begin, end) : url.substring(begin);
+        if (name) {
+            cy.focused().type(name);
+        }
         if (description) {
             cy.get(`#editorBox-${marketId}-planning-inv-add`).type(description);
         }
