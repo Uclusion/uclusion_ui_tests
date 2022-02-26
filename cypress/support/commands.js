@@ -83,10 +83,13 @@ Cypress.Commands.add("takeInvitedTour", (isCreator) => {
     cy.get('[title=Close]', { timeout: 8000 }).first().click();
 })
 
-Cypress.Commands.add("createComment", (type, description) => {
+Cypress.Commands.add("createComment", (type, description, hasWarning=false) => {
     cy.get(`#commentAddLabel${type}`).click();
     cy.focused().type(description);
     cy.get('#commentSaveButton').click();
+    if (hasWarning) {
+        cy.get('#issueProceedButton', { timeout: 5000 }).click();
+    }
 })
 
 Cypress.Commands.add("createQuestionOption", (name, description, isFirst) => {
