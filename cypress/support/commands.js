@@ -106,7 +106,7 @@ Cypress.Commands.add("createQuestionOption", (name, description, isFirst, doAddA
     }
     cy.focused().type(name);
     if (description) {
-        cy.get('[id^=editorBox-]').type(description);
+        cy.get('[id$=-newInvestible]').type(description);
     }
     if (doAddAnother) {
         cy.get('#decisionInvestibleSaveAddAnotherButton').click();
