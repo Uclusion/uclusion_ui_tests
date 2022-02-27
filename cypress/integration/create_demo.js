@@ -45,7 +45,7 @@ describe('Demo:', function() {
         cy.createComment('SUGGEST', 'Convert everything we can to shared orbs.', true, false);
         cy.logOut();
         cy.signIn(undefined, secondUserEmail, userPassword);
-        cy.get(returnToChannel).click();
+        cy.get(returnToChannel, {timeout: 20000}).click();
         cy.navigateIntoJob(jobName);
         //TODO - need vote on suggestion
       });
