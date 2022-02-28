@@ -65,7 +65,7 @@ Cypress.Commands.add("signIn", (url, userEmail, userPassword) => {
         cy.get('#username', {timeout: 5000}).type(userEmail);
     }
     cy.get('#password').type(userPassword);
-    cy.get('#signinButton').click();
+    cy.get('#signinButton').should('not.be.disabled').click();
 })
 
 Cypress.Commands.add("logOut", () => {
