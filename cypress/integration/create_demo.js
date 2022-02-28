@@ -17,8 +17,6 @@ describe('Demo:', function() {
       const thirdUserEmail = 'tuser@uclusion.com';
       const thirdUserName = 'Awesome More';
       const userPassword = 'Testme;1';
-      const returnToChannel = '#DemoChannel';
-      const jobName = 'Open source our deployment scripts';
       cy.fillSignupForm(`${destination}?utm_campaign=test#signup`, firstUserName, firstUserEmail,
           userPassword);
       cy.waitForEmail(firstUserEmail, destination, 'Please verify your email address', new Date()).then((url) => {
@@ -26,27 +24,9 @@ describe('Demo:', function() {
         cy.createAndTourWorkspace('Demo Channel');
         cy.createAdditionalUser(secondUserEmail);
         cy.createAdditionalUser(thirdUserEmail);
-        //Verify other users are there
-        cy.get('#Discussion').click();
-        cy.contains(secondUserName, {timeout: 180000});
-        cy.contains(thirdUserName, {timeout: 180000});
+        cy.verifyCollaborators([secondUserName, thirdUserName]);
         cy.createJob('Quantum random key', 'Generate a truly random number and seed the application with it.');
         cy.createComment('SUGGEST', 'See qRNG.');
-        cy.get(returnToChannel).click();
-        cy.createJob('Database scaling', 'Consider total cost and max latency.', firstUserName, 50,
-            'Already have several examples of potential optimizations.');
-        cy.get(returnToChannel).click();
-        cy.createJob('New data compression algorithm', 'Looking to reduce size by half.', thirdUserName);
-        cy.createComment('QUESTION', 'Which algorithm?', true);
-        cy.createQuestionOption('DEFLATE', undefined, true);
-        cy.createQuestionOption('LZMA2', undefined, false, true);
-        cy.createQuestionOption('MLP', 'Based on neighboring data via backpropagation.', false, false, true);
-        cy.get(returnToChannel).click();
-        cy.createJob('Automatic AI animation of logo', 'Provide macros for walking, talking, smiling and laughing.',
-            secondUserName, 75, 'Will be adorable.');
-        cy.get(returnToChannel).click();
-        cy.navigateIntoJob(jobName);
-        //TODO - need vote on suggestion
       });
     });
   });

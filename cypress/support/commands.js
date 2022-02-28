@@ -167,6 +167,13 @@ Cypress.Commands.add("waitForInviteAndTour", (destination, userEmail, invitingUs
     });
 })
 
+Cypress.Commands.add("verifyCollaborators", (collaborators) => {
+    cy.get('#Discussion').click();
+    collaborators.forEach((collaborator) => {
+        cy.contains(collaborator, {timeout: 180000});
+    });
+})
+
 Cypress.Commands.add("createAdditionalUser", (userEmail) => {
     cy.get('#AddCollaborators').click();
     cy.get('#email1').should('not.be.disabled').type(userEmail, {force: true});
