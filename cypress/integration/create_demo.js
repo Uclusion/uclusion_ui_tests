@@ -9,7 +9,7 @@ describe('Demo:', function() {
   });
 
   describe('Demo creation', () => {
-    it('signs up and creates template market and verifies', () => {
+    it('signs up and creates demo market', () => {
       const firstUserEmail = 'tuser+01@uclusion.com';
       const firstUserName = 'Awesome One';
       const secondUserEmail = 'tuser+02@uclusion.com';
@@ -23,8 +23,8 @@ describe('Demo:', function() {
       cy.waitForEmail(firstUserEmail, destination, 'Please verify your email address', new Date()).then((url) => {
         cy.signIn(url, firstUserEmail, userPassword);
         cy.createAndTourWorkspace('Demo Channel');
-        cy.createAdditionalUser(destination, secondUserEmail, firstUserName, secondUserName, userPassword);
-        cy.createAdditionalUser(destination, thirdUserEmail, secondUserName, thirdUserName, userPassword);
+        cy.createAdditionalUser(secondUserEmail);
+        cy.createAdditionalUser(thirdUserEmail);
         cy.createJob('Quantum random key', 'Generate a truly random number and seed the application with it.');
         cy.createComment('SUGGEST', 'See qRNG.');
         cy.get(returnToChannel).click();
@@ -43,11 +43,6 @@ describe('Demo:', function() {
         const jobName = 'Open source our deployment scripts';
         cy.createJob(jobName, 'We should not be solely owning any of it.', thirdUserName);
         cy.createComment('SUGGEST', 'Convert everything we can to shared orbs.', true, false);
-        cy.logOut();
-        cy.signIn(undefined, secondUserEmail, userPassword);
-        cy.get(returnToChannel, {timeout: 20000}).click();
-        cy.navigateIntoJob(jobName);
-        //TODO - need vote on suggestion
       });
     });
   });

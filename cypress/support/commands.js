@@ -154,18 +154,20 @@ Cypress.Commands.add("createAndTourWorkspace", (channeName) => {
     cy.takeInvitedTour(true);
 })
 
-Cypress.Commands.add("createAdditionalUser", (destination, userEmail, invitingUserName, userName,
+Cypress.Commands.add("waitForInviteAndTour", (destination, userEmail, invitingUserName, userName,
                                               userPassword) => {
     const testStartDate = new Date();
     const inviteSubject = `${invitingUserName} invites you to a Uclusion channel`;
-    cy.get('#AddCollaborators').click();
-    cy.get('#email1').should('not.be.disabled').type(userEmail, {force: true});
-    cy.get('#addressAddSaveButton').should('not.be.disabled').click();
-    cy.get('#emailsSentList', { timeout: 10000 }).contains(userEmail);
-    cy.logOut();
     cy.waitForEmail(userEmail, `${destination}/invite`, inviteSubject, testStartDate).then((url) =>{
         cy.fillSignupForm(url, userName, undefined, userPassword);
         cy.signIn(undefined, undefined, userPassword);
         cy.takeInvitedTour(false);
     });
+})
+
+Cypress.Commands.add("createAdditionalUser", (userEmail) => {
+    cy.get('#AddCollaborators').click();
+    cy.get('#email1').should('not.be.disabled').type(userEmail, {force: true});
+    cy.get('#addressAddSaveButton').should('not.be.disabled').click();
+    cy.get('#emailsSentList', { timeout: 10000 }).contains(userEmail);
 })

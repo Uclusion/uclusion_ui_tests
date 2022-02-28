@@ -88,6 +88,32 @@ workflows:
             branches:
               ignore: /.*/
           context: stage
+      - cypress/run:
+          store_artifacts: true
+          requires:
+            - prepare
+            - cypress/install
+          install-command: 'npm install --no-optional --unsafe-perm'
+          spec: cypress/integration/create_demo1.js
+          filters:
+            tags:
+              only: /^demo_only.*/
+            branches:
+              ignore: /.*/
+          context: stage
+      - cypress/run:
+          store_artifacts: true
+          requires:
+            - prepare
+            - cypress/install
+          install-command: 'npm install --no-optional --unsafe-perm'
+          spec: cypress/integration/create_demo2.js
+          filters:
+            tags:
+              only: /^demo_only.*/
+            branches:
+              ignore: /.*/
+          context: stage
   test-stage:
     jobs:
       - prepare:
