@@ -30,7 +30,6 @@ describe('Demo:', function() {
         cy.get('#Discussion').click();
         cy.contains(secondUserName, {timeout: 180000});
         cy.contains(thirdUserName, {timeout: 180000});
-        cy.get(returnToChannel).click();
         cy.createJob('Quantum random key', 'Generate a truly random number and seed the application with it.');
         cy.createComment('SUGGEST', 'See qRNG.');
         cy.get(returnToChannel).click();
