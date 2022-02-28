@@ -25,6 +25,10 @@ describe('Demo:', function() {
         cy.createAndTourWorkspace('Demo Channel');
         cy.createAdditionalUser(secondUserEmail);
         cy.createAdditionalUser(thirdUserEmail);
+        //Verify other users are there
+        cy.get('#Discussion').click();
+        cy.contains(secondUserName, {timeout: 180000});
+        cy.contains(thirdUserName, {timeout: 180000});
         const jobName = 'Open source our deployment scripts';
         cy.createJob(jobName, 'We should not be solely owning any of it.', thirdUserName);
         cy.createComment('SUGGEST', 'Convert everything we can to shared orbs.', true, false);
@@ -41,10 +45,6 @@ describe('Demo:', function() {
         cy.createQuestionOption('LZMA2', undefined, false, true);
         cy.createQuestionOption('MLP', 'Based on neighboring data via backpropagation.', false, false, true);
         cy.get(returnToChannel).click();
-        //Verify other users are there
-        cy.get('#Discussion', {timeout: 30000}).click();
-        cy.get('li').contains(secondUserName);
-        cy.get('li').contains(thirdUserName);
         cy.createJob('Automatic AI animation of logo', 'Provide macros for walking, talking, smiling and laughing.',
             secondUserName, 75, 'Will be adorable.');
       });
