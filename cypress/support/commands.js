@@ -43,7 +43,7 @@ Cypress.Commands.add("waitForEmail", (userEmail, destination, subject, testStart
         subject,
         after: testStartDate,
         include_body: true
-    }).then(emails => {
+    }, { timeout: 180000 }).then(emails => {
         assert.isNotNull(emails, 'No email returned');
         assert.isNotEmpty(emails, 'Email was not found');
         assert.lengthOf(emails, 1, 'Too many emails - maybe concurrent tests');
@@ -157,6 +157,8 @@ Cypress.Commands.add("createAndTourWorkspace", (channeName) => {
 Cypress.Commands.add("waitForInviteAndTour", (destination, userEmail, invitingUserName, userName,
                                               userPassword) => {
     const testStartDate = new Date();
+    // Running in parallel so the email might have been sent before we got here
+    testStartDate.setMinutes(testStartDate.getMinutes() - 2);
     const inviteSubject = `${invitingUserName} invites you to a Uclusion channel`;
     cy.waitForEmail(userEmail, `${destination}/invite`, inviteSubject, testStartDate).then((url) =>{
         cy.fillSignupForm(url, userName, undefined, userPassword);

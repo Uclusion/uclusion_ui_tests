@@ -7,7 +7,6 @@ module.exports = (on, config) => {
     // `config` is the resolved Cypress config
     on("task", {
         "gmail:check": async args => {
-            let done_waiting_time = 0;
             do {
                 const emails = await gmail.get_messages(
                     path.resolve(__dirname, "credentials.json"), // credentials.json is inside plugins/ directory.
@@ -16,12 +15,10 @@ module.exports = (on, config) => {
                 );
                 if (emails.length > 0) {
                     console.log('[gmail] Found!');
+                    if (emails.length > 1) {
+                        console.warn(emails);
+                    }
                     return emails;
-                }
-                done_waiting_time += 5;
-                if (done_waiting_time >= 180) {
-                    console.log("[gmail] Maximum waiting time exceeded!");
-                    return null;
                 }
                 await util.promisify(setTimeout)(5000);
             } while (true);
