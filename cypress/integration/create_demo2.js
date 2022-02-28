@@ -15,15 +15,14 @@ describe('Demo 2:', function() {
       const thirdUserEmail = 'tuser@uclusion.com';
       const thirdUserName = 'Awesome More';
       const userPassword = 'Testme;1';
-      const jobName = 'Open source our deployment scripts';
       const returnToChannel = '#DemoChannel';
       cy.waitForInviteAndTour(destination, thirdUserEmail, firstUserName, thirdUserName, userPassword);
       cy.verifyCollaborators([secondUserName]);
-      cy.createJob(jobName, 'We should not be solely owning any of it.', thirdUserName);
-      cy.createComment('SUGGEST', 'Convert everything we can to shared orbs.', true, false);
+      cy.createJob('Open source our deployment scripts', 'We should not be solely owning any of it.', thirdUserName);
+      cy.createComment('SUGGEST', 'Convert everything we can to shared orbs.', true);
       cy.get(returnToChannel).click();
       cy.createJob('New data compression algorithm', 'Looking to reduce size by half.', thirdUserName);
-      cy.createComment('QUESTION', 'Which algorithm?', true);
+      cy.createComment('QUESTION', 'Which algorithm?', true, false);
       cy.createQuestionOption('DEFLATE', undefined, true);
       cy.createQuestionOption('LZMA2', undefined, false, true);
       cy.createQuestionOption('MLP', 'Based on neighboring data via backpropagation.', false, false, true);
