@@ -14,10 +14,8 @@ describe('Demo 2:', function() {
       const thirdUserEmail = 'tuser@uclusion.com';
       const thirdUserName = 'Awesome More';
       const userPassword = 'Testme;1';
-      const returnToChannel = '#DemoChannel';
       const jobName = 'Open source our deployment scripts';
       cy.waitForInviteAndTour(destination, thirdUserEmail, firstUserName, thirdUserName, userPassword);
-      cy.get(returnToChannel, {timeout: 20000}).click();
       cy.navigateIntoJob(jobName);
       //TODO - need vote on suggestion
     });

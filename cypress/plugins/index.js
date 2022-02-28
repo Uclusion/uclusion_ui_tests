@@ -16,7 +16,11 @@ module.exports = (on, config) => {
                 if (emails.length > 0) {
                     console.log('[gmail] Found!');
                     if (emails.length > 1) {
-                        console.warn(emails);
+                        const { to } = args;
+                        return emails.filter((email) => {
+                            // GMail API is ignoring +01 etc. but we need exact match
+                            return email.receiver === to;
+                        });
                     }
                     return emails;
                 }

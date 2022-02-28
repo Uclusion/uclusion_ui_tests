@@ -41,7 +41,10 @@ describe('Demo:', function() {
         cy.createQuestionOption('LZMA2', undefined, false, true);
         cy.createQuestionOption('MLP', 'Based on neighboring data via backpropagation.', false, false, true);
         cy.get(returnToChannel).click();
-        //TODO need to go to discussion and verify other users are there
+        //Verify other users are there
+        cy.get('#Discussion', {timeout: 30000}).click();
+        cy.get('li').contains(secondUserName);
+        cy.get('li').contains(thirdUserName);
         cy.createJob('Automatic AI animation of logo', 'Provide macros for walking, talking, smiling and laughing.',
             secondUserName, 75, 'Will be adorable.');
       });

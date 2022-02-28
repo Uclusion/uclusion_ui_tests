@@ -15,11 +15,9 @@ describe('Demo 1:', function() {
       const secondUserName = 'Awesome Too';
       const jobName = 'Open source our deployment scripts';
       const userPassword = 'Testme;1';
-      const returnToChannel = '#DemoChannel';
       cy.waitForInviteAndTour(destination, secondUserEmail, firstUserName, secondUserName, userPassword);
-      cy.get(returnToChannel, {timeout: 20000}).click();
       cy.navigateIntoJob(jobName);
-        //TODO - need vote on suggestion
+      //TODO - need vote on suggestion
     });
   });
 
