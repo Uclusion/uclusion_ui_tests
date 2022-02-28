@@ -137,7 +137,7 @@ Cypress.Commands.add("createJob", (name, description, assigneeName, certainty, j
             cy.get(`#editorBox-${marketId}-planning-inv-add`).type(description);
         }
         if (certainty) {
-            cy.get(`input[value=${certainty}]`).click();
+            cy.get(`input[value=${certainty}]`).filter(':visible').click();
         }
         if (justification) {
             cy.get(`#editorBox-${marketId}-add-initial-vote`).type(justification);
