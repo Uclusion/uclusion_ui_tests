@@ -11,12 +11,14 @@ describe('Demo 2:', function() {
   describe('Demo creation', () => {
     it('invite 2 and create demo market', () => {
       const firstUserName = 'Awesome One';
+      const secondUserName = 'Awesome Too';
       const thirdUserEmail = 'tuser@uclusion.com';
       const thirdUserName = 'Awesome More';
       const userPassword = 'Testme;1';
       const jobName = 'Open source our deployment scripts';
       const returnToChannel = '#DemoChannel';
       cy.waitForInviteAndTour(destination, thirdUserEmail, firstUserName, thirdUserName, userPassword);
+      cy.verifyCollaborators([secondUserName]);
       cy.createJob(jobName, 'We should not be solely owning any of it.', thirdUserName);
       cy.createComment('SUGGEST', 'Convert everything we can to shared orbs.', true, false);
       cy.get(returnToChannel).click();
