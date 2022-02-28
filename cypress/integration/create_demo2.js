@@ -16,8 +16,8 @@ describe('Demo 2:', function() {
       const userPassword = 'Testme;1';
       const jobName = 'Open source our deployment scripts';
       cy.waitForInviteAndTour(destination, thirdUserEmail, firstUserName, thirdUserName, userPassword);
-      cy.navigateIntoJob(jobName);
-      //TODO - need vote on suggestion
+      cy.createJob(jobName, 'We should not be solely owning any of it.', thirdUserName);
+      cy.createComment('SUGGEST', 'Convert everything we can to shared orbs.', true, false);
     });
   });
 

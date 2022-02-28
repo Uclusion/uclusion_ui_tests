@@ -18,6 +18,7 @@ describe('Demo:', function() {
       const thirdUserName = 'Awesome More';
       const userPassword = 'Testme;1';
       const returnToChannel = '#DemoChannel';
+      const jobName = 'Open source our deployment scripts';
       cy.fillSignupForm(`${destination}?utm_campaign=test#signup`, firstUserName, firstUserEmail,
           userPassword);
       cy.waitForEmail(firstUserEmail, destination, 'Please verify your email address', new Date()).then((url) => {
@@ -29,9 +30,6 @@ describe('Demo:', function() {
         cy.get('#Discussion').click();
         cy.contains(secondUserName, {timeout: 180000});
         cy.contains(thirdUserName, {timeout: 180000});
-        const jobName = 'Open source our deployment scripts';
-        cy.createJob(jobName, 'We should not be solely owning any of it.', thirdUserName);
-        cy.createComment('SUGGEST', 'Convert everything we can to shared orbs.', true, false);
         cy.get(returnToChannel).click();
         cy.createJob('Quantum random key', 'Generate a truly random number and seed the application with it.');
         cy.createComment('SUGGEST', 'See qRNG.');
@@ -47,6 +45,9 @@ describe('Demo:', function() {
         cy.get(returnToChannel).click();
         cy.createJob('Automatic AI animation of logo', 'Provide macros for walking, talking, smiling and laughing.',
             secondUserName, 75, 'Will be adorable.');
+        cy.get(returnToChannel).click();
+        cy.navigateIntoJob(jobName);
+        //TODO - need vote on suggestion
       });
     });
   });
