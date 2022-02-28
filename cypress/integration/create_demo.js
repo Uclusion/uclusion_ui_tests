@@ -25,11 +25,12 @@ describe('Demo:', function() {
         cy.createAndTourWorkspace('Demo Channel');
         cy.createAdditionalUser(secondUserEmail);
         cy.createAdditionalUser(thirdUserEmail);
+        const jobName = 'Open source our deployment scripts';
+        cy.createJob(jobName, 'We should not be solely owning any of it.', thirdUserName);
+        cy.createComment('SUGGEST', 'Convert everything we can to shared orbs.', true, false);
+        cy.get(returnToChannel).click();
         cy.createJob('Quantum random key', 'Generate a truly random number and seed the application with it.');
         cy.createComment('SUGGEST', 'See qRNG.');
-        cy.get(returnToChannel).click();
-        cy.createJob('Automatic AI animation of logo', 'Provide macros for walking, talking, smiling and laughing.',
-            secondUserName, 75, 'Will be adorable.');
         cy.get(returnToChannel).click();
         cy.createJob('Database scaling', 'Consider total cost and max latency.', firstUserName, 50,
             'Already have several examples of potential optimizations.');
@@ -40,9 +41,9 @@ describe('Demo:', function() {
         cy.createQuestionOption('LZMA2', undefined, false, true);
         cy.createQuestionOption('MLP', 'Based on neighboring data via backpropagation.', false, false, true);
         cy.get(returnToChannel).click();
-        const jobName = 'Open source our deployment scripts';
-        cy.createJob(jobName, 'We should not be solely owning any of it.', thirdUserName);
-        cy.createComment('SUGGEST', 'Convert everything we can to shared orbs.', true, false);
+        //TODO need to go to discussion and verify other users are there
+        cy.createJob('Automatic AI animation of logo', 'Provide macros for walking, talking, smiling and laughing.',
+            secondUserName, 75, 'Will be adorable.');
       });
     });
   });

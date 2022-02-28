@@ -15,11 +15,11 @@ module.exports = (on, config) => {
                     args
                 );
                 if (emails.length > 0) {
-                    console.log(`[gmail] Found!`);
+                    console.log('[gmail] Found!');
                     return emails;
                 }
                 done_waiting_time += 5;
-                if (done_waiting_time >= 60) {
+                if (done_waiting_time >= 180) {
                     console.log("[gmail] Maximum waiting time exceeded!");
                     return null;
                 }
