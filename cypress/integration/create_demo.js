@@ -17,6 +17,7 @@ describe('Demo:', function() {
       const thirdUserEmail = 'tuser@uclusion.com';
       const thirdUserName = 'Awesome More';
       const userPassword = 'Testme;1';
+      const returnToChannel = '#DemoChannel';
       cy.fillSignupForm(`${destination}?utm_campaign=test#signup`, firstUserName, firstUserEmail,
           userPassword);
       cy.waitForEmail(firstUserEmail, destination, 'Please verify your email address', new Date()).then((url) => {
@@ -25,8 +26,10 @@ describe('Demo:', function() {
         cy.createAdditionalUser(secondUserEmail);
         cy.createAdditionalUser(thirdUserEmail);
         cy.verifyCollaborators([secondUserName, thirdUserName]);
-        cy.createJob('Quantum random key', 'Generate a truly random number and seed the application with it.');
-        cy.createComment('SUGGEST', 'See qRNG.');
+        cy.createJob('Quantum random key', 'Generate a truly random number and seed the application with it.',
+            undefined, undefined, undefined, true);
+        cy.createComment('SUGGEST', 'Use qRNG.');
+        cy.get(returnToChannel).click();
         cy.createJob('Blog our data architecture', 'Interesting and good marketing.', firstUserName);
       });
     });

@@ -16,6 +16,7 @@ describe('Demo 2:', function() {
       const thirdUserName = 'Awesome More';
       const userPassword = 'Testme;1';
       const returnToChannel = '#DemoChannel';
+      const jobName = 'Quantum random key'
       cy.waitForInviteAndTour(destination, thirdUserEmail, firstUserName, thirdUserName, userPassword);
       cy.verifyCollaborators([secondUserName]);
       cy.createJob('Open source our deployment scripts', 'We should not be solely owning any of it.', thirdUserName);
@@ -29,6 +30,9 @@ describe('Demo 2:', function() {
       cy.get(returnToChannel).click();
       cy.createJob('Automatic AI animation of logo', 'Provide macros for walking, talking, smiling and laughing.',
           secondUserName, 75, 'Will be adorable.');
+      cy.get(returnToChannel).click();
+      cy.navigateIntoJob(jobName, true);
+      cy.voteSuggestion(true, 25, 'Not sure about using the IBM API.');
     });
   });
 

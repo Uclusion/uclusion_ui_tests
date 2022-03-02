@@ -95,9 +95,13 @@ Cypress.Commands.add("createComment", (type, description, hasWarning=false, hasT
     }
 })
 
-Cypress.Commands.add("navigateIntoJob", (name) => {
+Cypress.Commands.add("navigateIntoJob", (name, isFurtherWork=false) => {
     cy.get('#Jobs', {timeout: 30000}).click();
-    cy.get('#swimLanesChildren').contains(name, {timeout: 30000}).click();
+    if (isFurtherWork) {
+        cy.get('#swimLanesChildren').contains(name, {timeout: 30000}).click();
+    } else {
+        cy.get('#swimLanesChildren').contains(name, {timeout: 30000}).click();
+    }
 })
 
 Cypress.Commands.add("createQuestionOption", (name, description, isFirst, doAddAnother=false,
@@ -121,7 +125,8 @@ Cypress.Commands.add("createQuestionOption", (name, description, isFirst, doAddA
     cy.get('#currentVotingChildren', { timeout: 8000 }).contains(name);
 })
 
-Cypress.Commands.add("createJob", (name, description, assigneeName, certainty, justification) => {
+Cypress.Commands.add("createJob", (name, description, assigneeName, certainty, justification,
+                                   isReady) => {
     cy.get('#AddJob', { timeout: 5000 }).click();
     if (name) {
         cy.focused().type(name);
@@ -144,6 +149,9 @@ Cypress.Commands.add("createJob", (name, description, assigneeName, certainty, j
         }
         cy.get('#planningInvestibleAddButton').click();
         cy.get('#Description', {timeout: 10000}).should('be.visible');
+        if (isReady) {
+            cy.get('#readyToStartCheckbox').click();
+        }
     });
 })
 
