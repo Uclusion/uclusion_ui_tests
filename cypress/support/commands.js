@@ -99,7 +99,9 @@ Cypress.Commands.add("createTodo", (type, description) => {
     cy.get('#Todos', {timeout: 30000}).click();
     cy.get(`#${type}TodosButton`).click();
     cy.focused().type(description);
-    cy.get('#commentSaveButton').click();
+    cy.get('#cabox').within(() => {
+        cy.get('#commentSaveButton').click();
+    });
 })
 
 Cypress.Commands.add("navigateIntoJob", (name, sectionSelector='swimLanesChildren') => {
