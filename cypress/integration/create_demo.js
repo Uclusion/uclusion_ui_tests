@@ -31,6 +31,12 @@ describe('Demo:', function() {
         cy.createComment('SUGGEST', 'Use qRNG.');
         cy.get(returnToChannel).click();
         cy.createJob('Blog our data architecture', 'Interesting and good marketing.', firstUserName);
+        cy.get(returnToChannel).click();
+        cy.createJob('SPA level performance issues',
+            'Need to reduce re-renders and slowness from background API calls.', firstUserName);
+        cy.nextStage();
+        cy.createComment('REPORT', 'Potentially endless - need feedback on how far to go.');
+        cy.nextStage();
       });
     });
   });

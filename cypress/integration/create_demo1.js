@@ -15,6 +15,7 @@ describe('Demo 1:', function() {
       const secondUserName = 'Awesome Too';
       const jobName = 'Open source our deployment scripts';
       const secondJobName = 'Blog our data architecture';
+      const thirdJobName = 'SPA level performance issues';
       const userPassword = 'Testme;1';
       const returnToChannel = '#DemoChannel';
       cy.waitForInviteAndTour(destination, secondUserEmail, firstUserName, secondUserName, userPassword);
@@ -32,6 +33,9 @@ describe('Demo 1:', function() {
       cy.nextStage();
       cy.createComment('REPORT', 'I have removed all distractions from initial usage.');
       cy.nextStage();
+      cy.get(returnToChannel).click();
+      cy.navigateIntoJob(thirdJobName);
+      cy.createComment('TODO', 'Home page still slow.');
     });
   });
 
