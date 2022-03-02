@@ -154,6 +154,18 @@ Cypress.Commands.add("createAndTourWorkspace", (channeName) => {
     cy.takeInvitedTour(true);
 })
 
+Cypress.Commands.add("voteSuggestion", (voteFor, certainty, reason, hasTour=false) => {
+    if (hasTour) {
+        cy.get('[title=Close]', { timeout: 10000 }).first().click();
+    }
+    cy.get(`#${voteFor ? 'for' : 'against'}`).click();
+    cy.get(`#${certainty}`).click();
+    if (reason) {
+        cy.get('[id$=-add-edit-vote-reason]').type(reason);
+    }
+    cy.get('#addOrUpdateVoteButton').click();
+})
+
 Cypress.Commands.add("waitForInviteAndTour", (destination, userEmail, invitingUserName, userName,
                                               userPassword) => {
     const testStartDate = new Date();
@@ -173,6 +185,10 @@ Cypress.Commands.add("verifyCollaborators", (collaborators) => {
         cy.contains(collaborator, {timeout: 180000});
     });
 })
+
+Cypress.Commands.add("nextStage", () => {
+    cy.get('#stageChangeActionButton').click();
+});
 
 Cypress.Commands.add("createAdditionalUser", (userEmail) => {
     cy.get('#AddCollaborators').click();

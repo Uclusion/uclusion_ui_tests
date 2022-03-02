@@ -27,6 +27,7 @@ describe('Demo:', function() {
         cy.verifyCollaborators([secondUserName, thirdUserName]);
         cy.createJob('Quantum random key', 'Generate a truly random number and seed the application with it.');
         cy.createComment('SUGGEST', 'See qRNG.');
+        cy.createJob('Blog our data architecture', 'Interesting and good marketing.', firstUserName);
       });
     });
   });
