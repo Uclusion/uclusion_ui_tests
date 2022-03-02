@@ -31,7 +31,7 @@ describe('Demo 2:', function() {
       cy.createJob('Automatic AI animation of logo', 'Provide macros for walking, talking, smiling and laughing.',
           secondUserName, 75, 'Will be adorable.');
       cy.get(returnToChannel).click();
-      cy.navigateIntoJob(jobName, true);
+      cy.navigateIntoJob(jobName, 'furtherReadyToStart');
       cy.voteSuggestion(true, 25, 'Not sure about using the IBM API.');
     });
   });

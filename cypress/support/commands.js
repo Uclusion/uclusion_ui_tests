@@ -95,13 +95,9 @@ Cypress.Commands.add("createComment", (type, description, hasWarning=false, hasT
     }
 })
 
-Cypress.Commands.add("navigateIntoJob", (name, isFurtherWork=false) => {
+Cypress.Commands.add("navigateIntoJob", (name, sectionSelector='swimLanesChildren') => {
     cy.get('#Jobs', {timeout: 30000}).click();
-    if (isFurtherWork) {
-        cy.get('#swimLanesChildren').contains(name, {timeout: 30000}).click();
-    } else {
-        cy.get('#swimLanesChildren').contains(name, {timeout: 30000}).click();
-    }
+    cy.get(`#${sectionSelector}`).contains(name, {timeout: 30000}).click();
 })
 
 Cypress.Commands.add("createQuestionOption", (name, description, isFirst, doAddAnother=false,

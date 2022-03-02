@@ -26,7 +26,7 @@ describe('Demo 1:', function() {
       cy.voteSuggestion(true, 75, 'Yes with orbs there can be other maintainers also.', true);
       cy.get(returnToChannel).click();
       cy.navigateIntoJob(secondJobName);
-      cy.createComment('SUGGEST', 'Include the use of capabilities through the front end in the blog.', true, false);
+      cy.createComment('SUGGEST', 'Include the use of capabilities through the front end in the blog.');
       cy.get(returnToChannel).click();
       cy.createJob('Revisit onboarding', 'Need a faster route to aha.', secondUserName);
       cy.nextStage();
