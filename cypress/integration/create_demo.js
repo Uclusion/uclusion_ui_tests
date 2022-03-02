@@ -37,6 +37,9 @@ describe('Demo:', function() {
         cy.nextStage();
         cy.createComment('REPORT', 'Potentially endless - need feedback on how far to go.');
         cy.nextStage();
+        cy.get(returnToChannel).click();
+        cy.createJob('Updated documentation', 'A lot of the pictures are out of date.', firstUserName);
+        cy.nextStage();
       });
     });
   });

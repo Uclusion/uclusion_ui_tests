@@ -35,7 +35,7 @@ describe('Demo 1:', function() {
       cy.nextStage();
       cy.get(returnToChannel).click();
       cy.navigateIntoJob(thirdJobName);
-      cy.createComment('TODO', 'Home page still slow.');
+      cy.createComment('TODO', 'Home page still slow.', true, false);
     });
   });
 
