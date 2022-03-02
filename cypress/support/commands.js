@@ -151,7 +151,7 @@ Cypress.Commands.add("createJob", (name, description, assigneeName, certainty, j
         cy.get('#Description', {timeout: 10000}).should('be.visible');
         if (isReady) {
             cy.get('#readyToStartCheckbox').click();
-            cy.get('#readyToStartCheckbox').contains('[type="checkbox"]', {timeout: 10000}).should('have.value', true);
+            cy.get('#readyToStartCheckbox').find('[type="checkbox"]', {timeout: 10000}).should('have.attr', 'value', true);
         }
     });
 })
