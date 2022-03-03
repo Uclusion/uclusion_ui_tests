@@ -174,7 +174,7 @@ Cypress.Commands.add("createAndTourWorkspace", (channeName) => {
     cy.get('#Channel', { timeout: 20000 }).click();
     cy.get('#workspaceName').type(channeName);
     cy.get('#OnboardingWizardFinish').click();
-    cy.takeInvitedTour(true);
+    cy.takeTour(false);
 })
 
 Cypress.Commands.add("vote", (certainty, reason) => {
@@ -202,7 +202,7 @@ Cypress.Commands.add("waitForInviteAndTour", (destination, userEmail, invitingUs
     cy.waitForEmail(userEmail, `${destination}/invite`, inviteSubject, testStartDate).then((url) =>{
         cy.fillSignupForm(url, userName, undefined, userPassword);
         cy.signIn(undefined, undefined, userPassword);
-        cy.takeInvitedTour(false);
+        cy.takeTour(true);
     });
 })
 
