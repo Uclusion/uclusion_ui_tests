@@ -75,22 +75,22 @@ Cypress.Commands.add("logOut", () => {
     cy.get('#username', { timeout: 5000 });
 })
 
-Cypress.Commands.add("takeInvitedTour", (isCreator) => {
+Cypress.Commands.add("takeTour", (hasNext) => {
     // Need the timeouts because market can still be loading
-    if (!isCreator) {
-        cy.get('[title=Next]', { timeout: 8000 }).click();
+    if (hasNext) {
+        cy.get('[title=Next]', { timeout: 10000 }).click();
     }
-    cy.get('[title=Close]', { timeout: 8000 }).first().click();
+    cy.get('[title=Close]', { timeout: 10000 }).first().click();
 })
 
-Cypress.Commands.add("createComment", (type, description, hasWarning=false, hasTour=true) => {
+Cypress.Commands.add("createComment", (type, description, hasWarning=false, hasTour=true, hasNext=false) => {
     cy.get(`#commentAddLabel${type}`).click();
     cy.focused().type(description);
     cy.get('#commentSaveButton').click();
     if (hasWarning) {
         cy.get('#issueProceedButton', { timeout: 5000 }).click();
         if (hasTour) {
-            cy.get('[title=Close]', { timeout: 10000 }).first().click();
+            cy.takeTour(hasNext);
         }
     }
 })

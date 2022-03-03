@@ -20,7 +20,7 @@ describe('Demo 2:', function() {
       cy.waitForInviteAndTour(destination, thirdUserEmail, firstUserName, thirdUserName, userPassword);
       cy.verifyCollaborators([secondUserName]);
       cy.createJob('Open source our deployment scripts', 'We should not be solely owning any of it.', thirdUserName);
-      cy.createComment('SUGGEST', 'Convert everything we can to shared orbs.', true);
+      cy.createComment('SUGGEST', 'Convert everything we can to shared orbs.', true, true, true);
       cy.get(returnToChannel).click();
       cy.createJob('New data compression algorithm', 'Looking to reduce size by half.', thirdUserName);
       cy.createComment('QUESTION', 'Which algorithm?', true, false);

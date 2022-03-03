@@ -39,7 +39,7 @@ describe('Authenticator:', function() {
         cy.waitForEmail(secondUserEmail, destination, verifySubject, testStartDate);
       }).then((url) => {
         cy.signIn(url, secondUserEmail, userPassword);
-        cy.takeInvitedTour(false);
+        cy.takeTour(true);
         cy.get('#Discussion').click();
         cy.get('#currentVotingChildren', { timeout: 60000 }).contains(optionText);
         cy.get('#AddCollaborators').click();
@@ -55,7 +55,7 @@ describe('Authenticator:', function() {
         cy.fillSignupForm(url, 'Tester Uclusion', undefined, userPassword);
         // Not requiring a third entry of the password here would be nice - have put in a when convenient for it
         cy.signIn(undefined, undefined, userPassword);
-        cy.takeInvitedTour(false);
+        cy.takeTour(true);
         cy.navigateIntoJob(jobName);
         // Have to use wait here because otherwise contains can find the inbox not visible or job visible
         cy.wait(10000);
