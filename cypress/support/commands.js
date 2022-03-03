@@ -106,7 +106,7 @@ Cypress.Commands.add("createTodo", (type, section, description) => {
 
 Cypress.Commands.add("navigateIntoJob", (name, sectionSelector='swimLanesChildren') => {
     cy.get('#Jobs', {timeout: 30000}).click();
-    cy.get(`#${sectionSelector}`, {timeout: 30000}).contains(name, {timeout: 30000}).click();
+    cy.get(`#${sectionSelector}`, {timeout: 60000}).contains(name, {timeout: 60000}).click();
 })
 
 Cypress.Commands.add("createQuestionOption", (name, description, isFirst, doAddAnother=false,
@@ -189,7 +189,7 @@ Cypress.Commands.add("voteSuggestion", (voteFor, certainty, reason, hasTour=fals
     if (hasTour) {
         cy.get('[title=Close]', { timeout: 10000 }).first().click();
     }
-    cy.get(`#${voteFor ? 'for' : 'against'}`).click();
+    cy.get(`#${voteFor ? 'for' : 'against'}`, { timeout: 60000 }).click();
     cy.vote(certainty, reason);
 })
 
