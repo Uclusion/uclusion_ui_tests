@@ -8,7 +8,7 @@ describe('Demo 2:', function() {
     });
   });
 
-  describe('Demo creation', () => {
+  describe('Demo 2 creation', () => {
     it('invite 2 and create demo market', () => {
       const firstUserName = 'Awesome One';
       const secondUserName = 'Awesome Too';

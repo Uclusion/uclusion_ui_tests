@@ -16,6 +16,8 @@ describe('Demo:', function() {
       const secondUserName = 'Awesome Too';
       const thirdUserEmail = 'tuser@uclusion.com';
       const thirdUserName = 'Awesome More';
+      const fourthUserEmail = 'tuser+03@uclusion.com';
+      const fourthUserName = 'Ever Awesome';
       const userPassword = 'Testme;1';
       const returnToChannel = '#DemoChannel';
       cy.fillSignupForm(`${destination}?utm_campaign=test#signup`, firstUserName, firstUserEmail,
@@ -25,7 +27,8 @@ describe('Demo:', function() {
         cy.createAndTourWorkspace('Demo Channel');
         cy.createAdditionalUser(secondUserEmail);
         cy.createAdditionalUser(thirdUserEmail);
-        cy.verifyCollaborators([secondUserName, thirdUserName]);
+        cy.createAdditionalUser(fourthUserEmail);
+        cy.verifyCollaborators([secondUserName, thirdUserName, fourthUserName]);
         cy.createJob('Quantum random key', 'Generate a truly random number and seed the application with it.',
             undefined, undefined, undefined, true);
         cy.createComment('SUGGEST', 'Use qRNG.');
@@ -40,6 +43,10 @@ describe('Demo:', function() {
         cy.get(returnToChannel).click();
         cy.createJob('Updated documentation', 'A lot of the pictures are out of date.', firstUserName);
         cy.nextStage();
+        cy.get(returnToChannel).click();
+        cy.get('#Discussion').click();
+        cy.replyToComment('New environment for medium lived testing.',
+            'Why not just use and selectively clean an existing environment?');
       });
     });
   });
