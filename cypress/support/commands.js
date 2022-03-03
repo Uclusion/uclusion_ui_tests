@@ -96,7 +96,7 @@ Cypress.Commands.add("createComment", (type, description, hasWarning=false, hasT
 })
 
 Cypress.Commands.add("replyToComment", (parentDescription, description) => {
-    cy.contains(parentDescription, {timeout: 90000}).parents('[id^=c]').within(() => {
+    cy.contains(parentDescription, {timeout: 90000}).closest('[id^=c]').within(() => {
         cy.get('[id^=commentReplyButton]').click();
         cy.focused().type(description);
         cy.get('#commentSaveButton').click();
