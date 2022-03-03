@@ -17,6 +17,7 @@ describe('Demo 1:', function() {
       const secondJobName = 'Blog our data architecture';
       const thirdJobName = 'SPA level performance issues';
       const fourthJobName = 'New data compression algorithm';
+      const fifthJobName = 'Quantum random key';
       const userPassword = 'Testme;1';
       const returnToChannel = '#DemoChannel';
       cy.waitForInviteAndTour(destination, secondUserEmail, firstUserName, secondUserName, userPassword);
@@ -40,6 +41,9 @@ describe('Demo 1:', function() {
       cy.get(returnToChannel).click();
       cy.navigateIntoJob(fourthJobName, 'requiresInputChildren');
       cy.voteOption('MLP', 75, 'Easy enough to try.')
+      cy.get(returnToChannel).click();
+      cy.navigateIntoJob(fifthJobName, 'furtherReadyToStart');
+      cy.voteSuggestion(true, 100, 'IBM API is fine.');
     });
   });
 

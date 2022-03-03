@@ -16,7 +16,8 @@ describe('Demo 2:', function() {
       const thirdUserName = 'Awesome More';
       const userPassword = 'Testme;1';
       const returnToChannel = '#DemoChannel';
-      const jobName = 'Quantum random key'
+      const jobName = 'Quantum random key';
+      const secondJobName = 'Blog our data architecture';
       cy.waitForInviteAndTour(destination, thirdUserEmail, firstUserName, thirdUserName, userPassword);
       cy.verifyCollaborators([secondUserName]);
       cy.createJob('Open source our deployment scripts', 'We should not be solely owning any of it.', thirdUserName);
@@ -36,6 +37,9 @@ describe('Demo 2:', function() {
       cy.voteSuggestion(true, 25, 'Not sure about using the IBM API.');
       cy.get(returnToChannel).click();
       cy.createTodo('immediate', 'CommentAddRed', 'Revisit Lambda API common error handling.');
+      cy.get(returnToChannel).click();
+      cy.navigateIntoJob(secondJobName);
+      cy.vote(75, 'Good idea.')
     });
   });
 
