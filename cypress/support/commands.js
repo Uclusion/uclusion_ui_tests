@@ -130,6 +130,13 @@ Cypress.Commands.add("createQuestionOption", (name, description, isFirst, doAddA
     cy.get('#currentVotingChildren', { timeout: 8000 }).contains(name);
 })
 
+Cypress.Commands.add("voteOption", (optionName, certainty, reason) => {
+    cy.get(`#currentVotingChildren`).within(() => {
+        cy.contains(optionName).click();
+    });
+    cy.vote(certainty, reason);
+})
+
 Cypress.Commands.add("createJob", (name, description, assigneeName, certainty, justification,
                                    isReady) => {
     cy.get('#AddJob', { timeout: 5000 }).click();
@@ -170,16 +177,20 @@ Cypress.Commands.add("createAndTourWorkspace", (channeName) => {
     cy.takeInvitedTour(true);
 })
 
-Cypress.Commands.add("voteSuggestion", (voteFor, certainty, reason, hasTour=false) => {
-    if (hasTour) {
-        cy.get('[title=Close]', { timeout: 10000 }).first().click();
-    }
-    cy.get(`#${voteFor ? 'for' : 'against'}`).click();
+Cypress.Commands.add("vote", (certainty, reason) => {
     cy.get(`#${certainty}`).click();
     if (reason) {
         cy.get('[id$=-add-edit-vote-reason]').type(reason);
     }
     cy.get('#addOrUpdateVoteButton').click();
+})
+
+Cypress.Commands.add("voteSuggestion", (voteFor, certainty, reason, hasTour=false) => {
+    if (hasTour) {
+        cy.get('[title=Close]', { timeout: 10000 }).first().click();
+    }
+    cy.get(`#${voteFor ? 'for' : 'against'}`).click();
+    cy.vote(certainty, reason);
 })
 
 Cypress.Commands.add("waitForInviteAndTour", (destination, userEmail, invitingUserName, userName,

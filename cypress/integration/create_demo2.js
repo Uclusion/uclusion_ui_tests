@@ -27,6 +27,7 @@ describe('Demo 2:', function() {
       cy.createQuestionOption('DEFLATE', undefined, true);
       cy.createQuestionOption('LZMA2', undefined, false, true);
       cy.createQuestionOption('MLP', 'Based on neighboring data via backpropagation.', false, false, true);
+      cy.voteOption('MLP', 100, 'Better for audio.')
       cy.get(returnToChannel).click();
       cy.createJob('Automatic AI animation of logo', 'Provide macros for walking, talking, smiling and laughing.',
           secondUserName, 75, 'Will be adorable.');

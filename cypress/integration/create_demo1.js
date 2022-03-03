@@ -16,6 +16,7 @@ describe('Demo 1:', function() {
       const jobName = 'Open source our deployment scripts';
       const secondJobName = 'Blog our data architecture';
       const thirdJobName = 'SPA level performance issues';
+      const fourthJobName = 'New data compression algorithm';
       const userPassword = 'Testme;1';
       const returnToChannel = '#DemoChannel';
       cy.waitForInviteAndTour(destination, secondUserEmail, firstUserName, secondUserName, userPassword);
@@ -36,6 +37,9 @@ describe('Demo 1:', function() {
       cy.get(returnToChannel).click();
       cy.navigateIntoJob(thirdJobName);
       cy.createComment('TODO', 'Home page still slow.', true, false);
+      cy.get(returnToChannel).click();
+      cy.navigateIntoJob(fourthJobName);
+      cy.voteOption('MLP', 75, 'Easy enough to try.')
     });
   });
 
