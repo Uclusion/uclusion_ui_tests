@@ -34,7 +34,7 @@ describe('Demo 2:', function() {
       cy.navigateIntoJob(jobName, 'furtherReadyToStart');
       cy.voteSuggestion(true, 25, 'Not sure about using the IBM API.');
       cy.get(returnToChannel).click();
-      cy.createTodo('immediate', 'Revisit Lambda API common error handling.');
+      cy.createTodo('immediate', 'CommentAddRed', 'Revisit Lambda API common error handling.');
     });
   });
 

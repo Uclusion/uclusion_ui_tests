@@ -95,11 +95,11 @@ Cypress.Commands.add("createComment", (type, description, hasWarning=false, hasT
     }
 })
 
-Cypress.Commands.add("createTodo", (type, description) => {
+Cypress.Commands.add("createTodo", (type, section, description) => {
     cy.get('#Todos', {timeout: 30000}).click();
     cy.get(`#${type}TodosButton`).click();
     cy.focused().type(description);
-    cy.get('#cabox').within(() => {
+    cy.get(`#${section}cabox`).within(() => {
         cy.get('#commentSaveButton').click();
     });
 })

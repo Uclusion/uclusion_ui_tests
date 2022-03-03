@@ -23,7 +23,7 @@ describe('Demo 1:', function() {
       cy.createJob('Database scaling', 'Consider total cost and max latency.', firstUserName, 50,
           'Already have several examples of potential optimizations.');
       cy.get(returnToChannel).click();
-      cy.navigateIntoJob(jobName);
+      cy.navigateIntoJob(jobName, 'requiresInputChildren');
       cy.voteSuggestion(true, 75, 'Yes with orbs there can be other maintainers also.', true);
       cy.get(returnToChannel).click();
       cy.navigateIntoJob(secondJobName);
