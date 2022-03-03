@@ -38,7 +38,7 @@ describe('Demo 1:', function() {
       cy.navigateIntoJob(thirdJobName);
       cy.createComment('TODO', 'Home page still slow.', true, false);
       cy.get(returnToChannel).click();
-      cy.navigateIntoJob(fourthJobName);
+      cy.navigateIntoJob(fourthJobName, 'requiresInputChildren');
       cy.voteOption('MLP', 75, 'Easy enough to try.')
     });
   });
