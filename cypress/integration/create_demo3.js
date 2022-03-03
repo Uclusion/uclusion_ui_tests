@@ -22,6 +22,7 @@ describe('Demo 2:', function() {
       cy.navigateIntoJob(jobName);
       cy.createComment('REPORT', 'IMHO ready to ship.');
       cy.get(returnToChannel).click();
+      cy.get('#Discussion').click();
       cy.createComment('SUGGEST', 'New environment for medium lived testing.');
       cy.replyToComment('Why not just use and selectively clean an existing environment?',
           'Could do that but would be more work than standing up a new environment.');
