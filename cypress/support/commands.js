@@ -59,7 +59,7 @@ Cypress.Commands.add("signIn", (url, userEmail, userPassword) => {
         cy.visit(url, {failOnStatusCode: false});
     } else {
         // Prevent typing in before on new page
-        cy.contains('Sign In');
+        cy.contains('Sign In', {timeout: 8000});
     }
     if (userEmail) {
         cy.get('#username', {timeout: 5000}).type(userEmail);
