@@ -25,7 +25,7 @@ describe('Demo 2:', function() {
       cy.get('#Discussion').click();
       cy.createComment('SUGGEST', 'New environment for medium lived testing.');
       cy.replyToComment('Why not just use and selectively clean an existing environment?',
-          'Could do that but would be more work than standing up a new environment.');
+          'Could do that but would be more work than standing up a new environment.', false);
     });
   });
 
