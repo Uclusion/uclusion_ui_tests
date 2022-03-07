@@ -20,6 +20,8 @@ describe('Demo 2:', function() {
       cy.createTodo('whenAble', 'CommentAddYellow', 'Configuration screens rework for consistency.');
       cy.createTodo('whenConvenient', 'CommentAddBlue', 'S3 clean up of orphaned files.');
       cy.navigateIntoJob(jobName);
+      // Better way is to come in through inbox but for now just wait for in right stage
+      cy.contains('Review Report', {timeout: 90000});
       cy.createComment('REPORT', 'IMHO ready to ship.');
       cy.get(returnToChannel).click();
       cy.get('#Discussion').click();
