@@ -14,7 +14,7 @@ describe('Demo:', function() {
       const firstUserName = 'Awesome One';
       const secondUserEmail = 'tuser+02@uclusion.com';
       const secondUserName = 'Awesome Too';
-      const thirdUserEmail = 'tuser@uclusion.com';
+      const thirdUserEmail = 'tuser+04@uclusion.com';
       const thirdUserName = 'Awesome More';
       const fourthUserEmail = 'tuser+03@uclusion.com';
       const fourthUserName = 'Ever Awesome';

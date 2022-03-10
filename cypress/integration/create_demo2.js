@@ -12,7 +12,7 @@ describe('Demo 2:', function() {
     it('invite 2 and create demo market', () => {
       const firstUserName = 'Awesome One';
       const secondUserName = 'Awesome Too';
-      const thirdUserEmail = 'tuser@uclusion.com';
+      const thirdUserEmail = 'tuser+04@uclusion.com';
       const thirdUserName = 'Awesome More';
       const userPassword = 'Testme;1';
       const returnToChannel = '#DemoChannel';
