@@ -17,14 +17,18 @@ describe('Demo 2:', function() {
       const fourthUserName = 'Ever Awesome';
       const jobName = 'SPA level performance issues';
       cy.waitForInviteAndTour(destination, fourthUserEmail, firstUserName, fourthUserName, userPassword);
+      //Notification: unassigned to-do yellow
       cy.createTodo('whenAble', 'CommentAddYellow', 'Configuration screens rework for consistency.');
+      //Notification: unassigned to-do blue
       cy.createTodo('whenConvenient', 'CommentAddBlue', 'S3 clean up of orphaned files.');
       cy.navigateIntoJob(jobName);
       // Better way is to come in through inbox but for now just wait for in right stage
       cy.contains('Review Report', {timeout: 90000});
+      //Notification: view comment
       cy.createComment('REPORT', 'IMHO ready to ship.');
       cy.get(returnToChannel).click();
       cy.get('#Discussion').click();
+      //Notification: comment reply and please vote combination
       cy.createComment('SUGGEST', 'New environment for medium lived testing.');
       cy.replyToComment('Why not just use and selectively clean an existing environment?',
           'Could do that but would be more work than standing up a new environment.', false);

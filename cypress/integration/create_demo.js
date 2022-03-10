@@ -29,10 +29,13 @@ describe('Demo:', function() {
         cy.createAdditionalUser(thirdUserEmail);
         cy.createAdditionalUser(fourthUserEmail);
         cy.verifyCollaborators([secondUserName, thirdUserName, fourthUserName]);
+        //Notification: unassigned job
         cy.createJob('Quantum random key', 'Generate a truly random number and seed the application with it.',
             undefined, undefined, undefined, true);
+        //Notification: new approval - suggestion
         cy.createComment('SUGGEST', 'Use qRNG.');
         cy.get(returnToChannel).click();
+        //Notification: new approval - job
         cy.createJob('Blog our data architecture', 'Interesting and good marketing.', firstUserName);
         cy.get(returnToChannel).click();
         cy.createJob('SPA level performance issues',
@@ -41,10 +44,12 @@ describe('Demo:', function() {
         cy.createComment('REPORT', 'Potentially endless - need feedback on how far to go.');
         cy.nextStage();
         cy.get(returnToChannel).click();
+        //Notification: unfinished job
         cy.createJob('Updated documentation', 'A lot of the pictures are out of date.', firstUserName);
         cy.nextStage();
         cy.get(returnToChannel).click();
         cy.get('#Discussion').click();
+        //Notification: comment reply and please vote combination
         cy.replyToComment('New environment for medium lived testing.',
             'Why not just use and selectively clean an existing environment?');
       });
