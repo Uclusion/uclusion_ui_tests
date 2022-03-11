@@ -125,12 +125,14 @@ Cypress.Commands.add("navigateIntoJob", (name, sectionSelector='swimLanesChildre
 })
 
 Cypress.Commands.add("createQuestionOption", (name, description, isFirst, doAddAnother=false,
-                                              isAddAnother=false) => {
+                                              isAddAnother=false, isAuthor=true) => {
     if (!isAddAnother) {
         if (isFirst) {
             cy.get('[id^=inlineAdd]', {timeout: 5000}).click();
-        } else {
+        } else if (isAuthor) {
             cy.get('[title="New approvable option"]', {timeout: 10000}).click();
+        } else {
+            cy.get('[title="New proposed option"]', {timeout: 10000}).click();
         }
     }
     cy.focused().type(name);
