@@ -17,6 +17,7 @@ describe('Demo:', function() {
           userPassword);
       cy.waitForEmail(firstUserEmail, destination, 'Please verify your email address', new Date()).then((url) => {
         cy.signIn(url, firstUserEmail, userPassword);
+        cy.wait(5000);
       });
     });
   });
