@@ -53,7 +53,7 @@ describe('Demo:', function() {
         cy.replyToComment('New environment for medium lived testing.',
             'Why not just use and selectively clean an existing environment?');
         cy.voteOption('Uclusion', 100, 'Easy enough to try.');
-        cy.createComment('QUESTION', 'Testing best practices?', true, false);
+        cy.createComment('QUESTION', 'Testing best practices?');
         cy.createQuestionOption('Determine test ROI early', undefined, true);
       });
     });
