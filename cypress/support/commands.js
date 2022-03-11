@@ -130,9 +130,9 @@ Cypress.Commands.add("createQuestionOption", (name, description, isFirst, doAddA
         if (isFirst) {
             cy.get('[id^=inlineAdd]', {timeout: 5000}).click();
         } else if (isAuthor) {
-            cy.get('[title="New approvable option"]', {timeout: 10000}).click();
+            cy.get('[title="New approvable option"][aria-disabled="false"]', {timeout: 10000}).click();
         } else {
-            cy.get('[title="New proposed option"]', {timeout: 10000}).click();
+            cy.get('[title="New proposed option"][aria-disabled="false"]', {timeout: 10000}).click();
         }
     }
     cy.focused().type(name);
