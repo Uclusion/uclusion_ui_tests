@@ -144,11 +144,7 @@ Cypress.Commands.add("createQuestionOption", (name, description, isFirst, doAddA
     } else {
         cy.get('#decisionInvestibleSaveButton').click();
     }
-    if (isAuthor) {
-        cy.get('#currentVotingChildren', { timeout: 8000 }).contains(name);
-    } else {
-        cy.get('#proposedVotingChildren', { timeout: 8000 }).contains(name);
-    }
+    cy.contains(name, { timeout: 8000 });
 })
 
 Cypress.Commands.add("voteOption", (optionName, certainty, reason) => {
