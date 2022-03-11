@@ -201,7 +201,7 @@ Cypress.Commands.add("createAndTourWorkspace", (channeName) => {
 Cypress.Commands.add("vote", (certainty, reason) => {
     cy.get(`#${certainty}`).click();
     if (reason) {
-        cy.get('[id$=-add-edit-vote-reason]').type(reason);
+        cy.focused().type(reason);
     }
     cy.get('#addOrUpdateVoteButton').click();
 })
