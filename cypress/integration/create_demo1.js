@@ -48,6 +48,10 @@ describe('Demo 1:', function() {
       cy.get(returnToChannel).click();
       cy.navigateIntoJob(fifthJobName, 'furtherReadyToStart');
       cy.voteSuggestion(true, 100, 'IBM API is fine.');
+      cy.get(returnToChannel).click();
+      //Notification: resolved issue
+      cy.createJob('Monitoring dashboard', 'Status at a glance.', secondUserName);
+      cy.resolveComment('The existing monitoring is good enough.');
     });
   });
 

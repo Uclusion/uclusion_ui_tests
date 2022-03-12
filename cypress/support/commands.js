@@ -110,6 +110,12 @@ Cypress.Commands.add("replyToComment", (parentDescription, description, firstLev
     }
 });
 
+Cypress.Commands.add("resolveComment", (description) => {
+    cy.contains('p', description, {timeout: 90000}).closest('[id^=c]').within(() => {
+        cy.get('[id^=commentResolveReopenButton]').click();
+    });
+});
+
 Cypress.Commands.add("createTodo", (type, section, description) => {
     cy.get('#Todos', {timeout: 30000}).click();
     cy.get(`#${type}TodosButton`).click();

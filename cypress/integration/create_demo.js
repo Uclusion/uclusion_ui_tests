@@ -19,6 +19,7 @@ describe('Demo:', function() {
       const fourthUserEmail = 'tuser+03@uclusion.com';
       const fourthUserName = 'Ever Awesome';
       const userPassword = 'Testme;1';
+      const jobName = 'Monitoring dashboard';
       const returnToChannel = '#DemoChannel';
       cy.fillSignupForm(`${destination}?utm_campaign=test#signup`, firstUserName, firstUserEmail,
           userPassword);
@@ -55,6 +56,9 @@ describe('Demo:', function() {
         cy.voteOption('Uclusion', 100, 'Easy enough to try.');
         cy.createComment('QUESTION', 'Testing best practices?');
         cy.createQuestionOption('Determine test ROI early', undefined, true);
+        cy.navigateIntoJob(jobName);
+        //Notification: resolved issue
+        cy.createComment('ISSUE', 'The existing monitoring is good enough.', true);
       });
     });
   });
