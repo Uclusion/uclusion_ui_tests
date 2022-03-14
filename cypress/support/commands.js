@@ -99,15 +99,8 @@ Cypress.Commands.add("replyToComment", (parentDescription, description, firstLev
     cy.contains('p', parentDescription, {timeout: 90000}).closest('[id^=c]').within(() => {
         cy.get('[id^=commentReplyButton]').click();
         cy.focused().type(description);
-        if (firstLevel) {
-            cy.get('#commentSaveButton').click();
-        }
     });
-    if (!firstLevel) {
-        cy.contains('p', parentDescription).closest('[id^=c]').parent().within(() => {
-            cy.get('#commentSaveButton').click();
-        })
-    }
+    cy.get('#commentSaveButton').click();
 });
 
 Cypress.Commands.add("resolveComment", (description) => {
