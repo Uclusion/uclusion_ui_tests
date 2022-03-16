@@ -148,7 +148,7 @@ Cypress.Commands.add("createQuestionOption", (name, description, isFirst, doAddA
 })
 
 Cypress.Commands.add("voteOption", (optionName, certainty, reason) => {
-    cy.get(`#currentVotingChildren`, {timeout: 90000}).within(() => {
+    cy.get(`#currentVotingChildren`, {timeout: 120000}).within(() => {
         cy.contains(optionName).click();
     });
     cy.vote(certainty, reason);
