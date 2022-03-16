@@ -213,7 +213,7 @@ Cypress.Commands.add("voteSuggestion", (voteFor, certainty, reason, hasTour=fals
 })
 
 Cypress.Commands.add("editNameDescription", (currentName, newName, newDescription) => {
-    cy.contains(currentName, {timeout: 180000}).click();
+    cy.contains('h1', currentName, {timeout: 180000}).click();
     cy.wait(10000);
     if (newName) {
         cy.focused().type(newName);
