@@ -46,7 +46,7 @@ describe('Demo 2:', function() {
       cy.vote(75, 'Good idea.');
       cy.get(returnToChannel).click();
       cy.navigateIntoJob('Upgrade Material UI');
-      y.voteSuggestion(false, 100, 'Too much effort at this time.');
+      cy.voteSuggestion(false, 100, 'Too much effort at this time.');
     });
   });
 

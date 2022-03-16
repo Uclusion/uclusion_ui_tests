@@ -41,7 +41,7 @@ describe('Demo 2:', function() {
       cy.createQuestionOption('Integration testing for Lambdas', undefined, false, false, false, false);
       cy.get(returnToChannel).click();
       cy.navigateIntoJob('Upgrade Material UI');
-      y.voteSuggestion(true, 50, 'Depends on effort estimate.');
+      cy.voteSuggestion(true, 50, 'Depends on effort estimate.');
     });
   });
 

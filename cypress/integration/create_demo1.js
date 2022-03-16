@@ -54,7 +54,7 @@ describe('Demo 1:', function() {
       cy.resolveComment('The existing monitoring is good enough.');
       cy.get(returnToChannel).click();
       cy.navigateIntoJob('Upgrade Material UI');
-      y.voteSuggestion(true, 100, 'Yes good idea.');
+      cy.voteSuggestion(true, 100, 'Yes good idea.');
     });
   });
 
