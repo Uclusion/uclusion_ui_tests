@@ -50,7 +50,7 @@ describe('Demo:', function() {
         cy.nextStage();
         cy.get(returnToChannel).click();
         cy.get('#Discussion').click();
-        //Notification: comment reply and please vote combination
+        //Notification: comment reply
         cy.replyToComment('New environment for medium lived testing.',
             'Why not just use and selectively clean an existing environment?');
         cy.voteOption('Uclusion', 100, 'Easy enough to try.');
@@ -59,6 +59,10 @@ describe('Demo:', function() {
         cy.navigateIntoJob(jobName);
         //Notification: resolved issue
         cy.createComment('ISSUE', 'The existing monitoring is good enough.', true);
+        cy.get(returnToChannel).click();
+        //Notification: fully voted
+        cy.createJob('Upgrade Material UI', 'Becoming too difficult to maintain.', firstUserName);
+        cy.createComment('SUGGEST', 'Use a React for TailWind library instead.');
       });
     });
   });
