@@ -121,7 +121,7 @@ Cypress.Commands.add("createTodo", (type, section, description) => {
 
 Cypress.Commands.add("navigateIntoJob", (name, sectionSelector='swimLanesChildren') => {
     cy.get('#Jobs', {timeout: 30000}).click();
-    cy.get(`#${sectionSelector}`, {timeout: 60000}).contains(name, {timeout: 60000}).click();
+    cy.get(`#${sectionSelector}`, {timeout: 120000}).contains(name, {timeout: 60000}).click();
 })
 
 Cypress.Commands.add("createQuestionOption", (name, description, isFirst, doAddAnother=false,
