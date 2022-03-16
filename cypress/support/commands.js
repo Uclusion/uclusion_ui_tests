@@ -89,6 +89,7 @@ Cypress.Commands.add("createComment", (type, description, hasWarning=false, hasT
     cy.get('#commentSaveButton').click();
     if (hasWarning) {
         cy.get('#issueProceedButton', { timeout: 5000 }).click();
+        cy.wait(5000);
         if (hasTour) {
             cy.takeTour(hasNext);
         }
