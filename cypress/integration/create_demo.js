@@ -63,6 +63,8 @@ describe('Demo:', function() {
         //Notification: fully voted
         cy.createJob('Upgrade Material UI', 'Becoming too difficult to maintain.', firstUserName);
         cy.createComment('SUGGEST', 'Use a React for TailWind library instead.', true, false);
+        cy.get(returnToChannel).click();
+        cy.createJob('A crummy name', 'A crummy description.', firstUserName);
       });
     });
   });

@@ -41,6 +41,9 @@ describe('Demo 2:', function() {
       cy.createQuestionOption('Integration testing for Lambdas', undefined, false, false, false, false);
       cy.navigateIntoJob('Upgrade Material UI');
       cy.voteSuggestion(true, 50, 'Depends on effort estimate.', true);
+      cy.get(returnToChannel).click();
+      cy.navigateIntoJob('Updated documentation');
+      cy.editNameDescription('A crummy name', 'Two-factor authentication', 'Everyone has it.');
     });
   });
 

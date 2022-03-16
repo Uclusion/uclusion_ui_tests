@@ -211,6 +211,17 @@ Cypress.Commands.add("voteSuggestion", (voteFor, certainty, reason, hasTour=fals
     cy.vote(certainty, reason);
 })
 
+Cypress.Commands.add("editNameDescription", (currentName, newName, newDescription) => {
+    cy.contains(currentName, {timeout: 180000}).click();
+    cy.wait(10000);
+    if (newName) {
+        cy.focused().type(newName);
+    }
+    if (newDescription) {
+        cy.get('[id$=-body-editor]').type(newDescription);
+    }
+})
+
 Cypress.Commands.add("waitForInviteAndTour", (destination, userEmail, invitingUserName, userName,
                                               userPassword) => {
     const testStartDate = new Date();
