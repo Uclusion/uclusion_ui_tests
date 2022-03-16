@@ -39,7 +39,6 @@ describe('Demo 2:', function() {
       cy.createQuestionOption('Zoom', 'The communications tool for online meetings.', false);
       //Notification: new option submitted
       cy.createQuestionOption('Integration testing for Lambdas', undefined, false, false, false, false);
-      cy.get(returnToChannel).click();
       cy.navigateIntoJob('Upgrade Material UI');
       cy.voteSuggestion(true, 50, 'Depends on effort estimate.');
     });
