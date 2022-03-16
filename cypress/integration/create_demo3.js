@@ -42,7 +42,7 @@ describe('Demo 2:', function() {
       cy.navigateIntoJob('Upgrade Material UI');
       cy.voteSuggestion(true, 50, 'Depends on effort estimate.', true);
       cy.get(returnToChannel).click();
-      cy.navigateIntoJob('Updated documentation');
+      cy.navigateIntoJob('A crummy name');
       cy.editNameDescription('A crummy name', 'Two-factor authentication', 'Everyone has it.');
     });
   });
