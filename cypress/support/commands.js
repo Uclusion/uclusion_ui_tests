@@ -204,9 +204,9 @@ Cypress.Commands.add("vote", (certainty, reason) => {
 
 Cypress.Commands.add("voteSuggestion", (voteFor, certainty, reason, hasTour=false) => {
     if (hasTour) {
-        cy.get('[title=Close]', { timeout: 10000 }).first().click();
+        cy.get('[title=Close]', { timeout: 120000 }).first().click();
     }
-    cy.get(`#${voteFor ? 'for' : 'against'}`, { timeout: 60000 }).click();
+    cy.get(`#${voteFor ? 'for' : 'against'}`, { timeout: 120000 }).click();
     // This is happening too quickly to debug so add a wait
     cy.wait(2000);
     cy.vote(certainty, reason);
