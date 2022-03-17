@@ -216,11 +216,13 @@ Cypress.Commands.add("editNameDescription", (currentName, newName, newDescriptio
     cy.contains('h1', currentName, {timeout: 180000}).click();
     cy.wait(10000);
     if (newName) {
-        cy.focused().type(newName);
+        cy.focused().clear().type(newName);
     }
     if (newDescription) {
-        cy.get('[id$=-body-editor]').type(newDescription);
+        cy.get('[id$=-body-editor]').clear().type(newDescription);
     }
+    cy.get('#investibleUpdateButton').click();
+    cy.wait(5000);
 })
 
 Cypress.Commands.add("waitForInviteAndTour", (destination, userEmail, invitingUserName, userName,
