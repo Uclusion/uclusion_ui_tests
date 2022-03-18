@@ -53,7 +53,7 @@ describe('Demo 1:', function() {
       cy.createJob('Monitoring dashboard', 'Status at a glance.', secondUserName);
       cy.resolveComment('The existing monitoring is good enough.');
       cy.get(returnToChannel).click();
-      cy.navigateIntoJob('Upgrade Material UI');
+      cy.navigateIntoJob('Upgrade Material UI', 'requiresInputChildren');
       cy.voteSuggestion(true, 100, 'Yes good idea.');
     });
   });

@@ -39,7 +39,7 @@ describe('Demo 2:', function() {
       cy.createQuestionOption('Zoom', 'The communications tool for online meetings.', false);
       //Notification: new option submitted
       cy.createQuestionOption('Integration testing for Lambdas', undefined, false, false, false, false);
-      cy.navigateIntoJob('Upgrade Material UI');
+      cy.navigateIntoJob('Upgrade Material UI', 'requiresInputChildren');
       cy.voteSuggestion(true, 50, 'Depends on effort estimate.', true);
       cy.get(returnToChannel).click();
       cy.navigateIntoJob('A crummy name');
