@@ -252,6 +252,11 @@ Cypress.Commands.add("verifyCollaborators", (collaborators) => {
     });
 })
 
+Cypress.Commands.add("waitForReviewStage", () => {
+    // Better way is to come in through inbox but for now just wait for in right stage
+    cy.contains('Review Report', {timeout: 90000});
+})
+
 Cypress.Commands.add("nextStage", () => {
     cy.get('#stageChangeActionButton').click();
 });

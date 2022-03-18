@@ -43,10 +43,7 @@ describe('Demo 1:', function() {
       cy.nextStage();
       cy.get(returnToChannel).click();
       cy.navigateIntoJob(thirdJobName);
-      // Wait for this progress report as marker to know in correct stage
-      cy.contains('Potentially endless - need feedback on how far to go.', { timeout: 90000 });
-      // Little pause to avoid eventually consistent on the job's stage
-      cy.wait(5000);
+      cy.waitForReviewStage();
       //Notification: unresolved task
       cy.createComment('TODO', 'Home page still slow.', true, false);
       cy.get(returnToChannel).click();

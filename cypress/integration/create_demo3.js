@@ -22,8 +22,7 @@ describe('Demo 2:', function() {
       //Notification: unassigned to-do blue
       cy.createTodo('whenConvenient', 'CommentAddBlue', 'S3 clean up of orphaned files.');
       cy.navigateIntoJob(jobName);
-      // Better way is to come in through inbox but for now just wait for in right stage
-      cy.contains('Review Report', {timeout: 90000});
+      cy.waitForReviewStage();
       //Notification: view comment
       cy.createComment('REPORT', 'IMHO ready to ship.');
       cy.get(returnToChannel).click();
