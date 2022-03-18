@@ -94,7 +94,7 @@ Cypress.Commands.add("createComment", (type, description, hasWarning=false, hasT
         } else if (isRestricted) {
             cy.get('#proceedRestrictedButton', {timeout: 5000}).click();
         } else {
-            cy.get('#proceedNormal', {timeout: 5000}).click();
+            cy.get('#proceedNormalButton', {timeout: 5000}).click();
         }
         cy.wait(5000);
         if (hasTour) {
