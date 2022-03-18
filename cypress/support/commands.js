@@ -83,12 +83,19 @@ Cypress.Commands.add("takeTour", (hasNext) => {
     cy.get('[title=Close]', { timeout: 10000 }).first().click();
 })
 
-Cypress.Commands.add("createComment", (type, description, hasWarning=false, hasTour=true, hasNext=false) => {
+Cypress.Commands.add("createComment", (type, description, hasWarning=false, hasTour=true, hasNext=false,
+                                       isRestricted) => {
     cy.get(`#commentAddLabel${type}`).click();
     cy.focused().type(description);
     cy.get('#commentSaveButton').click();
     if (hasWarning) {
-        cy.get('#issueProceedButton', { timeout: 5000 }).click();
+        if (isRestricted === undefined) {
+            cy.get('#issueProceedButton', {timeout: 5000}).click();
+        } else if (isRestricted) {
+            cy.get('#proceedRestrictedButton', {timeout: 5000}).click();
+        } else {
+            cy.get('#proceedNormal', {timeout: 5000}).click();
+        }
         cy.wait(5000);
         if (hasTour) {
             cy.takeTour(hasNext);

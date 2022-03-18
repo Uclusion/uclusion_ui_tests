@@ -34,7 +34,7 @@ describe('Demo:', function() {
         cy.createJob('Quantum random key', 'Generate a truly random number and seed the application with it.',
             undefined, undefined, undefined, true);
         //Notification: new approval - suggestion
-        cy.createComment('SUGGEST', 'Use qRNG.');
+        cy.createComment('SUGGEST', 'Use qRNG.', true, false, false, true);
         cy.get(returnToChannel).click();
         //Notification: new approval - job
         cy.createJob('Blog our data architecture', 'Interesting and good marketing.', firstUserName);
@@ -62,7 +62,7 @@ describe('Demo:', function() {
         cy.get(returnToChannel).click();
         //Notification: fully voted
         cy.createJob('Upgrade Material UI', 'Becoming too difficult to maintain.', firstUserName);
-        cy.createComment('SUGGEST', 'Use a React for TailWind library instead.', true);
+        cy.createComment('SUGGEST', 'Use a React for TailWind library instead.', true, true, false, true);
         cy.get(returnToChannel).click();
         cy.createJob('A crummy name', 'A crummy description.', firstUserName);
       });
