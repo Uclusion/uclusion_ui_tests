@@ -7,6 +7,10 @@ defaults: &defaults
 orbs:
   aws-cli: circleci/aws-cli@2.0.3
   cypress: cypress-io/cypress@1.29.0
+executors:
+  with-chrome:
+    docker:
+      - image: 'cypress/browsers:node16.14.0-slim-chrome99-ff97'
 version: 2.1
 
 jobs:
@@ -76,6 +80,8 @@ workflows:
             branches:
               ignore: /.*/
       - cypress/run:
+          executor: with-chrome
+          browser: chrome
           store_artifacts: true
           requires:
             - prepare
@@ -89,6 +95,8 @@ workflows:
               ignore: /.*/
           context: stage
       - cypress/run:
+          executor: with-chrome
+          browser: chrome
           store_artifacts: true
           requires:
             - prepare
@@ -102,6 +110,8 @@ workflows:
               ignore: /.*/
           context: stage
       - cypress/run:
+          executor: with-chrome
+          browser: chrome
           store_artifacts: true
           requires:
             - prepare
@@ -115,6 +125,8 @@ workflows:
               ignore: /.*/
           context: stage
       - cypress/run:
+          executor: with-chrome
+          browser: chrome
           store_artifacts: true
           requires:
             - prepare
@@ -128,6 +140,8 @@ workflows:
               ignore: /.*/
           context: stage
       - cypress/run:
+          executor: with-chrome
+          browser: chrome
           store_artifacts: true
           requires:
             - prepare
