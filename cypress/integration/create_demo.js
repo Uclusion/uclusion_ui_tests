@@ -48,8 +48,8 @@ describe('Demo:', function() {
         cy.createJob('SPA level performance issues',
             'Need to reduce re-renders and slowness from background API calls.', firstUserName);
         cy.nextStage();
-        cy.createComment('REPORT', 'Potentially endless - need feedback on how far to go.');
         cy.nextStage();
+        cy.createComment('REPORT', 'Potentially endless - need feedback on how far to go.');
         cy.get(returnToChannel).click();
         //Notification: unfinished job
         cy.createJob('Updated documentation', 'A lot of the pictures are out of date.', firstUserName);
