@@ -39,6 +39,12 @@ describe('Demo:', function() {
         //Notification: new approval - job
         cy.createJob('Blog our data architecture', 'Interesting and good marketing.', firstUserName);
         cy.get(returnToChannel).click();
+        //Notification: fully voted
+        cy.createJob('Upgrade Material UI', 'Becoming too difficult to maintain.', firstUserName);
+        cy.createComment('SUGGEST', 'Use a React for TailWind library instead.', true, true, true, true);
+        cy.get(returnToChannel).click();
+        cy.createJob('A crummy name', 'A crummy description.', firstUserName);
+        cy.get(returnToChannel).click();
         cy.createJob('SPA level performance issues',
             'Need to reduce re-renders and slowness from background API calls.', firstUserName);
         cy.nextStage();
@@ -55,16 +61,10 @@ describe('Demo:', function() {
             'Why not just use and selectively clean an existing environment?');
         cy.voteOption('Uclusion', 100, 'Easy enough to try.');
         cy.createComment('QUESTION', 'Testing best practices?');
-        cy.createQuestionOption('Determine test ROI early', undefined, true);
+        cy.createQuestionOption('Determine test ROI early', undefined, true, false);
         cy.navigateIntoJob(jobName);
         //Notification: resolved issue
         cy.createComment('ISSUE', 'The existing monitoring is good enough.', true);
-        cy.get(returnToChannel).click();
-        //Notification: fully voted
-        cy.createJob('Upgrade Material UI', 'Becoming too difficult to maintain.', firstUserName);
-        cy.createComment('SUGGEST', 'Use a React for TailWind library instead.', true, true, false, true);
-        cy.get(returnToChannel).click();
-        cy.createJob('A crummy name', 'A crummy description.', firstUserName);
       });
     });
   });
