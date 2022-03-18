@@ -14,6 +14,7 @@ describe('Demo 1:', function() {
       const secondUserEmail = 'tuser+02@uclusion.com';
       const secondUserName = 'Awesome Too';
       const jobName = 'Open source our deployment scripts';
+      const firstJobName = 'Monitoring dashboard';
       const secondJobName = 'Blog our data architecture';
       const thirdJobName = 'SPA level performance issues';
       const fourthJobName = 'New data compression algorithm';
@@ -25,6 +26,8 @@ describe('Demo 1:', function() {
       //Notification: new assignment
       cy.createJob('Database scaling', 'Consider total cost and max latency.', firstUserName, 50,
           'Already have several examples of potential optimizations.');
+      cy.get(returnToChannel).click();
+      cy.createJob(firstJobName, 'Status at a glance.', secondUserName);
       cy.get(returnToChannel).click();
       cy.navigateIntoJob(jobName, 'requiresInputChildren');
       cy.voteSuggestion(true, 75, 'Yes with orbs there can be other maintainers also.', true);
@@ -53,8 +56,8 @@ describe('Demo 1:', function() {
       cy.navigateIntoJob(fifthJobName, 'furtherReadyToStart');
       cy.voteSuggestion(true, 100, 'IBM API is fine.');
       cy.get(returnToChannel).click();
+      cy.navigateIntoJob(firstJobName);
       //Notification: resolved issue
-      cy.createJob('Monitoring dashboard', 'Status at a glance.', secondUserName);
       cy.resolveComment('The existing monitoring is good enough.');
       cy.get(returnToChannel).click();
       cy.navigateIntoJob('Upgrade Material UI', 'requiresInputChildren');
