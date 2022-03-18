@@ -86,7 +86,7 @@ Cypress.Commands.add("takeTour", (hasNext) => {
 Cypress.Commands.add("createComment", (type, description, hasWarning=false, hasTour=true, hasNext=false,
                                        isRestricted) => {
     cy.get(`#commentAddLabel${type}`).click();
-    cy.focused().type(description);
+    cy.focused({ timeout: 10000 }).type(description);
     cy.get('#commentSaveButton').click();
     if (hasWarning) {
         if (isRestricted === undefined) {
@@ -106,7 +106,7 @@ Cypress.Commands.add("createComment", (type, description, hasWarning=false, hasT
 Cypress.Commands.add("replyToComment", (parentDescription, description, firstLevel=true) => {
     cy.contains('p', parentDescription, {timeout: 90000}).closest('[id^=c]').within(() => {
         cy.get('[id^=commentReplyButton]').click();
-        cy.focused().type(description);
+        cy.focused({ timeout: 10000 }).type(description);
     });
     cy.get('#commentSaveButton').click();
 });
@@ -120,7 +120,7 @@ Cypress.Commands.add("resolveComment", (description) => {
 Cypress.Commands.add("createTodo", (type, section, description) => {
     cy.get('#Todos', {timeout: 30000}).click();
     cy.get(`#${type}TodosButton`).click();
-    cy.focused().type(description);
+    cy.focused({ timeout: 10000 }).type(description);
     cy.get(`#${section}cabox`).within(() => {
         cy.get('#commentSaveButton').click();
     });
@@ -142,7 +142,7 @@ Cypress.Commands.add("createQuestionOption", (name, description, isFirst, doAddA
             cy.get('[title="New proposed option"][aria-disabled="false"]', {timeout: 10000}).click();
         }
     }
-    cy.focused().type(name);
+    cy.focused({ timeout: 10000 }).type(name);
     if (description) {
         cy.get('[id$=-newInvestible]').type(description);
     }
@@ -165,7 +165,7 @@ Cypress.Commands.add("createJob", (name, description, assigneeName, certainty, j
                                    isReady) => {
     cy.get('#AddJob', { timeout: 5000 }).click();
     if (name) {
-        cy.focused().type(name);
+        cy.focused({ timeout: 10000 }).type(name);
     }
     if (assigneeName) {
         cy.get('#addAssignment').type(assigneeName + '{enter}', {delay: 60});
@@ -204,7 +204,7 @@ Cypress.Commands.add("createAndTourWorkspace", (channeName) => {
 Cypress.Commands.add("vote", (certainty, reason) => {
     cy.get(`#${certainty}`).click();
     if (reason) {
-        cy.focused().type(reason);
+        cy.focused({ timeout: 10000 }).type(reason);
     }
     cy.get('#addOrUpdateVoteButton').click();
 })
@@ -223,7 +223,7 @@ Cypress.Commands.add("editNameDescription", (currentName, newName, newDescriptio
     cy.contains('h1', currentName, {timeout: 180000}).click();
     cy.wait(10000);
     if (newName) {
-        cy.focused().clear().type(newName);
+        cy.focused({ timeout: 10000 }).clear().type(newName);
     }
     if (newDescription) {
         cy.get('[id$=-body-editor]').clear().type(newDescription);
