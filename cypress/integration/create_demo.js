@@ -61,7 +61,7 @@ describe('Demo:', function() {
             'Why not just use and selectively clean an existing environment?');
         cy.voteOption('Uclusion', 100, 'Easy enough to try.');
         cy.createComment('QUESTION', 'Testing best practices?');
-        cy.createQuestionOption('Determine test ROI early', undefined, true, false);
+        cy.createQuestionOption('Determine test ROI early', undefined, false);
         cy.navigateIntoJob(jobName);
         //Notification: resolved issue
         cy.createComment('ISSUE', 'The existing monitoring is good enough.', true);

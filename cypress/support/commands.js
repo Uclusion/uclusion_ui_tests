@@ -131,12 +131,10 @@ Cypress.Commands.add("navigateIntoJob", (name, sectionSelector='swimLanesChildre
     cy.get(`#${sectionSelector}`, {timeout: 120000}).contains(name, {timeout: 60000}).click();
 })
 
-Cypress.Commands.add("createQuestionOption", (name, description, isFirst, doAddAnother=false,
-                                              isAddAnother=false, isAuthor=true) => {
+Cypress.Commands.add("createQuestionOption", (name, description, doAddAnother=false, isAddAnother=false,
+                                              isAuthor=true) => {
     if (!isAddAnother) {
-        if (isFirst) {
-            cy.get('[id^=inlineAdd]', {timeout: 5000}).click();
-        } else if (isAuthor) {
+        if (isAuthor) {
             cy.get('[title="New approvable option"][aria-disabled="false"]', {timeout: 10000}).click();
         } else {
             cy.get('[title="New proposed option"][aria-disabled="false"]', {timeout: 10000}).click();

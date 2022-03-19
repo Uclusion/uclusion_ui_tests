@@ -28,7 +28,7 @@ describe('Authenticator:', function() {
         cy.createAndTourWorkspace('UI Smoke Channel');
         cy.get('#Discussion').click();
         cy.createComment('QUESTION', 'Did you receive this question?');
-        cy.createQuestionOption(optionText, undefined, true);
+        cy.createQuestionOption(optionText, undefined);
         cy.get('#AddCollaborators').click();
         return cy.get('#inviteLinker', { timeout: 5000 }).find('input');
       }).then(input => {
