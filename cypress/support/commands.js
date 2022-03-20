@@ -215,6 +215,7 @@ Cypress.Commands.add("vote", (certainty, reason) => {
     cy.get('#addOrUpdateVoteButton').click();
     // Should find way to verify when done but just kludging for now
     cy.wait(10000);
+    cy.get('[id^=clearCurrentVoting]').click();
 })
 
 Cypress.Commands.add("voteSuggestion", (voteFor, certainty, reason, hasTour=false) => {
