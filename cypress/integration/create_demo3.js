@@ -40,7 +40,7 @@ describe('Demo 2:', function() {
           'Can we adopt a better communications tool?');
       //Notification: new option submitted
       cy.createQuestionOption('Integration testing for Lambdas', undefined,
-          'Can we adopt a better communications tool?', false, false);
+          'Testing best practices?', false, false);
       cy.navigateIntoJob('Upgrade Material UI', 'requiresInputChildren');
       cy.voteSuggestion(true, 50, 'Depends on effort estimate.', true);
       cy.get(returnToChannel).click();
