@@ -213,6 +213,8 @@ Cypress.Commands.add("vote", (certainty, reason) => {
         cy.focused({ timeout: 10000 }).type(reason);
     }
     cy.get('#addOrUpdateVoteButton').click();
+    // Should find way to verify when done but just kludging for now
+    cy.wait(10000);
 })
 
 Cypress.Commands.add("voteSuggestion", (voteFor, certainty, reason, hasTour=false) => {
