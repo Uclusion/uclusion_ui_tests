@@ -135,12 +135,15 @@ Cypress.Commands.add("navigateIntoJob", (name, sectionSelector='swimLanesChildre
 Cypress.Commands.add("createQuestionOption", (name, description, parentDescription, doAddAnother=false,
                                               isAddAnother=false, isAuthor=true) => {
     if (!isAddAnother) {
-        cy.contains('p', parentDescription, {timeout: 90000}).closest('[id^=c]').within(() => {
-            if (isAuthor) {
-                cy.get('[id^=approvableOption]', {timeout: 120000}).click();
-            } else {
-                cy.get('[id^=proposedOption]', {timeout: 120000}).click();
-            }
+        cy.contains('p', parentDescription, {timeout: 90000}).closest('[id^=c]')
+            .within(($div) => {
+                //Try to see which element we got so can debug
+                $div.css('border', '1px solid magenta');
+                if (isAuthor) {
+                    cy.get('[id^=approvableOption]', {timeout: 120000}).click();
+                } else {
+                    cy.get('[id^=proposedOption]', {timeout: 120000}).click();
+                }
         });
     }
     cy.focused({ timeout: 10000 }).type(name);
