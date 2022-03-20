@@ -86,7 +86,8 @@ Cypress.Commands.add("takeTour", (hasNext) => {
 Cypress.Commands.add("createComment", (type, description, hasWarning=false, hasTour=true, hasNext=false,
                                        isRestricted) => {
     cy.get(`#commentAddLabel${type}`).click();
-    cy.focused({ timeout: 10000 }).type(description);
+    // focus is not reliable in React so have to use get even though should be focussed
+    cy.get('[id$=-comment-add-editor]').type(description);
     cy.get('#commentSaveButton').click();
     if (hasWarning) {
         if (isRestricted === undefined) {
