@@ -27,8 +27,8 @@ describe('Demo 2:', function() {
       cy.createJob('New data compression algorithm', 'Looking to reduce size by half.', thirdUserName);
       //Notification: please choose
       cy.createComment('QUESTION', 'Which algorithm?', true, false);
-      cy.createQuestionOption('DEFLATE', undefined);
-      cy.createQuestionOption('LZMA2', undefined, true);
+      cy.createQuestionOption('DEFLATE', undefined, true);
+      cy.createQuestionOption('LZMA2', undefined, true, true);
       cy.createQuestionOption('MLP', 'Based on neighboring data via backpropagation.', false, true);
       cy.voteOption('MLP', 100, 'Better for audio.')
       cy.get(returnToChannel).click();
