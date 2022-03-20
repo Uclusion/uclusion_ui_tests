@@ -137,9 +137,9 @@ Cypress.Commands.add("createQuestionOption", (name, description, parentDescripti
     if (!isAddAnother) {
         cy.contains('p', parentDescription, {timeout: 90000}).closest('[id^=c]').within(() => {
             if (isAuthor) {
-                cy.get('[id^=approvableOption]', {timeout: 10000}).click();
+                cy.get('[id^=approvableOption]', {timeout: 120000}).click();
             } else {
-                cy.get('[id^=proposedOption]', {timeout: 10000}).click();
+                cy.get('[id^=proposedOption]', {timeout: 120000}).click();
             }
         });
     }
