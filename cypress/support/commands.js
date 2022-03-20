@@ -164,7 +164,7 @@ Cypress.Commands.add("voteOption", (optionName, certainty, reason) => {
     cy.get(`#currentVotingChildren`, {timeout: 120000}).within(() => {
         cy.contains(optionName, {timeout: 120000}).click();
     });
-    cy.vote(certainty, reason);
+    cy.vote(certainty, reason, true);
 })
 
 Cypress.Commands.add("createJob", (name, description, assigneeName, certainty, justification,
@@ -207,7 +207,7 @@ Cypress.Commands.add("createAndTourWorkspace", (channeName) => {
     cy.takeTour(false);
 })
 
-Cypress.Commands.add("vote", (certainty, reason) => {
+Cypress.Commands.add("vote", (certainty, reason, isQuestion=false) => {
     cy.get(`#${certainty}`).click();
     if (reason) {
         cy.focused({ timeout: 10000 }).type(reason);
@@ -215,7 +215,9 @@ Cypress.Commands.add("vote", (certainty, reason) => {
     cy.get('#addOrUpdateVoteButton').click();
     // Should find way to verify when done but just kludging for now
     cy.wait(10000);
-    cy.get('[id^=clearCurrentVoting]').click();
+    if (isQuestion) {
+        cy.get('[id^=clearCurrentVoting]').click();
+    }
 })
 
 Cypress.Commands.add("voteSuggestion", (voteFor, certainty, reason, hasTour=false) => {
