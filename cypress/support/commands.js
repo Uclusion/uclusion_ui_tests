@@ -135,6 +135,8 @@ Cypress.Commands.add("navigateIntoJob", (name, sectionSelector='swimLanesChildre
 Cypress.Commands.add("createQuestionOption", (name, description, parentDescription, doAddAnother=false,
                                               isAddAnother=false, isAuthor=true) => {
     if (!isAddAnother) {
+        // Wait for the parent description to clear from the question create
+        cy.wait(10000);
         cy.contains('p', parentDescription, {timeout: 90000}).closest('[id^=c]')
             .within(($div) => {
                 //Try to see which element we got so can debug
