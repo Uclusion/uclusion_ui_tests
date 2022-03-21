@@ -146,6 +146,7 @@ Cypress.Commands.add("createQuestionOption", (name, description, parentDescripti
                 } else {
                     cy.get('[id^=proposedOption]', {timeout: 120000}).click();
                 }
+                $div.css('border', 'unset');
         });
     }
     cy.focused({ timeout: 10000 }).type(name);
