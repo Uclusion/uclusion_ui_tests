@@ -36,6 +36,9 @@ describe('Demo:', function() {
         //Notification: new approval - suggestion
         cy.createComment('SUGGEST', 'Use qRNG.', true, false, false, true);
         cy.get(returnToChannel).click();
+        //Notification: description changed
+        cy.createJob('Cloud failover', 'Another crummy description.', firstUserName);
+        cy.get(returnToChannel).click();
         //Notification: new approval - job
         cy.createJob('Blog our data architecture', 'Interesting and good marketing.', firstUserName);
         cy.get(returnToChannel).click();

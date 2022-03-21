@@ -48,9 +48,9 @@ describe('Demo 2:', function() {
       cy.navigateIntoJob('Upgrade Material UI', 'requiresInputChildren');
       cy.voteSuggestion(false, 100, 'Too much effort at this time.');
       cy.get(returnToChannel).click();
-      cy.navigateIntoJob('Upgrade Material UI');
+      cy.navigateIntoJob('Cloud failover');
       //Notification: description change
-      cy.editNameDescription('Upgrade Material UI', undefined, 'Becoming too difficult to maintain. Also need some of the newer features.');
+      cy.editNameDescription('Cloud failover', undefined, 'Need a better strategy without buying a cadillac.');
     });
   });
 
