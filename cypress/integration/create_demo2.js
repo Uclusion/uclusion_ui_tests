@@ -47,6 +47,10 @@ describe('Demo 2:', function() {
       cy.get(returnToChannel).click();
       cy.navigateIntoJob('Upgrade Material UI', 'requiresInputChildren');
       cy.voteSuggestion(false, 100, 'Too much effort at this time.');
+      cy.get(returnToChannel).click();
+      cy.navigateIntoJob('Upgrade Material UI');
+      //Notification: description change
+      cy.editNameDescription('Upgrade Material UI', undefined, 'Becoming too difficult to maintain. Also need some of the newer features.');
     });
   });
 
