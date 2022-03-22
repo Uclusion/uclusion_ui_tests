@@ -175,17 +175,17 @@ Cypress.Commands.add("voteOption", (optionName, certainty, reason) => {
 Cypress.Commands.add("createJob", (name, description, assigneeName, certainty, justification,
                                    isReady) => {
     cy.get('#AddJob', { timeout: 5000 }).click();
-    if (name) {
-        //cy.focused({ timeout: 10000 }).type(name);
-        cy.get('[id^=investibleAdd]', { timeout: 5000 }).type(name);
-    }
-    if (assigneeName) {
-        cy.get('#addAssignment').type(assigneeName + '{enter}', {delay: 60});
-    }
     cy.url().then(url => {
         const begin = url.indexOf('dialog') + 7;
         const end = url.indexOf('#');
         const marketId = end > 0 ? url.substring(begin, end) : url.substring(begin);
+        if (name) {
+            //cy.focused({ timeout: 10000 }).type(name);
+            cy.get(`#investibleAdd${marketId}`, { timeout: 5000 }).type(name);
+        }
+        if (assigneeName) {
+            cy.get('#addAssignment').type(assigneeName + '{enter}', {delay: 60});
+        }
         if (description) {
             cy.get(`#editorBox-${marketId}-planning-inv-add`).type(description);
         }
