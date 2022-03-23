@@ -161,6 +161,22 @@ Cypress.Commands.add("createQuestionOption", (name, description, parentDescripti
     cy.contains(name, { timeout: 8000 });
 })
 
+Cypress.Commands.add("createQuestionOptionComment", (parentDescription, optionName, type, description) => {
+    cy.get(`#currentVotingChildren`, {timeout: 120000}).within(() => {
+        cy.contains(optionName, {timeout: 120000}).click();
+    });
+    cy.contains('p', parentDescription, {timeout: 90000}).closest('[id^=c]').within(() => {
+        cy.get(`#commentAddLabel${type}`).click();
+        // focus is not reliable in React so have to use get even though should be focussed
+        cy.get('[id$=-comment-add-editor]').type(description);
+        cy.get('#commentSaveButton').click();
+    });
+    // Click again to close
+    cy.get(`#currentVotingChildren`, {timeout: 120000}).within(() => {
+        cy.contains(optionName, {timeout: 120000}).click();
+    });
+})
+
 Cypress.Commands.add("voteOption", (optionName, certainty, reason) => {
     cy.get(`#currentVotingChildren`, {timeout: 120000}).within(() => {
         cy.contains(optionName, {timeout: 120000}).click();

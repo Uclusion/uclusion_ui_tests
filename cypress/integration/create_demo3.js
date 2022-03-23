@@ -41,6 +41,8 @@ describe('Demo 2:', function() {
       //Notification: new option submitted
       cy.createQuestionOption('Integration testing for Lambdas', undefined,
           'Testing best practices?', false, false, false);
+      //Notification: question in question option
+      cy.createQuestionOptionComment('Testing best practices?', 'Determine test ROI early', 'QUESTION', 'How early?');
       cy.navigateIntoJob('Upgrade Material UI', 'requiresInputChildren');
       cy.voteSuggestion(true, 50, 'Depends on effort estimate.', true);
       cy.get(returnToChannel).click();

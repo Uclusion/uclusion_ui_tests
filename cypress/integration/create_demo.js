@@ -63,7 +63,9 @@ describe('Demo:', function() {
         cy.replyToComment('New environment for medium lived testing.',
             'Why not just use and selectively clean an existing environment?');
         cy.voteOption('Uclusion', 100, 'Easy enough to try.');
+        //Notification: new option submitted
         cy.createComment('QUESTION', 'Testing best practices?');
+        //Notification: question in question option
         cy.createQuestionOption('Determine test ROI early', undefined, 'Testing best practices?', false);
         cy.navigateIntoJob(jobName);
         //Notification: resolved issue
