@@ -34,6 +34,7 @@ describe('Demo 2:', function() {
       cy.createComment('QUESTION', 'Can we adopt a better communications tool?');
       cy.createQuestionOption('Uclusion', 'The communications tool for experienced developers.',
           'Can we adopt a better communications tool?');
+      cy.sendComment();
       cy.contains('1 approvals', {timeout: 120000});
       //Notification: new option
       cy.createQuestionOption('Zoom', 'The communications tool for online meetings.',

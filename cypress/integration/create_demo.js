@@ -67,6 +67,7 @@ describe('Demo:', function() {
         cy.createComment('QUESTION', 'Testing best practices?');
         //Notification: question in question option
         cy.createQuestionOption('Determine test ROI early', undefined, 'Testing best practices?', false);
+        cy.sendComment();
         cy.navigateIntoJob(jobName);
         //Notification: resolved issue
         cy.createComment('ISSUE', 'The existing monitoring is good enough.', true);

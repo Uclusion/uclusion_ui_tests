@@ -83,24 +83,39 @@ Cypress.Commands.add("takeTour", (hasNext) => {
     cy.get('[title=Close]', { timeout: 10000 }).first().click();
 })
 
+Cypress.Commands.add("sendComment", (hasWarning=false, hasTour=true, hasNext=false, isRestricted) => {
+    cy.get('#commentSendButton').click();
+    if (hasWarning) {
+        cy.handleCommentWarning(hasTour, hasNext, isRestricted);
+    }
+})
+
+Cypress.Commands.add("handleCommentWarning", (hasTour=true, hasNext=false, isRestricted) => {
+    if (isRestricted === undefined) {
+        cy.get('#issueProceedButton', {timeout: 5000}).click();
+    } else if (isRestricted) {
+        cy.get('#proceedRestrictedButton', {timeout: 5000}).click();
+    } else {
+        cy.get('#proceedNormalButton', {timeout: 5000}).click();
+    }
+    cy.wait(5000);
+    if (hasTour) {
+        cy.takeTour(hasNext);
+    }
+})
+
 Cypress.Commands.add("createComment", (type, description, hasWarning=false, hasTour=true, hasNext=false,
                                        isRestricted) => {
     cy.get(`#commentAddLabel${type}`).click();
     // focus is not reliable in React so have to use get even though should be focussed
     cy.get('[id$=-comment-add-editor]').type(description);
-    cy.get('#commentSaveButton').click();
+    if (type === 'QUESTION') {
+        cy.get('#commentSendButton').click();
+    } else {
+        cy.get('#commentSaveButton').click();
+    }
     if (hasWarning) {
-        if (isRestricted === undefined) {
-            cy.get('#issueProceedButton', {timeout: 5000}).click();
-        } else if (isRestricted) {
-            cy.get('#proceedRestrictedButton', {timeout: 5000}).click();
-        } else {
-            cy.get('#proceedNormalButton', {timeout: 5000}).click();
-        }
-        cy.wait(5000);
-        if (hasTour) {
-            cy.takeTour(hasNext);
-        }
+        cy.handleCommentWarning(hasTour, hasNext, isRestricted);
     }
 })
 

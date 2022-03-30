@@ -29,6 +29,7 @@ describe('Authenticator:', function() {
         cy.get('#Discussion').click();
         cy.createComment('QUESTION', 'Did you receive this question?');
         cy.createQuestionOption(optionText, undefined, 'Did you receive this question?');
+        cy.sendComment();
         cy.get('#AddCollaborators').click();
         return cy.get('#inviteLinker', { timeout: 5000 }).find('input');
       }).then(input => {
