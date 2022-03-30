@@ -215,7 +215,7 @@ Cypress.Commands.add("createJob", (name, description, assigneeName, certainty, j
             cy.get(`#investibleAdd${marketId}`, { timeout: 5000 }).type(name, {force: true});
         }
         if (assigneeName) {
-            cy.get('#addAssignment').type(assigneeName + '{enter}', {delay: 60});
+            cy.get('#addAssignment').type(assigneeName + '{enter}', {delay: 60, force: true});
         }
         if (description) {
             cy.get(`#editorBox-${marketId}-planning-inv-add`).type(description);
@@ -224,7 +224,7 @@ Cypress.Commands.add("createJob", (name, description, assigneeName, certainty, j
             cy.get(`#${certainty}`).click();
         }
         if (justification) {
-            cy.get(`#editorBox-${marketId}-add-initial-vote`).type(justification);
+            cy.get(`#editorBox-${marketId}-add-initial-vote`).type(justification, {force: true});
         }
         cy.get('#planningInvestibleAddButton').click();
         cy.get('#Description', {timeout: 10000}).should('be.visible');
