@@ -224,7 +224,7 @@ Cypress.Commands.add("createJob", (name, description, assigneeName, certainty, j
             cy.get(`#${certainty}`).click();
         }
         if (justification) {
-            cy.get(`#editorBox-${marketId}-add-initial-vote`).type(justification, {force: true});
+            cy.get(`#editorBox-${marketId}-add-initial-vote`).type(justification);
         }
         cy.get('#planningInvestibleAddButton').click();
         cy.get('#Description', {timeout: 10000}).should('be.visible');
