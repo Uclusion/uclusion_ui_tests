@@ -124,7 +124,7 @@ Cypress.Commands.add("replyToComment", (parentDescription, description, firstLev
         cy.get('[id^=commentReplyButton]').click();
         cy.focused({ timeout: 10000 }).type(description);
     });
-    cy.get('#commentSaveButton').click();
+    cy.get('#commentSendButton').click();
 });
 
 Cypress.Commands.add("resolveComment", (description) => {
@@ -184,7 +184,7 @@ Cypress.Commands.add("createQuestionOptionComment", (parentDescription, optionNa
         cy.get(`#commentAddLabel${type}`).click();
         // focus is not reliable in React so have to use get even though should be focussed
         cy.get('[id$=-comment-add-editor]').type(description);
-        cy.get('#commentSaveButton').click();
+        cy.get('#commentSendButton').click();
     });
     // Click again to close
     cy.get(`#currentVotingChildren`, {timeout: 120000}).within(() => {
