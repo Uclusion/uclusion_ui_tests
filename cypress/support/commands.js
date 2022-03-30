@@ -212,7 +212,7 @@ Cypress.Commands.add("createJob", (name, description, assigneeName, certainty, j
         const marketId = end > 0 ? url.substring(begin, end) : url.substring(begin);
         if (name) {
             //cy.focused({ timeout: 10000 }).type(name);
-            cy.get(`#investibleAdd${marketId}`, { timeout: 5000 }).type(name);
+            cy.get(`#investibleAdd${marketId}`, { timeout: 5000 }).type(name, {force: true});
         }
         if (assigneeName) {
             cy.get('#addAssignment').type(assigneeName + '{enter}', {delay: 60});
