@@ -110,9 +110,9 @@ Cypress.Commands.add("createComment", (type, description, hasWarning=false, hasT
     // focus is not reliable in React so have to use get even though should be focussed
     cy.get('[id$=-comment-add-editor]').type(description);
     if (type === 'QUESTION') {
-        cy.get('#commentSendButton').click();
-    } else {
         cy.get('#commentSaveButton').click();
+    } else {
+        cy.get('#commentSendButton').click();
     }
     if (hasWarning) {
         cy.handleCommentWarning(hasTour, hasNext, isRestricted);
