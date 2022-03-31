@@ -56,8 +56,7 @@ describe('Demo 2:', function() {
       cy.navigateIntoJob('Database scaling');
       cy.editNameDescription('Database scaling', undefined, 'Consider total cost over 5 years and max latency.');
       cy.vote(75, 'Easier while still relatively few users.');
-      cy.createComment('QUESTION', 'Is clean up strategy in scope?');
-      cy.sendComment(true, false);
+      cy.createCommentImmediate('QUESTION', 'Is clean up strategy in scope?');
     });
   });
 

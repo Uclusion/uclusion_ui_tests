@@ -104,6 +104,17 @@ Cypress.Commands.add("handleCommentWarning", (hasTour=true, hasNext=false, isRes
     }
 })
 
+Cypress.Commands.add("createCommentImmediate", (type, description, hasWarning=false, hasTour=true,
+                                                hasNext=false, isRestricted) => {
+    cy.get(`#commentAddLabel${type}`).click();
+    // focus is not reliable in React so have to use get even though should be focussed
+    cy.get('[id$=-comment-add-editor]').type(description);
+    cy.get('#commentSendButton').click();
+    if (hasWarning) {
+        cy.handleCommentWarning(hasTour, hasNext, isRestricted);
+    }
+})
+
 Cypress.Commands.add("createComment", (type, description, hasWarning=false, hasTour=true, hasNext=false,
                                        isRestricted) => {
     cy.get(`#commentAddLabel${type}`).click();
