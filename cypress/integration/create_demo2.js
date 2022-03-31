@@ -52,6 +52,12 @@ describe('Demo 2:', function() {
       cy.navigateIntoJob('Cloud failover');
       //Notification: description change
       cy.editNameDescription('Cloud failover', undefined, 'Need a better strategy without buying a cadillac.');
+      cy.get(returnToChannel).click();
+      cy.navigateIntoJob('Database scaling');
+      cy.editNameDescription('Database scaling', undefined, 'Consider total cost over 5 years and max latency.');
+      cy.vote(75, 'Easier while still relatively few users.');
+      cy.createComment('QUESTION', 'Is clean up strategy in scope?');
+      cy.sendComment(true, false);
     });
   });
 
