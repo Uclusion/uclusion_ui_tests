@@ -98,9 +98,10 @@ Cypress.Commands.add("handleCommentWarning", (hasTour=true, hasNext=false, isRes
     } else {
         cy.get('#proceedNormalButton', {timeout: 5000}).click();
     }
-    cy.wait(5000);
     if (hasTour) {
         cy.takeTour(hasNext);
+    } else {
+        cy.wait(5000);
     }
 })
 
