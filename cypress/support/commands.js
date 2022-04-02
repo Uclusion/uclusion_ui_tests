@@ -78,6 +78,7 @@ Cypress.Commands.add("logOut", () => {
 Cypress.Commands.add("takeTour", (hasNext) => {
     // Need the timeouts because market can still be loading
     if (hasNext) {
+        cy.wait(1000);
         cy.get('[title=Next]', { timeout: 10000 }).click();
     }
     cy.get('[title=Close]', { timeout: 10000 }).first().click();
