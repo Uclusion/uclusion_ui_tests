@@ -132,7 +132,7 @@ Cypress.Commands.add("createComment", (type, description, hasWarning=false, hasT
     }
 })
 
-Cypress.Commands.add("replyToComment", (parentDescription, description, firstLevel=true) => {
+Cypress.Commands.add("replyToComment", (parentDescription, description) => {
     cy.contains('p', parentDescription, {timeout: 90000}).closest('[id^=c]').within(() => {
         cy.get('[id^=commentReplyButton]').click();
         cy.focused({ timeout: 10000 }).type(description);
@@ -253,7 +253,7 @@ Cypress.Commands.add("createJob", (name, description, assigneeName, certainty, j
 Cypress.Commands.add("createAndTourWorkspace", (channeName) => {
     cy.get('#Channel', { timeout: 20000 }).click();
     cy.get('#workspaceName').type(channeName);
-    cy.get('#OnboardingWizardFinish').click();
+    cy.get('#OnboardingWizardNext').click();
     cy.takeTour(false);
 })
 
