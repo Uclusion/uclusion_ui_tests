@@ -64,6 +64,51 @@ jobs:
             python -m scripts.test_and_bless -e ${env_name} -a ${github_token} -u true
 
 workflows:
+  create-onboarding:
+    jobs:
+      - prepare:
+          filters:
+            tags:
+              only: /^onboard_only.*/
+            branches:
+              ignore: /.*/
+          context: stage
+      - cypress/install:
+          filters:
+            tags:
+              only: /^onboard_only.*/
+            branches:
+              ignore: /.*/
+      - cypress/run:
+          executor: with-chrome
+          browser: chrome
+          store_artifacts: true
+          requires:
+            - prepare
+            - cypress/install
+          install-command: 'npm install --no-optional --unsafe-perm'
+          spec: cypress/integration/create_onboarding.js
+          filters:
+            tags:
+              only: /^onboard_only.*/
+            branches:
+              ignore: /.*/
+          context: stage
+      - cypress/run:
+          executor: with-chrome
+          browser: chrome
+          store_artifacts: true
+          requires:
+            - prepare
+            - cypress/install
+          install-command: 'npm install --no-optional --unsafe-perm'
+          spec: cypress/integration/create_onboarding1.js
+          filters:
+            tags:
+              only: /^onboard_only.*/
+            branches:
+              ignore: /.*/
+          context: stage
   create-demo:
     jobs:
       - prepare:
@@ -118,21 +163,6 @@ workflows:
             - cypress/install
           install-command: 'npm install --no-optional --unsafe-perm'
           spec: cypress/integration/create_demo2.js
-          filters:
-            tags:
-              only: /^demo_only.*/
-            branches:
-              ignore: /.*/
-          context: stage
-      - cypress/run:
-          executor: with-chrome
-          browser: chrome
-          store_artifacts: true
-          requires:
-            - prepare
-            - cypress/install
-          install-command: 'npm install --no-optional --unsafe-perm'
-          spec: cypress/integration/create_onboarding.js
           filters:
             tags:
               only: /^demo_only.*/

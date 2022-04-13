@@ -11,12 +11,18 @@ describe('Demo:', function() {
   describe('Onboarding creation', () => {
     it('signs up only', () => {
       const firstUserEmail = 'tuser@uclusion.com';
+      const secondUserEmail = 'tuser+04@uclusion.com';
       const firstUserName = 'John Doe';
       const userPassword = 'Testme;1';
       cy.fillSignupForm(`${destination}?utm_campaign=test#signup`, firstUserName, firstUserEmail,
           userPassword);
       cy.waitForEmail(firstUserEmail, destination, 'Please verify your email address', new Date()).then((url) => {
         cy.signIn(url, firstUserEmail, userPassword);
+        cy.get('#linkemptyInbox', {timeout: 10000}).click();
+        cy.get('#inboxEmail1').type(secondUserEmail);
+        cy.get('#inboxAddInvestible').type('Now we try a one and done');
+        cy.get('#editorBox-planning-inv-add').type('To see if onboarding is even basically working.');
+        cy.get('#planningInvestibleAddButton').click();
         cy.wait(5000);
       });
     });

@@ -290,17 +290,24 @@ Cypress.Commands.add("editNameDescription", (currentName, newName, newDescriptio
     cy.wait(5000);
 })
 
-Cypress.Commands.add("waitForInviteAndTour", (destination, userEmail, invitingUserName, userName,
-                                              userPassword) => {
+Cypress.Commands.add("waitForInvite", (destination, userEmail, invitingUserName, userName,
+                                              userPassword, doTour=false) => {
     const testStartDate = new Date();
     // Running in parallel so the email might have been sent before we got here
     testStartDate.setMinutes(testStartDate.getMinutes() - 2);
-    const inviteSubject = `${invitingUserName} invites you to a Uclusion channel`;
+    const inviteSubject = `${invitingUserName} invites you to collaborate`;
     cy.waitForEmail(userEmail, `${destination}/invite`, inviteSubject, testStartDate).then((url) =>{
         cy.fillSignupForm(url, userName, undefined, userPassword);
         cy.signIn(undefined, undefined, userPassword);
-        cy.takeTour(true);
+        if (doTour) {
+            cy.takeTour(true);
+        }
     });
+})
+
+Cypress.Commands.add("waitForInviteAndTour", (destination, userEmail, invitingUserName, userName,
+                                              userPassword) => {
+    cy.waitForInvite(destination, userEmail, invitingUserName, userName, userPassword, true);
 })
 
 Cypress.Commands.add("verifyCollaborators", (collaborators) => {
