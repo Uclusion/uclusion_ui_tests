@@ -31,31 +31,30 @@ describe('Demo:', function() {
         cy.createAdditionalUser(fourthUserEmail);
         cy.verifyCollaborators([secondUserName, thirdUserName, fourthUserName]);
         //Notification: unassigned job
-        cy.createJob('Quantum random key', 'Generate a truly random number and seed the application with it.',
-            undefined, undefined, undefined, true);
+        cy.createJob('Generate a truly random number and seed the application with it.', undefined, undefined,
+            undefined, true);
         //Notification: new approval - suggestion
         cy.createComment('SUGGEST', 'Use qRNG.', true, false, false, true);
         cy.get(returnToChannel).click();
         //Notification: description changed
-        cy.createJob('Cloud failover', 'Another crummy description.', firstUserName);
+        cy.createJob('Another crummy description.', firstUserName);
         cy.get(returnToChannel).click();
         //Notification: new approval - job
-        cy.createJob('Blog our data architecture', 'Interesting and good marketing.', firstUserName);
+        cy.createJob('Blog our data architecture. Interesting and good marketing.', firstUserName);
         cy.get(returnToChannel).click();
         //Notification: fully voted
-        cy.createJob('Upgrade Material UI', 'Becoming too difficult to maintain.', firstUserName);
+        cy.createJob('Upgrade Material UI. Becoming too difficult to maintain.', firstUserName);
         cy.createComment('SUGGEST', 'Use a React for TailWind library instead.', true, true, true, true);
         cy.get(returnToChannel).click();
-        cy.createJob('A crummy name', 'A crummy description.', firstUserName);
+        cy.createJob('A crummy description.', firstUserName);
         cy.get(returnToChannel).click();
-        cy.createJob('SPA level performance issues',
-            'Need to reduce re-renders and slowness from background API calls.', firstUserName);
+        cy.createJob('Need to reduce re-renders and slowness from background API calls.', firstUserName);
         cy.nextStage();
         cy.nextStage();
         cy.createComment('REPORT', 'Potentially endless - need feedback on how far to go.');
         cy.get(returnToChannel).click();
         //Notification: unfinished job
-        cy.createJob('Updated documentation', 'A lot of the pictures are out of date.', firstUserName);
+        cy.createJob('A lot of the pictures are out of date in documentation.', firstUserName);
         cy.nextStage();
         cy.get(returnToChannel).click();
         cy.get('#Discussion').click();

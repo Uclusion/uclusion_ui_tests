@@ -13,21 +13,21 @@ describe('Demo 1:', function() {
       const firstUserName = 'Awesome One';
       const secondUserEmail = 'tuser+02@uclusion.com';
       const secondUserName = 'Awesome Too';
-      const jobName = 'Open source our deployment scripts';
-      const firstJobName = 'Monitoring dashboard';
-      const secondJobName = 'Blog our data architecture';
-      const thirdJobName = 'SPA level performance issues';
-      const fourthJobName = 'New data compression algorithm';
-      const fifthJobName = 'Quantum random key';
+      const jobName = 'Open source our deployment scripts.';
+      const firstJobName = 'Status at a glance monitoring dashboard.';
+      const secondJobName = 'Blog our data architecture.';
+      const thirdJobName = 'Need to reduce re-renders and slowness from background API calls.';
+      const fourthJobName = 'New data compression algorithm to reduce size by half.';
+      const fifthJobName = 'Generate a truly random number and seed the application with it.';
       const userPassword = 'Testme;1';
       const returnToChannel = '#DemoChannel';
       cy.waitForInviteAndTour(destination, secondUserEmail, firstUserName, secondUserName, userPassword);
       cy.verifyCollaborators([firstUserName]);
       //Notification: new assignment
-      cy.createJob('Database scaling', 'Consider total cost and max latency.', firstUserName, 50,
+      cy.createJob('Consider total cost and max latency for database scaling.', firstUserName, 50,
           'Already have several examples of potential optimizations.');
       cy.get(returnToChannel).click();
-      cy.createJob(firstJobName, 'Status at a glance.', secondUserName);
+      cy.createJob('Status at a glance monitoring dashboard.', secondUserName);
       cy.get(returnToChannel).click();
       cy.navigateIntoJob(jobName, 'requiresInputChildren');
       cy.voteSuggestion(true, 75, 'Yes with orbs there can be other maintainers also.', true);
@@ -37,7 +37,7 @@ describe('Demo 1:', function() {
       cy.createComment('SUGGEST', 'Include the use of capabilities through the front end in the blog.');
       cy.get(returnToChannel).click();
       //Notification: please review
-      cy.createJob('Revisit onboarding', 'Need a faster route to aha.', secondUserName);
+      cy.createJob('Need a faster route to aha in onboarding.', secondUserName);
       cy.nextStage();
       cy.createComment('REPORT', 'I have removed all distractions from initial usage.');
       cy.nextStage();
@@ -57,7 +57,7 @@ describe('Demo 1:', function() {
       //Notification: resolved issue
       cy.resolveComment('The existing monitoring is good enough.');
       cy.get(returnToChannel).click();
-      cy.navigateIntoJob('Upgrade Material UI', 'requiresInputChildren');
+      cy.navigateIntoJob('Upgrade Material UI.', 'requiresInputChildren');
       cy.voteSuggestion(true, 100, 'Yes good idea.');
     });
   });

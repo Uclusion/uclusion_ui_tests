@@ -49,7 +49,7 @@ describe('Authenticator:', function() {
         cy.get('#addressAddSaveButton').should('not.be.disabled').click();
         cy.get('#emailsSentList', { timeout: 10000 }).contains(thirdUserEmail);
         // add a story for third user with vote
-        cy.createJob(undefined, jobName, thirdUserEmail, 75);
+        cy.createJob(jobName, thirdUserEmail, 75);
         cy.logOut();
         return cy.waitForEmail(thirdUserEmail, `${destination}/invite`, inviteSubject, testStartDate);
       }).then((url) => {

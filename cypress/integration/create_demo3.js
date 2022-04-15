@@ -15,7 +15,7 @@ describe('Demo 2:', function() {
       const returnToChannel = '#DemoChannel';
       const fourthUserEmail = 'tuser+03@uclusion.com';
       const fourthUserName = 'Ever Awesome';
-      const jobName = 'SPA level performance issues';
+      const jobName = 'Need to reduce re-renders and slowness from background API calls.';
       cy.waitForInviteAndTour(destination, fourthUserEmail, firstUserName, fourthUserName, userPassword);
       //Notification: unassigned to-do yellow
       cy.createTodo('whenAble', 'CommentAddYellow', 'Configuration screens rework for consistency.');
@@ -44,11 +44,11 @@ describe('Demo 2:', function() {
           'Testing best practices?', false, false, false);
       //Notification: question in question option
       cy.createQuestionOptionComment('Testing best practices?', 'Determine test ROI early', 'QUESTION', 'How early?');
-      cy.navigateIntoJob('Upgrade Material UI', 'requiresInputChildren');
+      cy.navigateIntoJob('Upgrade Material UI.', 'requiresInputChildren');
       cy.voteSuggestion(true, 50, 'Depends on effort estimate.', true);
       cy.get(returnToChannel).click();
-      cy.navigateIntoJob('A crummy name');
-      cy.editNameDescription('A crummy name', 'Two-factor authentication', 'Everyone has it.');
+      cy.navigateIntoJob('A crummy description.');
+      cy.editNameDescription('A crummy description.', 'Two-factor authentication', 'Everyone has it.');
     });
   });
 

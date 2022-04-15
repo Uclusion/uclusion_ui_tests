@@ -16,15 +16,15 @@ describe('Demo 2:', function() {
       const thirdUserName = 'Awesome More';
       const userPassword = 'Testme;1';
       const returnToChannel = '#DemoChannel';
-      const jobName = 'Quantum random key';
-      const secondJobName = 'Blog our data architecture';
+      const jobName = 'Generate a truly random number and seed the application with it.';
+      const secondJobName = 'Blog our data architecture.';
       cy.waitForInviteAndTour(destination, thirdUserEmail, firstUserName, thirdUserName, userPassword);
       cy.verifyCollaborators([secondUserName]);
       //Notification: please vote
-      cy.createJob('Open source our deployment scripts', 'We should not be solely owning any of it.', thirdUserName);
+      cy.createJob('Open source our deployment scripts. We should not be solely owning any of it.', thirdUserName);
       cy.createComment('SUGGEST', 'Convert everything we can to shared orbs.', true, true, true, false);
       cy.get(returnToChannel).click();
-      cy.createJob('New data compression algorithm', 'Looking to reduce size by half.', thirdUserName);
+      cy.createJob('New data compression algorithm to reduce size by half.', thirdUserName);
       //Notification: please choose
       cy.createComment('QUESTION', 'Which algorithm?');
       cy.createQuestionOption('DEFLATE', undefined, 'Which algorithm?', true);
@@ -34,7 +34,7 @@ describe('Demo 2:', function() {
       cy.voteOption('MLP', 100, 'Better for audio.')
       cy.get(returnToChannel).click();
       //Notification: Please approve
-      cy.createJob('Automatic AI animation of logo', 'Provide macros for walking, talking, smiling and laughing.',
+      cy.createJob('Automatic AI animation of logo. Provide macros for walking, talking, smiling and laughing.',
           secondUserName, 75, 'Will be adorable.');
       cy.get(returnToChannel).click();
       cy.navigateIntoJob(jobName, 'furtherReadyToStart');
@@ -46,15 +46,15 @@ describe('Demo 2:', function() {
       //Notification: new approval
       cy.vote(75, 'Good idea.');
       cy.get(returnToChannel).click();
-      cy.navigateIntoJob('Upgrade Material UI', 'requiresInputChildren');
+      cy.navigateIntoJob('Upgrade Material UI.', 'requiresInputChildren');
       cy.voteSuggestion(false, 100, 'Too much effort at this time.');
       cy.get(returnToChannel).click();
-      cy.navigateIntoJob('Cloud failover');
+      cy.navigateIntoJob('Another crummy description.');
       //Notification: description change
-      cy.editNameDescription('Cloud failover', undefined, 'Need a better strategy without buying a cadillac.');
+      cy.editNameDescription('Another crummy description.', 'Cloud failover', 'Need a better strategy without buying a cadillac.');
       cy.get(returnToChannel).click();
-      cy.navigateIntoJob('Database scaling');
-      cy.editNameDescription('Database scaling', undefined, 'Consider total cost over 5 years and max latency.');
+      cy.navigateIntoJob('Consider total cost and max latency for database scaling.');
+      cy.editNameDescription('Consider total cost and max latency for database scaling.', undefined, 'Consider total cost over 5 years and max latency.');
       cy.vote(75, 'Easier while still relatively few users.');
       cy.createCommentImmediate('QUESTION', 'Is clean up strategy in scope?');
     });
