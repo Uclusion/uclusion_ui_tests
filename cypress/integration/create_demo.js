@@ -19,7 +19,7 @@ describe('Demo:', function() {
       const fourthUserEmail = 'tuser+03@uclusion.com';
       const fourthUserName = 'Ever Awesome';
       const userPassword = 'Testme;1';
-      const jobName = 'Monitoring dashboard';
+      const jobName = 'Status at a glance monitoring dashboard.';
       const returnToChannel = '#DemoChannel';
       cy.fillSignupForm(`${destination}?utm_campaign=test#signup`, firstUserName, firstUserEmail,
           userPassword);
