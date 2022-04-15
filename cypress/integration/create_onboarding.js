@@ -20,8 +20,7 @@ describe('Demo:', function() {
         cy.signIn(url, firstUserEmail, userPassword);
         cy.get('#linkemptyInbox', {timeout: 10000}).click();
         cy.get('#inboxEmail1').type(secondUserEmail);
-        cy.get('#inboxAddInvestible').type('Now we try a one and done');
-        cy.get('#editorBox-planning-inv-add').type('To see if onboarding is even basically working.');
+        cy.get('#editorBox-planning-inv-add').type('Try a one and done to see if onboarding is even basically working.');
         cy.get('#planningInvestibleAddButton').click();
         cy.wait(5000);
       });
