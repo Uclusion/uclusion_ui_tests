@@ -16,7 +16,7 @@ describe('Demo 1:', function() {
       const userPassword = 'Testme;1';
       cy.waitForInvite(destination, secondUserEmail, firstUserName, secondUserName, userPassword);
       // Should be in inbox with approval notification
-      cy.get('[id^=workListItemNOT_FULLY_VOTED]', {timeout: 30000});
+      cy.get('[id^=workListItemNOT_FULLY_VOTED]', {timeout: 90000});
       cy.wait(5000);
     });
   });
