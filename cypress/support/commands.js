@@ -141,12 +141,12 @@ Cypress.Commands.add("replyToComment", (parentDescription, description) => {
 });
 
 Cypress.Commands.add("resolveComment", (description, hasWarning=false) => {
-    if (hasWarning) {
-        cy.handleCommentWarning(false);
-    }
     cy.contains('p', description, {timeout: 90000}).closest('[id^=c]').within(() => {
         cy.get('[id^=commentResolveReopenButton]').click();
     });
+    if (hasWarning) {
+        cy.handleCommentWarning(false);
+    }
 });
 
 Cypress.Commands.add("createTodo", (type, section, description) => {
