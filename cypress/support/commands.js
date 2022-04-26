@@ -75,14 +75,14 @@ Cypress.Commands.add("logOut", () => {
     cy.get('#username', { timeout: 5000 });
 })
 
-Cypress.Commands.add("takeTour", (hasNext=false) => {
+Cypress.Commands.add("takeTour", (hasNext=false, extraWaitTime=0) => {
     // Need the timeouts because market can still be loading
     if (hasNext) {
         cy.wait(1000);
         cy.get('[title=Next]', { timeout: 10000 }).click();
     }
     cy.wait(1000);
-    cy.get('[title=Close]', { timeout: 10000 }).first().click();
+    cy.get('[title=Close]', { timeout: 10000+extraWaitTime }).first().click();
 })
 
 Cypress.Commands.add("sendComment", (hasWarning=false, hasTour=true, isRestricted) => {

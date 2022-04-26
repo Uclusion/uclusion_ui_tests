@@ -55,7 +55,7 @@ describe('Demo 1:', function() {
       cy.get(returnToChannel).click();
       cy.navigateIntoJob(firstJobName);
       // Take tour for blocked
-      cy.takeTour();
+      cy.takeTour(false, 90000);
       //Notification: resolved issue
       cy.resolveComment('The existing monitoring is good enough.');
       cy.get(returnToChannel).click();
