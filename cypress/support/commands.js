@@ -140,7 +140,10 @@ Cypress.Commands.add("replyToComment", (parentDescription, description) => {
     cy.get('#commentSendButton').click();
 });
 
-Cypress.Commands.add("resolveComment", (description) => {
+Cypress.Commands.add("resolveComment", (description, hasWarning=false) => {
+    if (hasWarning) {
+        cy.handleCommentWarning(false);
+    }
     cy.contains('p', description, {timeout: 90000}).closest('[id^=c]').within(() => {
         cy.get('[id^=commentResolveReopenButton]').click();
     });

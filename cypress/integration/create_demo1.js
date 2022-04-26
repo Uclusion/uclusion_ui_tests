@@ -57,7 +57,7 @@ describe('Demo 1:', function() {
       // Take tour for blocked
       cy.takeTour(false, 90000);
       //Notification: resolved issue
-      cy.resolveComment('The existing monitoring is good enough.');
+      cy.resolveComment('The existing monitoring is good enough.', true);
       cy.get(returnToChannel).click();
       cy.navigateIntoJob('Upgrade Material UI.', 'requiresInputChildren');
       cy.voteSuggestion(true, 100, 'Yes good idea.');
