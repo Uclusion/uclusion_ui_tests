@@ -81,6 +81,7 @@ Cypress.Commands.add("takeTour", (hasNext=false) => {
         cy.wait(1000);
         cy.get('[title=Next]', { timeout: 10000 }).click();
     }
+    cy.wait(1000);
     cy.get('[title=Close]', { timeout: 10000 }).first().click();
 })
 
