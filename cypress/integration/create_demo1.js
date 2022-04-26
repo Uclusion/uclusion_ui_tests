@@ -54,6 +54,8 @@ describe('Demo 1:', function() {
       cy.voteSuggestion(true, 100, 'IBM API is fine.');
       cy.get(returnToChannel).click();
       cy.navigateIntoJob(firstJobName);
+      // Take tour for blocked
+      cy.takeTour();
       //Notification: resolved issue
       cy.resolveComment('The existing monitoring is good enough.');
       cy.get(returnToChannel).click();
