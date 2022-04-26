@@ -34,7 +34,7 @@ describe('Demo:', function() {
         cy.createJob('Generate a truly random number and seed the application with it.', undefined, undefined,
             undefined, true);
         //Notification: new approval - suggestion
-        cy.createComment('SUGGEST', 'Use qRNG.', true, false, false, true);
+        cy.createComment('SUGGEST', 'Use qRNG.', true, false, true);
         cy.get(returnToChannel).click();
         //Notification: description changed
         cy.createJob('Another crummy description.', firstUserName);
@@ -44,7 +44,7 @@ describe('Demo:', function() {
         cy.get(returnToChannel).click();
         //Notification: fully voted
         cy.createJob('Upgrade Material UI. Becoming too difficult to maintain.', firstUserName);
-        cy.createComment('SUGGEST', 'Use a React for TailWind library instead.', true, true, true, true);
+        cy.createComment('SUGGEST', 'Use a React for TailWind library instead.', true, true, true);
         cy.get(returnToChannel).click();
         cy.createJob('A crummy description.', firstUserName);
         cy.get(returnToChannel).click();

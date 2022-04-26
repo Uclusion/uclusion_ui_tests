@@ -28,7 +28,7 @@ describe('Demo 2:', function() {
       cy.get(returnToChannel).click();
       cy.get('#Discussion').click();
       //Notification: comment reply and please vote combination
-      cy.createComment('SUGGEST', 'New environment for medium lived testing.', true, false, false, true);
+      cy.createComment('SUGGEST', 'New environment for medium lived testing.', true, false, true);
       cy.replyToComment('Why not just use and selectively clean an existing environment?',
           'Could do that but would be more work than standing up a new environment.', false);
       cy.createComment('QUESTION', 'Can we adopt a better communications tool?');

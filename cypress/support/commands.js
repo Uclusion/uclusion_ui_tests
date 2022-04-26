@@ -75,7 +75,7 @@ Cypress.Commands.add("logOut", () => {
     cy.get('#username', { timeout: 5000 });
 })
 
-Cypress.Commands.add("takeTour", (hasNext) => {
+Cypress.Commands.add("takeTour", (hasNext=false) => {
     // Need the timeouts because market can still be loading
     if (hasNext) {
         cy.wait(1000);
@@ -91,7 +91,7 @@ Cypress.Commands.add("sendComment", (hasWarning=false, hasTour=true, hasNext=fal
     }
 })
 
-Cypress.Commands.add("handleCommentWarning", (hasTour=true, hasNext=false, isRestricted) => {
+Cypress.Commands.add("handleCommentWarning", (hasTour=true, isRestricted) => {
     if (isRestricted === undefined) {
         cy.get('#issueProceedButton', {timeout: 5000}).click();
     } else if (isRestricted) {
@@ -100,25 +100,24 @@ Cypress.Commands.add("handleCommentWarning", (hasTour=true, hasNext=false, isRes
         cy.get('#proceedNormalButton', {timeout: 5000}).click();
     }
     if (hasTour) {
-        cy.takeTour(hasNext);
+        cy.takeTour();
     } else {
         cy.wait(5000);
     }
 })
 
 Cypress.Commands.add("createCommentImmediate", (type, description, hasWarning=false, hasTour=true,
-                                                hasNext=false, isRestricted) => {
+                                                isRestricted) => {
     cy.get(`#commentAddLabel${type}`).click();
     // focus is not reliable in React so have to use get even though should be focussed
     cy.get('[id$=-comment-add-editor]').type(description);
     cy.get('#commentSendButton').click();
     if (hasWarning) {
-        cy.handleCommentWarning(hasTour, hasNext, isRestricted);
+        cy.handleCommentWarning(hasTour, isRestricted);
     }
 })
 
-Cypress.Commands.add("createComment", (type, description, hasWarning=false, hasTour=true, hasNext=false,
-                                       isRestricted) => {
+Cypress.Commands.add("createComment", (type, description, hasWarning=false, hasTour=true, isRestricted) => {
     cy.get(`#commentAddLabel${type}`).click();
     // focus is not reliable in React so have to use get even though should be focussed
     cy.get('[id$=-comment-add-editor]').type(description);
@@ -128,7 +127,7 @@ Cypress.Commands.add("createComment", (type, description, hasWarning=false, hasT
         cy.get('#commentSendButton').click();
     }
     if (hasWarning) {
-        cy.handleCommentWarning(hasTour, hasNext, isRestricted);
+        cy.handleCommentWarning(hasTour, isRestricted);
     }
 })
 
