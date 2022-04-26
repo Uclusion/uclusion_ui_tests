@@ -84,10 +84,10 @@ Cypress.Commands.add("takeTour", (hasNext=false) => {
     cy.get('[title=Close]', { timeout: 10000 }).first().click();
 })
 
-Cypress.Commands.add("sendComment", (hasWarning=false, hasTour=true, hasNext=false, isRestricted) => {
+Cypress.Commands.add("sendComment", (hasWarning=false, hasTour=true, isRestricted) => {
     cy.get('#commentSendButton').click();
     if (hasWarning) {
-        cy.handleCommentWarning(hasTour, hasNext, isRestricted);
+        cy.handleCommentWarning(hasTour, isRestricted);
     }
 })
 
