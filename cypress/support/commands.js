@@ -113,6 +113,7 @@ Cypress.Commands.add("handleCommentWarning", (hasTour=true, isRestricted) => {
 Cypress.Commands.add("createCommentImmediate", (type, description, hasWarning=false, hasTour=true,
                                                 isRestricted) => {
     cy.get(`#commentAddLabel${type}`).click();
+    cy.wait(1000);
     // focus is not reliable in React so have to use get even though should be focussed
     cy.get('[id$=-comment-add-editor]').type(description);
     cy.get('#commentSendButton').click();
@@ -123,6 +124,7 @@ Cypress.Commands.add("createCommentImmediate", (type, description, hasWarning=fa
 
 Cypress.Commands.add("createComment", (type, description, hasWarning=false, hasTour=true, isRestricted) => {
     cy.get(`#commentAddLabel${type}`).click();
+    cy.wait(1000);
     // focus is not reliable in React so have to use get even though should be focussed
     cy.get('[id$=-comment-add-editor]').type(description);
     if (type === 'QUESTION') {
@@ -232,12 +234,14 @@ Cypress.Commands.add("createJob", (description, assigneeName, certainty, justifi
             cy.get('#addAssignment').type(assigneeName + '{enter}', {delay: 60, force: true});
         }
         if (description) {
+            cy.wait(1000);
             cy.get(`#editorBox-${marketId}-planning-inv-add`).type(description, { timeout: 5000 });
         }
         if (certainty) {
             cy.get(`#${certainty}`).click();
         }
         if (justification) {
+            cy.wait(1000);
             cy.get(`#editorBox-${marketId}-add-initial-vote`).type(justification, { timeout: 5000 });
         }
         cy.get('#planningInvestibleAddButton').click();
