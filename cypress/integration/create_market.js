@@ -40,6 +40,7 @@ describe('Authenticator:', function() {
             .then((input) => {
               optionUrl = input.attr('value');
             });
+        cy.contains('Close').click();
         cy.get('#AddCollaborators').click();
         return cy.get('#inviteLinker', { timeout: 5000 }).find('input');
       }).then(input => {
