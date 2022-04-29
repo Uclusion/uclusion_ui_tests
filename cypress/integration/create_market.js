@@ -1,6 +1,7 @@
 
 describe('Authenticator:', function() {
   const destination = 'https://stage.uclusion.com';
+  let optionUrl;
   // Step 1: setup the application state
   beforeEach(function() {
     Cypress.on('uncaught:exception', (err, runnable) => {
@@ -28,8 +29,15 @@ describe('Authenticator:', function() {
         cy.createAndTourWorkspace('UI Smoke Channel');
         cy.get('#Discussion').click();
         cy.createComment('QUESTION', 'Did you receive this question?');
-        cy.createQuestionOption(optionText, undefined, 'Did you receive this question?');
+        cy.createQuestionOption(optionText, 'My option description', 'Did you receive this question?');
         cy.sendComment();
+        cy.get(`#currentVotingChildren`, {timeout: 120000}).within(() => {
+          cy.contains('Did you receive this question?', {timeout: 120000}).click();
+          cy.get("#shareButtonExplanation").click();
+          cy.get('#inviteLinker', { timeout: 5000 }).find('input').then((input) => {
+            optionUrl = input.attr('value');
+          });
+        });
         cy.get('#AddCollaborators').click();
         return cy.get('#inviteLinker', { timeout: 5000 }).find('input');
       }).then(input => {
@@ -61,6 +69,13 @@ describe('Authenticator:', function() {
         // Have to use wait here because otherwise contains can find the inbox not visible or job visible
         cy.wait(10000);
         cy.get('span').filter(':visible').contains('Certain');
+        cy.logOut();
+        cy.fillSignupForm(optionUrl, 'Tester Three Uclusion', 'tuser+03@uclusion.com', userPassword);
+        cy.waitForEmail('tuser+03@uclusion.com', destination, verifySubject, testStartDate);
+      }).then((url) => {
+        cy.signIn(url, 'tuser+03@uclusion.com', userPassword);
+        // Verify the option is open and visible
+        cy.contains('My option description', {timeout: 120000});
       });
     });
   });
