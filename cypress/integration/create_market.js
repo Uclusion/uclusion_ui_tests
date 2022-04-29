@@ -31,7 +31,9 @@ describe('Authenticator:', function() {
         cy.createComment('QUESTION', 'Did you receive this question?');
         cy.createQuestionOption(optionText, 'My option description', 'Did you receive this question?');
         cy.sendComment();
+        cy.wait(5000);
         cy.get(`#currentVotingChildren`, {timeout: 120000}).within(() => {
+          cy.contains(optionText, {timeout: 120000}).click();
           cy.get("#shareButtonExplanation", { timeout: 5000 }).click();
           cy.get('#inviteLinker', { timeout: 5000 }).find('input').then((input) => {
             optionUrl = input.attr('value');
