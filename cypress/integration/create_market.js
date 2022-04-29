@@ -33,7 +33,7 @@ describe('Authenticator:', function() {
         cy.sendComment();
         cy.get(`#currentVotingChildren`, {timeout: 120000}).within(() => {
           cy.contains(optionText, {timeout: 120000}).click();
-          cy.get("#shareButtonExplanation").click();
+          cy.get("#shareButtonExplanation", { timeout: 5000 }).click();
           cy.get('#inviteLinker', { timeout: 5000 }).find('input').then((input) => {
             optionUrl = input.attr('value');
           });
