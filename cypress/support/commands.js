@@ -24,8 +24,11 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
-Cypress.Commands.add("fillSignupForm", (url, userName, userEmail, userPassword) => {
+Cypress.Commands.add("fillSignupForm", (url, userName, userEmail, userPassword, useSignupLink=false) => {
     cy.visit(url, {failOnStatusCode: false});
+    if (useSignupLink) {
+        cy.contains('Don\'t have an account? Sign up').click();
+    }
     cy.get('#name', { timeout: 5000 }).type(userName);
     if (userEmail) {
         cy.get('#email').type(userEmail);

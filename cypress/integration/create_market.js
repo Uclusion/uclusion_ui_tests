@@ -73,8 +73,7 @@ describe('Authenticator:', function() {
         cy.wait(10000);
         cy.get('span').filter(':visible').contains('Certain');
         cy.logOut();
-        cy.contains('Don\'t have an account? Sign up').click();
-        cy.fillSignupForm(optionUrl, 'Tester Three Uclusion', 'tuser+03@uclusion.com', userPassword);
+        cy.fillSignupForm(optionUrl, 'Tester Three Uclusion', 'tuser+03@uclusion.com', userPassword, true);
         cy.waitForEmail('tuser+03@uclusion.com', destination, verifySubject, testStartDate);
       }).then((url) => {
         cy.signIn(url, 'tuser+03@uclusion.com', userPassword);
