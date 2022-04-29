@@ -35,10 +35,12 @@ describe('Authenticator:', function() {
         cy.get(`#currentVotingChildren`, {timeout: 120000}).within(() => {
           cy.contains(optionText, {timeout: 120000}).click();
           cy.get("#shareButtonExplanation", { timeout: 5000 }).click();
-          cy.get('#inviteLinker', { timeout: 5000 }).find('input').then((input) => {
-            optionUrl = input.attr('value');
-          });
         });
+        cy.get('#inviteLinker', { timeout: 5000 }).within(() =>
+            cy.find('input').then((input) => {
+              optionUrl = input.attr('value');
+            })
+        );
         cy.get('#AddCollaborators').click();
         return cy.get('#inviteLinker', { timeout: 5000 }).find('input');
       }).then(input => {
