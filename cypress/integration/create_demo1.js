@@ -27,7 +27,7 @@ describe('Demo 1:', function() {
       cy.createJob('Consider total cost and max latency for database scaling.', firstUserName, 50,
           'Already have several examples of potential optimizations.');
       cy.get(returnToChannel).click();
-      cy.createJob('Status at a glance monitoring dashboard.', secondUserName);
+      cy.createJob(firstJobName, secondUserName);
       cy.get(returnToChannel).click();
       cy.navigateIntoJob(jobName, 'requiresInputChildren');
       cy.voteSuggestion(true, 75, 'Yes with orbs there can be other maintainers also.', true);
@@ -54,8 +54,8 @@ describe('Demo 1:', function() {
       cy.voteSuggestion(true, 100, 'IBM API is fine.');
       cy.get(returnToChannel).click();
       cy.navigateIntoJob(firstJobName);
-      // Take tour for blocked
-      cy.takeTour(false, 90000);
+      // Take tour for blocked - if the push doesn't make it have to wait for the poll
+      cy.takeTour(false, 600000);
       //Notification: resolved issue
       cy.resolveComment('The existing monitoring is good enough.', true);
       cy.get(returnToChannel).click();
