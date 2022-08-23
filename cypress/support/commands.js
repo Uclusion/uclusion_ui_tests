@@ -24,6 +24,12 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
+import {cleanAccount} from "./fixture_management";
+
+Cypress.Commands.add("cleanAccount", (userConfiguration) => {
+    return cleanAccount(userConfiguration);
+})
+
 Cypress.Commands.add("fillSignupForm", (url, userName, userEmail, userPassword, useSignupLink=false) => {
     cy.visit(url, {failOnStatusCode: false});
     if (useSignupLink) {
