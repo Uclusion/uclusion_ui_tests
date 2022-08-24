@@ -1,5 +1,6 @@
 import _ from 'lodash';
-import {getSummariesInfo} from "./uclusion_backend";
+import {getSummariesInfo, loginUserToAccount, loginUserToMarket} from "./uclusion_backend";
+import {Auth} from "aws-amplify";
 
 
 const DELETION_TIMEOUT = 60000; // wait 60 seconds to delete a market
@@ -27,7 +28,7 @@ export function cleanAccount(userConfiguration) {
                     const deletions = signatures.map((signature) => {
                         const {market_id: marketId} = signature;
                         let globalClient;
-                        return loginUserToMarket(adminConfiguration, marketId)
+                        return loginUserToMarket(userConfiguration, marketId)
                             .then((client) => {
                                 globalClient = client;
                                 return client.markets.get();
@@ -44,8 +45,11 @@ export function cleanAccount(userConfiguration) {
                 });
             });
             return Promise.all(versionPromises);
-        }).then(() => loginUserToAccount(adminConfiguration))
+        })
+            .then(() => loginUserToAccount(userConfiguration))
             .then((client) => client.users.cleanAccount())
+            // cleanup cognito session otherwise we're still signed in (the sdk uses the same storage as the webapp)
+            .then(() => Auth.signOut())
             .then(() => console.log('Done with cleanup'));
     });
 }

@@ -54,13 +54,7 @@ export function loginUserToAccountAndGetToken(configuration) {
         });
 }
 
-export function getMessages(configuration) {
-    return getSSOInfo(configuration)
-        .then(info => {
-            const { ssoClient, idToken } = info;
-            return ssoClient.getMessages(idToken);
-        });
-}
+
 
 export function loginUserToMarket(configuration, marketId) {
     return getSSOInfo(configuration)
