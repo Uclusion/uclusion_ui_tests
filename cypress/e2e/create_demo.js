@@ -25,10 +25,7 @@ describe('Demo:', function() {
           userPassword);
       cy.waitForEmail(firstUserEmail, destination, 'Please verify your email address', new Date()).then((url) => {
         cy.signIn(url, firstUserEmail, userPassword);
-        cy.createAndTourWorkspace('Demo Channel');
-        cy.createAdditionalUser(secondUserEmail);
-        cy.createAdditionalUser(thirdUserEmail);
-        cy.createAdditionalUser(fourthUserEmail);
+        cy.createAndTourWorkspace('Testers Inc', [secondUserEmail, thirdUserEmail, fourthUserEmail]);
         cy.verifyCollaborators([secondUserName, thirdUserName, fourthUserName]);
         //Notification: unassigned job
         cy.createJob('Generate a truly random number and seed the application with it.', undefined, undefined,

@@ -41,7 +41,8 @@ describe('Authenticator:', function() {
               optionUrl = input.attr('value');
             });
         cy.contains('Close').click();
-        cy.get('#AddCollaborators').click();
+        cy.get('#workspaceMenuButton').click()
+        cy.get('#addWorkspaceIconId').click();
         return cy.get('#inviteLinker', { timeout: 5000 }).find('input');
       }).then(input => {
         const inviteUrl = input.attr('value');
@@ -51,14 +52,15 @@ describe('Authenticator:', function() {
         cy.waitForEmail(secondUserEmail, destination, verifySubject, testStartDate);
       }).then((url) => {
         cy.signIn(url, secondUserEmail, userPassword);
-        cy.takeTour(true);
         cy.get('#Discussion').click();
         cy.get('#currentVotingChildren', { timeout: 60000 }).contains(optionText);
-        cy.get('#AddCollaborators').click();
+        cy.get('#workspaceMenuButton').click();
+        cy.get('#addWorkspaceIconId').click();
         // https://github.com/cypress-io/cypress/issues/5827
-        cy.get('#email1').should('not.be.disabled').type(thirdUserEmail, {force: true});
+        cy.get('#emailEntryBox').type(thirdUserEmail + '{enter}', {delay: 60, force: true});
         cy.get('#addressAddSaveButton').should('not.be.disabled').click();
         cy.get('#emailsSentList', { timeout: 10000 }).contains(thirdUserEmail);
+        cy.get('#closeAddNewUsers').click();
         // add a story for third user with vote
         cy.createJob(jobName, thirdUserEmail, 75);
         cy.logOut();
@@ -67,7 +69,6 @@ describe('Authenticator:', function() {
         cy.fillSignupForm(url, 'Tester Uclusion', undefined, userPassword);
         // Not requiring a third entry of the password here would be nice - have put in a when convenient for it
         cy.signIn(undefined, undefined, userPassword);
-        cy.takeTour(true);
         cy.navigateIntoJob(jobName);
         // Have to use wait here because otherwise contains can find the inbox not visible or job visible
         cy.wait(10000);

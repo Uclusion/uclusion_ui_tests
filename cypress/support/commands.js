@@ -118,6 +118,7 @@ Cypress.Commands.add("handleCommentWarning", (hasTour=true, isRestricted) => {
 
 Cypress.Commands.add("createCommentImmediate", (type, description, hasWarning=false, hasTour=true,
                                                 isRestricted) => {
+    cy.get('#Todos').click();
     cy.get(`#commentAddLabel${type}`).click();
     cy.wait(1000);
     // focus is not reliable in React so have to use get even though should be focussed
@@ -169,8 +170,12 @@ Cypress.Commands.add("createTodo", (type, section, description) => {
     });
 })
 
-Cypress.Commands.add("navigateIntoJob", (name, sectionSelector='swimLanesChildren') => {
-    cy.get('#Jobs', {timeout: 30000}).click();
+Cypress.Commands.add("navigateIntoJob", (name, isAssigned=true, sectionSelector='swimLanesChildren') => {
+    if (isAssigned) {
+        cy.get('#Assigned Jobs', {timeout: 30000}).click();
+    } else {
+        cy.get('#Backlog', {timeout: 30000}).click();
+    }
     cy.get(`#${sectionSelector}`, {timeout: 120000}).contains(name, {timeout: 180000}).click();
 })
 
@@ -231,24 +236,24 @@ Cypress.Commands.add("voteOption", (optionName, certainty, reason) => {
 })
 
 Cypress.Commands.add("createJob", (description, assigneeName, certainty, justification, isReady) => {
-    cy.get('#AddJob', { timeout: 5000 }).click();
+    cy.get('#Assigned Jobs', { timeout: 5000 }).click();
+    cy.get('#addJob', { timeout: 5000 }).click();
     cy.url().then(url => {
-        const begin = url.indexOf('dialog') + 7;
-        const end = url.indexOf('#');
-        const marketId = end > 0 ? url.substring(begin, end) : url.substring(begin);
+        const end = url.indexOf('?');
+        const groupId = url.substring(end);
         if (assigneeName) {
             cy.get('#addAssignment').type(assigneeName + '{enter}', {delay: 60, force: true});
         }
         if (description) {
             cy.wait(1000);
-            cy.get(`#editorBox-${marketId}-planning-inv-add`).type(description, { timeout: 5000 });
+            cy.get(`#editorBox-${groupId}-planning-inv-add`).type(description, { timeout: 5000 });
         }
         if (certainty) {
             cy.get(`#${certainty}`).click();
         }
         if (justification) {
             cy.wait(1000);
-            cy.get(`#editorBox-${marketId}-add-initial-vote`).type(justification, { timeout: 5000 });
+            cy.get(`#editorBox-${groupId}-add-initial-vote`).type(justification, { timeout: 5000 });
         }
         cy.get('#planningInvestibleAddButton').click();
         cy.get('#Description', {timeout: 10000}).should('be.visible');
@@ -261,11 +266,13 @@ Cypress.Commands.add("createJob", (description, assigneeName, certainty, justifi
     });
 })
 
-Cypress.Commands.add("createAndTourWorkspace", (channeName) => {
-    cy.get('#Channel', { timeout: 20000 }).click();
-    cy.get('#workspaceName').type(channeName);
+Cypress.Commands.add("createAndTourWorkspace", (name, participants=[]) => {
+    cy.get('#workspaceName').type(name);
     cy.get('#OnboardingWizardNext').click();
-    cy.takeTour(false);
+    participants.forEach((participant) => {
+        cy.get('#emailEntryBox').type(participant + '{enter}', {delay: 60, force: true});
+    });
+    cy.get('#OnboardingWizardNext').click();
 })
 
 Cypress.Commands.add("vote", (certainty, reason) => {
@@ -322,7 +329,7 @@ Cypress.Commands.add("waitForInviteAndTour", (destination, userEmail, invitingUs
 })
 
 Cypress.Commands.add("verifyCollaborators", (collaborators) => {
-    cy.get('#Discussion').click();
+    cy.get('#Settings').click();
     collaborators.forEach((collaborator) => {
         cy.contains(collaborator, {timeout: 180000});
     });
