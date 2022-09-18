@@ -267,7 +267,7 @@ Cypress.Commands.add("createJob", (description, assigneeName, certainty, justifi
 })
 
 Cypress.Commands.add("createAndTourWorkspace", (name, participants=[]) => {
-    cy.get('#workspaceName').type(name);
+    cy.get('#workspaceName', { timeout: 8000 }).type(name);
     cy.get('#OnboardingWizardNext').click();
     participants.forEach((participant) => {
         cy.get('#emailEntryBox').type(participant + '{enter}', {delay: 60, force: true});
