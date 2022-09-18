@@ -266,13 +266,19 @@ Cypress.Commands.add("createJob", (description, assigneeName, certainty, justifi
     });
 })
 
-Cypress.Commands.add("createAndTourWorkspace", (name, participants=[]) => {
+Cypress.Commands.add("createAndTourWorkspace", (name, groupName, participants=[]) => {
     cy.get('#workspaceName', { timeout: 8000 }).type(name);
     cy.get('#OnboardingWizardNext').click();
-    participants.forEach((participant) => {
-        cy.get('#emailEntryBox').type(participant + '{enter}', {delay: 60, force: true});
-    });
+    cy.get('#groupName').type(groupName);
     cy.get('#OnboardingWizardNext').click();
+    if (_.isEmpty(participants)) {
+        cy.get('#OnboardingWizardSkip').click();
+    } else {
+        participants.forEach((participant) => {
+            cy.get('#emailEntryBox').type(participant + '{enter}', {delay: 60, force: true});
+        });
+        cy.get('#OnboardingWizardNext').click();
+    }
 })
 
 Cypress.Commands.add("vote", (certainty, reason) => {
