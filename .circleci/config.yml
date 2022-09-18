@@ -87,7 +87,7 @@ workflows:
             - prepare
             - cypress/install
           install-command: 'npm install --no-optional --unsafe-perm'
-          spec: cypress/integration/create_onboarding.js
+          spec: cypress/e2e/create_onboarding.js
           filters:
             tags:
               only: /^onboard_only.*/
@@ -102,7 +102,7 @@ workflows:
             - prepare
             - cypress/install
           install-command: 'npm install --no-optional --unsafe-perm'
-          spec: cypress/integration/create_onboarding1.js
+          spec: cypress/e2e/create_onboarding1.js
           filters:
             tags:
               only: /^onboard_only.*/
@@ -132,7 +132,7 @@ workflows:
             - prepare
             - cypress/install
           install-command: 'npm install --no-optional --unsafe-perm'
-          spec: cypress/integration/create_demo.js
+          spec: cypress/e2e/create_demo.js
           filters:
             tags:
               only: /^demo_only.*/
@@ -147,7 +147,7 @@ workflows:
             - prepare
             - cypress/install
           install-command: 'npm install --no-optional --unsafe-perm'
-          spec: cypress/integration/create_demo1.js
+          spec: cypress/e2e/create_demo1.js
           filters:
             tags:
               only: /^demo_only.*/
@@ -162,7 +162,7 @@ workflows:
             - prepare
             - cypress/install
           install-command: 'npm install --no-optional --unsafe-perm'
-          spec: cypress/integration/create_demo2.js
+          spec: cypress/e2e/create_demo2.js
           filters:
             tags:
               only: /^demo_only.*/
@@ -177,7 +177,7 @@ workflows:
             - prepare
             - cypress/install
           install-command: 'npm install --no-optional --unsafe-perm'
-          spec: cypress/integration/create_demo3.js
+          spec: cypress/e2e/create_demo3.js
           filters:
             tags:
               only: /^demo_only.*/
@@ -205,7 +205,7 @@ workflows:
             - prepare
             - cypress/install
           install-command: 'npm install --no-optional --unsafe-perm'
-          spec: cypress/integration/create_market.js
+          spec: cypress/e2e/create_market.js
           filters:
             tags:
               only: /^stage_only.*/
