@@ -271,6 +271,7 @@ Cypress.Commands.add("createAndTourWorkspace", (name, groupName, participants=[]
     cy.get('#OnboardingWizardNext').click();
     cy.get('#groupName').type(groupName);
     cy.get('#OnboardingWizardNext').click();
+    cy.get('#inviteLinker', { timeout: 8000 }).should('be.visible');
     if (_.isEmpty(participants)) {
         cy.get('#OnboardingWizardSkip').click();
     } else {
