@@ -4,18 +4,12 @@ const util = require("util");
 const clipboardy = require('clipboardy');
 
 module.exports = (on, config) => {
-    on('task', {
-        // Clipboard plugin
-        getClipboard: () => {
-            return clipboardy.readSync();
-        },
-    });
-}
-
-module.exports = (on, config) => {
     // `on` is used to hook into various events Cypress emits
     // `config` is the resolved Cypress config
     on("task", {
+        "getClipboard": () => {
+            return clipboardy.readSync();
+        },
         "gmail:check": async args => {
             do {
                 const emails = await gmail.get_messages(
