@@ -39,7 +39,7 @@ describe('Authenticator:', function() {
         cy.get('#closeAddNewUsers').click();
         cy.logOut();
         const relativeInviteUrl = inviteUrl.substring(inviteUrl.indexOf('/invite'));
-        cy.visit(relativeInviteUrl, {failOnStatusCode: false});
+        cy.visit(destination + relativeInviteUrl, {failOnStatusCode: false});
         cy.fillSignupForm(inviteUrl, 'Tester Two Uclusion', secondUserEmail, userPassword);
         cy.waitForEmail(secondUserEmail, destination, verifySubject, testStartDate);
       }).then((url) => {
