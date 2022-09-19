@@ -1,6 +1,16 @@
 const path = require("path");
 const gmail = require("gmail-tester");
 const util = require("util");
+const clipboardy = require('clipboardy');
+
+module.exports = (on, config) => {
+    on('task', {
+        // Clipboard plugin
+        getClipboard: () => {
+            return clipboardy.readSync();
+        },
+    });
+}
 
 module.exports = (on, config) => {
     // `on` is used to hook into various events Cypress emits
