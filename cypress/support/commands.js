@@ -24,6 +24,7 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
+import "cypress-real-events/support";
 import {cleanAccount} from "./fixture_management";
 
 Cypress.Commands.add("cleanAccount", (userConfiguration) => {
