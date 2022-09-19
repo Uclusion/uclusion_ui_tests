@@ -33,7 +33,7 @@ describe('Authenticator:', function() {
         cy.wait(5000);
         cy.get('#workspaceMenuButton').click()
         cy.get('#addWorkspaceIconId').click();
-        // Tried real click so would work in Chrome but didn't work
+        // If switch to Chrome then try realClick() below
         cy.get('#copyInviteLink').click();
         return cy.task('getClipboard');
       }).then(inviteUrl => {
