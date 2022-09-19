@@ -33,8 +33,7 @@ describe('Authenticator:', function() {
         cy.wait(5000);
         cy.get('#workspaceMenuButton').click()
         cy.get('#addWorkspaceIconId').click();
-        cy.get('#copyInviteLink').click();
-        return navigator.clipboard.readText();
+        return cy.get('#copyInviteLink').click().then(() => navigator.clipboard.readText());
       }).then(inviteUrl => {
         cy.get('#closeAddNewUsers').click();
         cy.logOut();
