@@ -35,11 +35,11 @@ describe('Authenticator:', function() {
         cy.get('#addWorkspaceIconId').click();
         cy.get('#copyInviteLink').realClick();
         return cy.task('getClipboard');
-      }).then(inviteUrl => {
+      }).then(clippedInviteUrl => {
         cy.get('#closeAddNewUsers').click();
         cy.logOut();
-        const relativeInviteUrl = inviteUrl.substring(inviteUrl.indexOf('/invite'));
-        cy.visit(destination + relativeInviteUrl, {failOnStatusCode: false});
+        const inviteUrl = destination + clippedInviteUrl.substring(inviteUrl.indexOf('/invite'));
+        cy.visit(inviteUrl, {failOnStatusCode: false});
         cy.fillSignupForm(inviteUrl, 'Tester Two Uclusion', secondUserEmail, userPassword);
         cy.waitForEmail(secondUserEmail, destination, verifySubject, testStartDate);
       }).then((url) => {
