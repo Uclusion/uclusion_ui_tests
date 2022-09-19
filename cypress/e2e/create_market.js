@@ -33,9 +33,9 @@ describe('Authenticator:', function() {
         cy.wait(5000);
         cy.get('#workspaceMenuButton').click()
         cy.get('#addWorkspaceIconId').click();
-        return cy.get('#inviteLinker', { timeout: 5000 }).find('input');
-      }).then(input => {
-        const inviteUrl = input.attr('value');
+        cy.get('#copyInviteLink').click();
+        return navigator.clipboard.readText();
+      }).then(inviteUrl => {
         cy.get('#closeAddNewUsers').click();
         cy.logOut();
         cy.visit(inviteUrl, {failOnStatusCode: false});
