@@ -36,11 +36,10 @@ describe('Authenticator:', function() {
         // Tried real click so would work in Chrome but didn't work
         cy.get('#copyInviteLink').click();
         return cy.task('getClipboard');
-      }).then(clippedInviteUrl => {
-        cy.log(`clip board variable is ${clippedInviteUrl}`);
+      }).then(inviteUrl => {
+        cy.log(`clip board variable is ${inviteUrl}`);
         cy.get('#closeAddNewUsers').click();
         cy.logOut();
-        const inviteUrl = destination + clippedInviteUrl.substring(clippedInviteUrl.indexOf('/invite'));
         cy.fillSignupForm(inviteUrl, 'Tester Two Uclusion', secondUserEmail, userPassword);
         cy.waitForEmail(secondUserEmail, destination, verifySubject, testStartDate);
       }).then((url) => {
