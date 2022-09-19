@@ -33,14 +33,14 @@ describe('Authenticator:', function() {
         cy.wait(5000);
         cy.get('#workspaceMenuButton').click()
         cy.get('#addWorkspaceIconId').click();
-        cy.get('#copyInviteLink').realClick();
+        // Tried real click so would work in Chrome but didn't work
+        cy.get('#copyInviteLink').click();
         return cy.task('getClipboard');
       }).then(clippedInviteUrl => {
         cy.log(`clip board variable is ${clippedInviteUrl}`);
         cy.get('#closeAddNewUsers').click();
         cy.logOut();
         const inviteUrl = destination + clippedInviteUrl.substring(clippedInviteUrl.indexOf('/invite'));
-        cy.log(`invite url is ${inviteUrl}`);
         cy.fillSignupForm(inviteUrl, 'Tester Two Uclusion', secondUserEmail, userPassword);
         cy.waitForEmail(secondUserEmail, destination, verifySubject, testStartDate);
       }).then((url) => {
