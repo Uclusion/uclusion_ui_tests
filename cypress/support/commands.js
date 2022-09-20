@@ -256,7 +256,7 @@ Cypress.Commands.add("createJob", (description, assigneeName, certainty, justifi
             cy.get(`#editorBox-${groupId}-add-initial-vote`).type(justification, { timeout: 5000 });
         }
         cy.get('#planningInvestibleAddButton').click();
-        cy.get('#Description', {timeout: 10000}).should('be.visible');
+        cy.get('#Details', {timeout: 10000}).should('be.visible');
         if (isReady) {
             cy.get('#readyToStartCheckbox').click();
             cy.get('#readyToStartCheckbox').within(() => {
