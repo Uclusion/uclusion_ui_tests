@@ -173,7 +173,7 @@ Cypress.Commands.add("createTodo", (type, section, description) => {
 
 Cypress.Commands.add("navigateIntoJob", (name, isAssigned=true, sectionSelector='swimLanesChildren') => {
     if (isAssigned) {
-        cy.get('#Assigned Jobs', {timeout: 30000}).click();
+        cy.get('#AssignedJobs', {timeout: 30000}).click();
     } else {
         cy.get('#Backlog', {timeout: 30000}).click();
     }
@@ -237,7 +237,7 @@ Cypress.Commands.add("voteOption", (optionName, certainty, reason) => {
 })
 
 Cypress.Commands.add("createJob", (description, assigneeName, certainty, justification, isReady) => {
-    cy.get('#Assigned Jobs', { timeout: 5000 }).click();
+    cy.get('#AssignedJobs', { timeout: 5000 }).click();
     cy.get('#addJob', { timeout: 5000 }).click();
     cy.url().then(url => {
         const end = url.indexOf('?');
