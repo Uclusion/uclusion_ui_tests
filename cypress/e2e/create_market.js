@@ -56,7 +56,6 @@ describe('Authenticator:', function() {
         // Not requiring a third entry of the password here would be nice - have put in a when convenient for it
         cy.signIn(undefined, undefined, userPassword);
         cy.navigateIntoJob(jobName);
-        cy.get('#Questions').click();
         // Have to use wait here because otherwise contains can find the inbox not visible or job visible
         cy.wait(10000);
         cy.get('span').filter(':visible').contains('Certain');
