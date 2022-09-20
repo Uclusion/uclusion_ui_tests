@@ -171,7 +171,7 @@ Cypress.Commands.add("createTodo", (type, section, description) => {
     });
 })
 
-Cypress.Commands.add("navigateIntoJob", (name, isAssigned=true, sectionSelector='swimLanesChildren') => {
+Cypress.Commands.add("navigateIntoJob", (name, isAssigned=true, sectionSelector='storiesSection') => {
     if (isAssigned) {
         cy.get('#AssignedJobs', {timeout: 30000}).click();
     } else {
