@@ -119,7 +119,7 @@ Cypress.Commands.add("handleCommentWarning", (hasTour=true, isRestricted) => {
 
 Cypress.Commands.add("createCommentImmediate", (type, description, hasWarning=false, hasTour=true,
                                                 isRestricted) => {
-    cy.get('#Todos').click();
+    cy.get('#Bugs').click();
     cy.get(`#commentAddLabel${type}`).click();
     cy.wait(1000);
     // focus is not reliable in React so have to use get even though should be focussed
@@ -175,7 +175,7 @@ Cypress.Commands.add("navigateIntoJob", (name, isAssigned=true, sectionSelector=
     if (isAssigned) {
         cy.get('#AssignedJobs', {timeout: 30000}).click();
     } else {
-        cy.get('#Backlog', {timeout: 30000}).click();
+        cy.get('#JobBacklog', {timeout: 30000}).click();
     }
     cy.get(`#${sectionSelector}`, {timeout: 120000}).contains(name, {timeout: 180000}).click();
 })
@@ -256,7 +256,7 @@ Cypress.Commands.add("createJob", (description, assigneeName, certainty, justifi
             cy.get(`#editorBox-${groupId}-add-initial-vote`).type(justification, { timeout: 5000 });
         }
         cy.get('#planningInvestibleAddButton').click();
-        cy.get('#OverviewApprovals', {timeout: 10000}).should('be.visible');
+        cy.get('#Overview', {timeout: 10000}).should('be.visible');
         if (isReady) {
             cy.get('#readyToStartCheckbox').click();
             cy.get('#readyToStartCheckbox').within(() => {
