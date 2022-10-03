@@ -269,7 +269,7 @@ Cypress.Commands.add("createJob", (description, assigneeName, certainty, justifi
 Cypress.Commands.add("createAndTourWorkspace", (name, groupName, participants=[]) => {
     cy.get('#workspaceName', { timeout: 8000 }).type(name);
     cy.get('#OnboardingWizardNext').click();
-    cy.get('#groupName').type(groupName);
+    cy.get('#groupName', { timeout: 8000 }).type(groupName);
     cy.get('#OnboardingWizardNext').click();
     cy.get('#inviteLinker', { timeout: 8000 }).should('be.visible');
     if (_.isEmpty(participants)) {
