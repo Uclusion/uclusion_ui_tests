@@ -236,26 +236,30 @@ Cypress.Commands.add("voteOption", (optionName, certainty, reason) => {
     });
 })
 
-Cypress.Commands.add("createJob", (description, assigneeName, certainty, justification, isReady) => {
+Cypress.Commands.add("createJob", (description, assigneeName, certainty,
+                                   justification,
+                                   isReady) => {
     cy.get('#AssignedJobs', { timeout: 5000 }).click();
-    cy.get('#addJob', { timeout: 5000 }).click();
     cy.url().then(url => {
-        const groupId = url.substring(url.indexOf('=') + 1);
+        cy.get('#addJob', { timeout: 5000 }).click();
+        cy.get('#editorBox-addJobWizard', { timeout: 5000 }).type(description, { timeout: 5000 });
         if (assigneeName) {
+            cy.get('#OnboardingWizardNext').click();
             cy.get('#addAssignment').type(assigneeName + '{enter}', {delay: 60, force: true});
+            if (certainty) {
+                cy.get('#OnboardingWizardNext').click();
+                cy.get(`#${certainty}`).click();
+                if (justification) {
+                    cy.wait(1000);
+                    cy.get('[id$=-newjobapproveeditor]').type(justification, { timeout: 5000 });
+                }
+                cy.get('#OnboardingWizardNext').click();
+            } else {
+                cy.get('#OnboardingWizardSkip').click();
+            }
+        } else {
+            cy.get('#OnboardingWizardSkip').click();
         }
-        if (description) {
-            cy.wait(1000);
-            cy.get(`#editorBox-${groupId}-planning-inv-add`).type(description, { timeout: 5000 });
-        }
-        if (certainty) {
-            cy.get(`#${certainty}`).click();
-        }
-        if (justification) {
-            cy.wait(1000);
-            cy.get(`#editorBox-${groupId}-add-initial-vote`).type(justification, { timeout: 5000 });
-        }
-        cy.get('#planningInvestibleAddButton').click();
         cy.get('#Overview', {timeout: 10000}).should('be.visible');
         if (isReady) {
             cy.get('#readyToStartCheckbox').click();
