@@ -200,6 +200,8 @@ workflows:
             branches:
               ignore: /.*/
       - cypress/run:
+          executor: with-chrome
+          browser: chrome
           store_artifacts: true
           requires:
             - prepare
