@@ -11,7 +11,23 @@ export function sleep(ms) {
     })
 }
 
-
+export function deleteCognitoUser(userConfiguration) {
+    return Auth.signIn(userConfiguration.username, userConfiguration.password)
+        .then(() => {
+            console.log(`Logged in user ${userConfiguration.username}`);
+        })
+        .then(() => {
+            return Auth.currentAuthenticatedUser()
+                .then((user) => user.deleteUser(() => {}))
+        })
+        .then(() => console.log(`deleted user ${userConfiguration.username}`))
+        .then(() => Auth.signOut())
+        .catch((error) => {
+            console.error(error);
+            console.log(`failed to delete user with credentials ${userConfiguration.username} and password: ${userConfiguration.password}`);
+            return Auth.signOut();
+        });
+}
 export function cleanAccount(userConfiguration) {
     const promise = getSummariesInfo(userConfiguration);
     return promise.then((summariesInfo) => {

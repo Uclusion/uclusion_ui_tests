@@ -205,7 +205,7 @@ workflows:
             - prepare
             - cypress/install
           install-command: 'npm install --no-optional --unsafe-perm'
-          spec: cypress/e2e/create_market.js
+          spec: cypress/e2e/create_workspace.js
           filters:
             tags:
               only: /^stage_only.*/
