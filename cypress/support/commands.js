@@ -360,7 +360,7 @@ Cypress.Commands.add("createAdditionalUser", (userEmail) => {
     cy.get('#workspaceMenuButton').click();
     cy.get('#addWorkspaceIconId').click();
     // https://github.com/cypress-io/cypress/issues/5827
-    cy.get('#emailEntryBox').type(userEmail + '{enter}', {delay: 60, force: true});
+    cy.get('#emailEntryBox').type(userEmail + '{enter}', {delay: 100, force: true});
     cy.get('#addressAddSaveButton').should('not.be.disabled').click();
     cy.get('#emailsSentList', { timeout: 10000 }).contains(userEmail);
     cy.get('#closeAddNewUsers').click();
