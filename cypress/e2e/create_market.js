@@ -46,20 +46,19 @@ describe('Authenticator:', function() {
         cy.signIn(url, secondUserEmail, userPassword);
         cy.get('#Discussion', { timeout: 60000 }).click();
         cy.get('#currentVotingChildren', { timeout: 60000 }).contains(optionText);
-        // TODO Put back when add user fixed
-      //   cy.createAdditionalUser(thirdUserEmail);
-      //   // add a story for third user with vote
-      //   cy.createJob(jobName, thirdUserEmail, 75);
-      //   cy.logOut();
-      //   return cy.waitForEmail(thirdUserEmail, `${destination}/invite`, inviteSubject, testStartDate);
-      // }).then((url) => {
-      //   cy.fillSignupForm(url, 'Tester Uclusion', undefined, userPassword);
-      //   // Not requiring a third entry of the password here would be nice - have put in a when convenient for it
-      //   cy.signIn(undefined, undefined, userPassword);
-      //   cy.navigateIntoJob(jobName);
-      //   // Have to use wait here because otherwise contains can find the inbox not visible or job visible
-      //   cy.wait(10000);
-      //   cy.get('span').filter(':visible').contains('Certain');
+        cy.createAdditionalUser(thirdUserEmail);
+        // add a story for third user with vote
+        cy.createJob(jobName, thirdUserEmail, 75);
+        cy.logOut();
+        return cy.waitForEmail(thirdUserEmail, `${destination}/invite`, inviteSubject, testStartDate);
+      }).then((url) => {
+        cy.fillSignupForm(url, 'Tester Uclusion', undefined, userPassword);
+        // Not requiring a third entry of the password here would be nice - have put in a when convenient for it
+        cy.signIn(undefined, undefined, userPassword);
+        cy.navigateIntoJob(jobName);
+        // Have to use wait here because otherwise contains can find the inbox not visible or job visible
+        cy.wait(10000);
+        cy.get('span').filter(':visible').contains('Certain');
       });
     });
   });
