@@ -278,7 +278,7 @@ Cypress.Commands.add("createAndTourWorkspace", (name, groupName, participants=[]
     cy.get('#OnboardingWizardNext').click();
     cy.get('#inviteLinker', { timeout: 8000 }).should('be.visible');
     if (_.isEmpty(participants)) {
-        cy.get('#OnboardingWizardSkip').click();
+        cy.get('#OnboardingWizardNext').click();
     } else {
         participants.forEach((participant) => {
             cy.get('#emailEntryBox').type(participant + '{enter}', {delay: 60, force: true});
