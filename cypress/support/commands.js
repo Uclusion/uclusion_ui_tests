@@ -130,11 +130,16 @@ Cypress.Commands.add("createCommentImmediate", (type, description, hasWarning=fa
     }
 })
 
-Cypress.Commands.add("createComment", (type, description, hasWarning=false, hasTour=true, isRestricted) => {
+Cypress.Commands.add("createComment", (type, description, hasWarning=false, hasTour=true,
+                                       isRestricted, startingSelector) => {
     cy.get(`#commentAddLabel${type}`).click();
     cy.wait(1000);
     // focus is not reliable in React so have to use get even though should be focussed
-    cy.get('[id$=-comment-add-editor]').type(description);
+    if (startingSelector) {
+        cy.get(`[id^=${startingSelector}]`).type(description);
+    } else {
+        cy.get('[id$=-comment-add-editor]').type(description);
+    }
     if (type === 'QUESTION') {
         cy.get('#commentSaveButton').click();
     } else {
