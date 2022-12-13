@@ -136,7 +136,7 @@ Cypress.Commands.add("createComment", (type, description, hasWarning=false, hasT
     cy.wait(1000);
     // focus is not reliable in React so have to use get even though should be focussed
     if (startingSelector) {
-        cy.get(`[id^=${startingSelector}]`).type(description);
+        cy.get(`[id^=editorBox-${startingSelector}]`).type(description);
     } else {
         cy.get('[id$=-comment-add-editor]').type(description);
     }

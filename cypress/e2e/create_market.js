@@ -27,7 +27,7 @@ describe('Authenticator:', function() {
         cy.signIn(url, firstUserEmail, userPassword);
         cy.createAndTourWorkspace('UI Smoke', 'Smokers');
         cy.get('#Discussion').click();
-        cy.createComment('QUESTION', 'Did you receive this question?', false, false, false, 'editorBox-planningDialog');
+        cy.createComment('QUESTION', 'Did you receive this question?', false, false, false, 'planningDialog');
         cy.createQuestionOption(optionText, 'My option description', 'Did you receive this question?');
         cy.sendComment();
         cy.wait(5000);
