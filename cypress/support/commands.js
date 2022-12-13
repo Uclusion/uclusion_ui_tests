@@ -140,11 +140,16 @@ Cypress.Commands.add("createComment", (type, description, hasWarning=false, hasT
     } else {
         cy.get('[id$=-comment-add-editor]').type(description);
     }
+    let buttonId;
     if (type === 'QUESTION') {
-        cy.get('#commentSaveButton').click();
+        buttonId = '#commentSaveButton';
     } else {
-        cy.get('#commentSendButton').click();
+        buttonId = '#commentSendButton';
     }
+    if (startingSelector) {
+        buttonId += startingSelector;
+    }
+    cy.get(buttonId).click();
     if (hasWarning) {
         cy.handleCommentWarning(hasTour, isRestricted);
     }
