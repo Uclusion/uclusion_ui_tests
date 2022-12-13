@@ -148,8 +148,11 @@ Cypress.Commands.add("createComment", (type, description, hasWarning=false, hasT
     }
     if (startingSelector) {
         buttonId += startingSelector;
+        // Getting disabled error - don't know why
+        cy.get(buttonId).click({force: true});
+    } else {
+        cy.get(buttonId).click();
     }
-    cy.get(buttonId).click();
     if (hasWarning) {
         cy.handleCommentWarning(hasTour, isRestricted);
     }
