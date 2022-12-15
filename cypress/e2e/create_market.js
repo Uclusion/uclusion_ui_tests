@@ -38,7 +38,6 @@ describe('Authenticator:', function() {
         return cy.task('getClipboard');
       }).then(inviteUrl => {
         cy.log(`clip board variable is ${inviteUrl}`);
-        cy.get('#closeAddNewUsers').click();
         cy.logOut();
         cy.fillSignupForm(inviteUrl, 'Tester Two Uclusion', secondUserEmail, userPassword);
         cy.waitForEmail(secondUserEmail, destination, verifySubject, testStartDate);
