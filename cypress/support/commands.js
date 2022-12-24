@@ -52,7 +52,7 @@ Cypress.Commands.add("waitForEmail", (userEmail, destination, subject, testStart
         subject,
         after: testStartDate,
         include_body: true
-    }, { timeout: 180000 }).then(emails => {
+    }, { timeout: 360000 }).then(emails => {
         assert.isNotNull(emails, 'No email returned');
         assert.isNotEmpty(emails, 'Email was not found');
         assert.lengthOf(emails, 1, 'Too many emails - maybe concurrent tests');
