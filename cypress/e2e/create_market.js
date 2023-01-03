@@ -31,8 +31,7 @@ describe('Authenticator:', function() {
         cy.createQuestionOption(optionText, 'My option description', 'Did you receive this question?');
         cy.sendComment();
         cy.wait(5000);
-        cy.get('#workspaceMenuButton').click()
-        cy.get('#addWorkspaceIconId').click();
+        cy.get('#Addcollaborators').click();
         // If switch to Chrome then try realClick() below
         cy.get('#copyInviteLink').click();
         return cy.task('getClipboard');
