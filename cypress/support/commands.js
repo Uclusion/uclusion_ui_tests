@@ -366,8 +366,7 @@ Cypress.Commands.add("nextStage", () => {
 });
 
 Cypress.Commands.add("createAdditionalUser", (userEmail) => {
-    cy.get('#workspaceMenuButton').click();
-    cy.get('#addWorkspaceIconId').click();
+    cy.get('#Addcollaborators').click();
     cy.get('#emailEntryBox').type(userEmail);
     cy.get('#OnboardingWizardNext').click();
 })
