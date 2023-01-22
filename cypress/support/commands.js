@@ -251,7 +251,7 @@ Cypress.Commands.add("createJob", (description, assigneeName, certainty,
     cy.get('#AssignedJobs', { timeout: 5000 }).click();
     cy.url().then(url => {
         cy.get('#addJob', { timeout: 5000 }).click();
-        cy.get('#editorBox-addJobWizard', { timeout: 5000 }).type(description, { timeout: 5000 });
+        cy.get('[id^=editorBox-addJobWizard]', { timeout: 5000 }).type(description, { timeout: 5000 });
         if (assigneeName) {
             cy.get('#OnboardingWizardNext').click();
             cy.get('#addAssignment', { timeout: 5000 }).type(assigneeName + '{enter}',
