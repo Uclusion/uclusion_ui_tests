@@ -221,3 +221,40 @@ workflows:
             branches:
               ignore: /.*/
           context: stage
+    test-dev:
+      jobs:
+        - prepare:
+            filters:
+              tags:
+                only: /^dev_only.*/
+              branches:
+                ignore: /.*/
+            context: dev
+        - cypress/install:
+            filters:
+              tags:
+                only: /^dev_only.*/
+              branches:
+                ignore: /.*/
+        - cypress/run:
+            store_artifacts: true
+            requires:
+              - prepare
+              - cypress/install
+            install-command: 'npm install --no-optional --unsafe-perm'
+            spec: cypress/e2e/create_market.js
+            filters:
+              tags:
+                only: /^dev_only.*/
+              branches:
+                ignore: /.*/
+            context: dev
+        - record:
+            requires:
+              - cypress/run
+            filters:
+              tags:
+                only: /^dev_only.*/
+              branches:
+                ignore: /.*/
+            context: dev
