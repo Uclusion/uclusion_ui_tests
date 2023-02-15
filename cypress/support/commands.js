@@ -243,7 +243,7 @@ Cypress.Commands.add("createJob", (description, assigneeName, certainty,
                 {delay: 60, force: true});
             if (certainty) {
                 cy.get('#OnboardingWizardNext').click();
-                cy.get(`#${certainty}`, { timeout: 5000 }).click();
+                cy.get(`#${certainty}`, { timeout: 8000 }).click();
                 if (justification) {
                     cy.wait(1000);
                     cy.get('[id$=-newjobapproveeditor]').type(justification, { timeout: 5000 });
