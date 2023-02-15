@@ -116,42 +116,25 @@ Cypress.Commands.add("handleCommentWarning", (hasTour=true, isRestricted) => {
     }
 })
 
-Cypress.Commands.add("createCommentImmediate", (type, description, hasWarning=false, hasTour=true,
-                                                isRestricted) => {
+Cypress.Commands.add("createCommentImmediate", (description) => {
     cy.get('#Bugs').click();
-    cy.get(`#commentAddLabel${type}`).click();
+    cy.get('#newMarketTodo').click();
     cy.wait(1000);
     // focus is not reliable in React so have to use get even though should be focussed
     cy.get('[id$=-comment-add-editor]').type(description);
-    cy.get('#commentSendButton').click();
-    if (hasWarning) {
-        cy.handleCommentWarning(hasTour, isRestricted);
-    }
+    cy.get('#OnboardingWizardNext').click();
 })
 
-Cypress.Commands.add("createComment", (type, description, hasWarning=false, hasTour=true,
-                                       isRestricted, startingSelector) => {
-    cy.get(`#commentAddLabel${type}`).click();
+Cypress.Commands.add("createMarketQuestionWithOption", (description, optionDescription) => {
+    cy.get('#Questions').click();
+    cy.get('#newMarketQuestion').click();
     cy.wait(1000);
     // focus is not reliable in React so have to use get even though should be focussed
-    if (startingSelector) {
-        cy.get(`[id^=editorBox-${startingSelector}]`).type(description);
-    } else {
-        cy.get('[id$=-comment-add-editor]').type(description);
-    }
-    let buttonId;
-    if (type === 'QUESTION') {
-        buttonId = '#commentSaveButton';
-    } else {
-        buttonId = '#commentSendButton';
-    }
-    if (startingSelector) {
-        buttonId += startingSelector;
-    }
-    cy.get(buttonId).click();
-    if (hasWarning) {
-        cy.handleCommentWarning(hasTour, isRestricted);
-    }
+    cy.get('[id$=-comment-add-editor]').type(description);
+    cy.get('#OnboardingWizardNext').click();
+    cy.get('[id^=editorBox-addOptionWizard]').type(optionDescription);
+    cy.get('#OnboardingWizardNext').click();
+    cy.get('#OnboardingWizardNext').click();
 })
 
 Cypress.Commands.add("replyToComment", (parentDescription, description) => {
@@ -280,10 +263,8 @@ Cypress.Commands.add("createJob", (description, assigneeName, certainty,
     });
 })
 
-Cypress.Commands.add("createAndTourWorkspace", (name, groupName, participants=[]) => {
+Cypress.Commands.add("createAndTourWorkspace", (name, participants=[]) => {
     cy.get('#workspaceName', { timeout: 8000 }).type(name);
-    cy.get('#OnboardingWizardNext').click();
-    cy.get('#groupName', { timeout: 8000 }).type(groupName);
     cy.get('#OnboardingWizardNext').click();
     cy.get('#inviteLinker', { timeout: 8000 }).should('be.visible');
     if (_.isEmpty(participants)) {

@@ -25,11 +25,8 @@ describe('Authenticator:', function() {
           userPassword);
       cy.waitForEmail(firstUserEmail, destination, verifySubject, testStartDate).then((url) => {
         cy.signIn(url, firstUserEmail, userPassword);
-        cy.createAndTourWorkspace('UI Smoke', 'Smokers');
-        cy.get('#Discussion').click();
-        cy.createComment('QUESTION', 'Did you receive this question?', false, false, false, 'planningDialog');
-        cy.createQuestionOption(optionText, 'My option description', 'Did you receive this question?');
-        cy.sendComment();
+        cy.createAndTourWorkspace('UI Smoke');
+        cy.createMarketQuestionWithOption('Did you receive this question?', optionText);
         cy.wait(5000);
         cy.get('#Addcollaborators').click();
         // If switch to Chrome then try realClick() below
@@ -42,7 +39,7 @@ describe('Authenticator:', function() {
         cy.waitForEmail(secondUserEmail, destination, verifySubject, testStartDate);
       }).then((url) => {
         cy.signIn(url, secondUserEmail, userPassword);
-        cy.get('#Discussion', { timeout: 60000 }).click();
+        cy.get('#Questions', { timeout: 60000 }).click();
         cy.get('#currentVotingChildren', { timeout: 60000 }).contains(optionText);
         cy.createAdditionalUser(thirdUserEmail);
         // add a story for third user with vote
