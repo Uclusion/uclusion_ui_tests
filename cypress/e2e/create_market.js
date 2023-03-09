@@ -40,7 +40,7 @@ describe('Authenticator:', function() {
       }).then((url) => {
         cy.signIn(url, secondUserEmail, userPassword);
         cy.get('#Questions', { timeout: 60000 }).click();
-        cy.get('#currentVotingChildren', { timeout: 60000 }).contains(optionText);
+        cy.get('#currentVotingChildren', { timeout: 60000 }).contains(optionText, { timeout: 60000 });
         cy.createAdditionalUser(thirdUserEmail);
         // add a story for third user with vote
         cy.createJob(jobName, thirdUserEmail, 75);
