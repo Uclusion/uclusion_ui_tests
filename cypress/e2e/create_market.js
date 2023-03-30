@@ -31,7 +31,9 @@ describe('Authenticator:', function() {
         cy.get('#Addcollaborators').click();
         // If switch to Chrome then try realClick() below
         cy.get('#copyInviteLink').click();
-        return cy.task('getClipboard');
+        return cy.window().then((win) => {
+          return win.navigator.clipboard.readText();
+        });
       }).then(inviteUrl => {
         cy.log(`clip board variable is ${inviteUrl}`);
         cy.logOut();
