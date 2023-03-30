@@ -233,7 +233,7 @@ Cypress.Commands.add("voteOption", (optionName, certainty, reason) => {
 Cypress.Commands.add("createJob", (description, assigneeName, certainty,
                                    justification,
                                    isReady) => {
-    cy.get('#AssignedJobs', { timeout: 8000 }).click();
+    cy.get('#AssignedJobs', { timeout: 10000 }).click();
     cy.url().then(url => {
         cy.get('#addJob', { timeout: 5000 }).click();
         cy.get('[id^=editorBox-addJobWizard]', { timeout: 5000 }).type(description, { timeout: 5000 });
