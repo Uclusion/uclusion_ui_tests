@@ -133,7 +133,7 @@ Cypress.Commands.add("createMarketQuestionWithOption", (description, optionDescr
     cy.get('[id^=editorBox-marketCommentDiscussionCommentAdd]').type(description);
     cy.get('#OnboardingWizardNext').click();
     cy.wait(3000);
-    cy.get('[id^=editorBox-addOptionWizard]').type(optionDescription);
+    cy.get('[id^=editorBox-addOptionWizard]', {timeout: 6000}).type(optionDescription);
     cy.get('#OnboardingWizardNext').click();
     cy.wait(1000);
     cy.get('#OnboardingWizardNext').click();
