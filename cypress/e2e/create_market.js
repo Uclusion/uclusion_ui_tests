@@ -41,7 +41,7 @@ describe('Authenticator:', function() {
         cy.waitForEmail(secondUserEmail, destination, verifySubject, testStartDate);
       }).then((url) => {
         cy.signIn(url, secondUserEmail, userPassword);
-        cy.get('#Questions', { timeout: 60000 }).click();
+        cy.get('#Discussion', { timeout: 60000 }).click();
         cy.get('#currentVotingChildren', { timeout: 60000 }).contains(optionText, { timeout: 60000 });
         cy.createAdditionalUser(thirdUserEmail);
         // add a story for third user with vote

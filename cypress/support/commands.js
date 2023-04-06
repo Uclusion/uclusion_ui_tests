@@ -126,7 +126,7 @@ Cypress.Commands.add("createCommentImmediate", (description) => {
 })
 
 Cypress.Commands.add("createMarketQuestionWithOption", (description, optionDescription) => {
-    cy.get('#Questions').click();
+    cy.get('#Discussion').click();
     cy.get('#newMarketQuestion').click();
     cy.wait(1000);
     // focus is not reliable in React so have to use get even though should be focussed
