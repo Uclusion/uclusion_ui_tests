@@ -63,6 +63,7 @@ jobs:
           name: delete tusers from Dynamodb
           command: |
             cd ~/circleci_orbs
+            export ENV_NAME=${env_name}
             python -m scripts.cleanup_test_users
   record:
     <<: *defaults
