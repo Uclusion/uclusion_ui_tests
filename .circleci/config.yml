@@ -60,6 +60,12 @@ jobs:
             pip install --user pynamodb
             pip install --user PyJWT
       - run:
+          name: install keys
+          command: |
+            mkdir ~/.ssh/ && echo -e "Host github.com\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
+            mkdir ~/.aws
+            echo -e "[default]\naws_access_key_id=$aws_access_key_id\naws_secret_access_key=$aws_secret_access_key\n" > ~/.aws/credentials
+      - run:
           name: delete tusers from Dynamodb
           command: |
             cd ~/circleci_orbs
