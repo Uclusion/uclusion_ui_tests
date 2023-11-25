@@ -35,10 +35,12 @@ jobs:
             mkdir circleci_orbs
             git clone git@github.com:Uclusion/circleci_orbs.git ./circleci_orbs
       - run:
-          name: delete tusers from Cognito
+          name: delete tusers from Cognito and Dynamodb
           command: |
             cd ~/circleci_orbs/scripts
             ./test_user_deleter.rb --poolId=${pool_id}
+            cd ~/circleci_orbs
+            python -m scripts.cleanup_test_users
   record:
     <<: *defaults
     steps:
