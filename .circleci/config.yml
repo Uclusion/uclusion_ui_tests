@@ -149,7 +149,8 @@ workflows:
       - cypress/run:
           store_artifacts: true
           requires:
-            - prepare
+            - prepare_ruby
+            - prepare_python
             - cypress/install
           install-command: 'npm install --no-optional --unsafe-perm'
           spec: cypress/e2e/create_market.js
