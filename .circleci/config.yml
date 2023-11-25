@@ -14,7 +14,7 @@ executors:
 version: 2.1
 
 jobs:
-  prepare:
+  prepare_ruby:
     working_directory: ~/src
     docker:
         - image: circleci/ruby:2.7
@@ -39,6 +39,27 @@ jobs:
           command: |
             cd ~/circleci_orbs/scripts
             ./test_user_deleter.rb --poolId=${pool_id}
+  prepare_python:
+    <<: *defaults
+    steps:
+      - run:
+          name: disable strict host checking
+          command: |
+            mkdir -p ~/.ssh/ && echo -e "Host github.com\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
+      - run:
+          name: Check out and prepare utils repo
+          command: |
+            cd ~/
+            mkdir circleci_orbs
+            git clone git@github.com:Uclusion/circleci_orbs.git ./circleci_orbs
+      - run:
+          name: install latest pip and python modules
+          command: |
+            sudo pip install --upgrade pip
+            pip install --user PyGithub
+      - run:
+          name: delete tusers from Dynamodb
+          command: |
             cd ~/circleci_orbs
             python -m scripts.cleanup_test_users
   record:
@@ -66,129 +87,16 @@ jobs:
             python -m scripts.test_and_bless -e ${env_name} -a ${github_token} -u true
 
 workflows:
-  create-onboarding:
-    jobs:
-      - prepare:
-          filters:
-            tags:
-              only: /^onboard_only.*/
-            branches:
-              ignore: /.*/
-          context: stage
-      - cypress/install:
-          filters:
-            tags:
-              only: /^onboard_only.*/
-            branches:
-              ignore: /.*/
-      - cypress/run:
-          executor: with-chrome
-          browser: chrome
-          store_artifacts: true
-          requires:
-            - prepare
-            - cypress/install
-          install-command: 'npm install --no-optional --unsafe-perm'
-          spec: cypress/e2e/create_onboarding.js
-          filters:
-            tags:
-              only: /^onboard_only.*/
-            branches:
-              ignore: /.*/
-          context: stage
-      - cypress/run:
-          executor: with-chrome
-          browser: chrome
-          store_artifacts: true
-          requires:
-            - prepare
-            - cypress/install
-          install-command: 'npm install --no-optional --unsafe-perm'
-          spec: cypress/e2e/create_onboarding1.js
-          filters:
-            tags:
-              only: /^onboard_only.*/
-            branches:
-              ignore: /.*/
-          context: stage
-  create-demo:
-    jobs:
-      - prepare:
-          filters:
-            tags:
-              only: /^demo_only.*/
-            branches:
-              ignore: /.*/
-          context: stage
-      - cypress/install:
-          filters:
-            tags:
-              only: /^demo_only.*/
-            branches:
-              ignore: /.*/
-      - cypress/run:
-          executor: with-chrome
-          browser: chrome
-          store_artifacts: true
-          requires:
-            - prepare
-            - cypress/install
-          install-command: 'npm install --no-optional --unsafe-perm'
-          spec: cypress/e2e/create_demo.js
-          filters:
-            tags:
-              only: /^demo_only.*/
-            branches:
-              ignore: /.*/
-          context: stage
-      - cypress/run:
-          executor: with-chrome
-          browser: chrome
-          store_artifacts: true
-          requires:
-            - prepare
-            - cypress/install
-          install-command: 'npm install --no-optional --unsafe-perm'
-          spec: cypress/e2e/create_demo1.js
-          filters:
-            tags:
-              only: /^demo_only.*/
-            branches:
-              ignore: /.*/
-          context: stage
-      - cypress/run:
-          executor: with-chrome
-          browser: chrome
-          store_artifacts: true
-          requires:
-            - prepare
-            - cypress/install
-          install-command: 'npm install --no-optional --unsafe-perm'
-          spec: cypress/e2e/create_demo2.js
-          filters:
-            tags:
-              only: /^demo_only.*/
-            branches:
-              ignore: /.*/
-          context: stage
-      - cypress/run:
-          executor: with-chrome
-          browser: chrome
-          store_artifacts: true
-          requires:
-            - prepare
-            - cypress/install
-          install-command: 'npm install --no-optional --unsafe-perm'
-          spec: cypress/e2e/create_demo3.js
-          filters:
-            tags:
-              only: /^demo_only.*/
-            branches:
-              ignore: /.*/
-          context: stage
   test-stage:
     jobs:
-      - prepare:
+      - prepare_ruby:
+          filters:
+            tags:
+              only: /^stage_only.*/
+            branches:
+              ignore: /.*/
+          context: stage
+      - prepare_python:
           filters:
             tags:
               only: /^stage_only.*/
