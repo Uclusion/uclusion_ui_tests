@@ -112,17 +112,10 @@ workflows:
             branches:
               ignore: /.*/
           context: stage
-      - cypress/install:
-          filters:
-            tags:
-              only: /^stage_only.*/
-            branches:
-              ignore: /.*/
       - cypress/run:
           requires:
             - prepare_ruby
             - prepare_python
-            - cypress/install
           install-command: 'npm install --no-optional --unsafe-perm'
           filters:
             tags:
@@ -155,17 +148,10 @@ workflows:
             branches:
               ignore: /.*/
           context: dev
-      - cypress/install:
-          filters:
-            tags:
-              only: /^dev_only.*/
-            branches:
-              ignore: /.*/
       - cypress/run:
           requires:
             - prepare_ruby
             - prepare_python
-            - cypress/install
           install-command: 'npm install --no-optional --unsafe-perm'
           filters:
             tags:
