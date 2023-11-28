@@ -133,7 +133,7 @@ Cypress.Commands.add("createMarketQuestionWithOption", (description, optionDescr
     cy.get('[id^=editorBox-marketCommentDiscussionCommentAdd]').type(description);
     cy.get('#OnboardingWizardNext').click();
     cy.wait(3000);
-    cy.get('[id^=editorBox-addOptionWizard]', {timeout: 6000}).type(optionDescription);
+    cy.get('[id^=editorBox-addOptionWizard]', {timeout: 8000}).type(optionDescription);
     cy.get('#OnboardingWizardNext').click();
     cy.wait(1000);
     cy.get('#OnboardingWizardNext').click();
@@ -230,45 +230,42 @@ Cypress.Commands.add("voteOption", (optionName, certainty, reason) => {
     });
 })
 
-Cypress.Commands.add("createJob", (description, assigneeName, certainty,
-                                   justification,
+Cypress.Commands.add("createJob", (description, assigneeName, certainty, justification,
                                    isReady) => {
     cy.get('#AssignedJobs', { timeout: 10000 }).click();
-    cy.url().then(url => {
-        cy.get('#addJob', { timeout: 5000 }).click();
-        cy.get('[id^=editorBox-addJobWizard]', { timeout: 5000 }).type(description, { timeout: 5000 });
-        if (assigneeName) {
+    cy.get('#addJob', { timeout: 5000 }).click();
+    cy.get('[id^=editorBox-addJobWizard]', { timeout: 5000 }).type(description, { timeout: 5000 });
+    if (assigneeName) {
+        cy.get('#OnboardingWizardNext').click();
+        cy.get('#addAssignment', { timeout: 5000 }).type(assigneeName + '{enter}',
+            {delay: 60, force: true});
+        if (certainty) {
             cy.get('#OnboardingWizardNext').click();
-            cy.get('#addAssignment', { timeout: 5000 }).type(assigneeName + '{enter}',
-                {delay: 60, force: true});
-            if (certainty) {
-                cy.get('#OnboardingWizardNext').click();
-                cy.get(`#${certainty}`, { timeout: 8000 }).click();
-                if (justification) {
-                    cy.wait(1000);
-                    cy.get('[id$=-newjobapproveeditor]').type(justification, { timeout: 5000 });
-                }
-                cy.get('#OnboardingWizardNext').click();
-            } else {
-                cy.get('#OnboardingWizardSkip').click();
+            cy.get(`#${certainty}`, { timeout: 8000 }).click();
+            if (justification) {
+                cy.wait(1000);
+                cy.get('[id$=-newjobapproveeditor]').type(justification, { timeout: 5000 });
             }
+            cy.get('#OnboardingWizardNext').click();
         } else {
             cy.get('#OnboardingWizardSkip').click();
         }
-        cy.get('#Overview', {timeout: 10000}).should('be.visible');
-        if (isReady) {
-            cy.get('#readyToStartCheckbox').click();
-            cy.get('#readyToStartCheckbox').within(() => {
-                cy.get('input', {timeout: 8000}).should('have.value', 'true');
-            });
-        }
-    });
+    } else {
+        cy.get('#OnboardingWizardSkip').click();
+    }
+    cy.get('#Overview', {timeout: 10000}).should('be.visible');
+    if (isReady) {
+        cy.get('#readyToStartCheckbox').click();
+        cy.get('#readyToStartCheckbox').within(() => {
+            cy.get('input', {timeout: 8000}).should('have.value', 'true');
+        });
+    }
 })
 
-Cypress.Commands.add("createAndTourWorkspace", (name, participants=[]) => {
-    cy.get('#workspaceName', { timeout: 8000 }).type(name);
+Cypress.Commands.add("createWorkspaceFromDemoBanner", (name, participants=[]) => {
+    cy.get('#workspaceFromDemoBanner', { timeout: 8000 }).type(name);
     cy.get('#OnboardingWizardNext').click();
-    cy.get('#inviteLinker', { timeout: 8000 }).should('be.visible');
+    cy.get('#copyInviteLink', { timeout: 8000 }).should('be.visible');
     if (_.isEmpty(participants)) {
         cy.get('#OnboardingWizardNext').click();
     } else {
@@ -277,6 +274,8 @@ Cypress.Commands.add("createAndTourWorkspace", (name, participants=[]) => {
         });
         cy.get('#OnboardingWizardNext').click();
     }
+    // Skip Slack setup
+    cy.get('OnboardingWizardSkip').click();
 })
 
 Cypress.Commands.add("vote", (certainty, reason) => {

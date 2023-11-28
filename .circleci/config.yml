@@ -6,7 +6,7 @@ defaults: &defaults
 
 orbs:
   aws-cli: circleci/aws-cli@2.0.3
-  cypress: cypress-io/cypress@1.29.0
+  cypress: cypress-io/cypress@3
 executors:
   with-chrome:
     docker:
@@ -119,13 +119,11 @@ workflows:
             branches:
               ignore: /.*/
       - cypress/run:
-          store_artifacts: true
           requires:
             - prepare_ruby
             - prepare_python
             - cypress/install
           install-command: 'npm install --no-optional --unsafe-perm'
-          spec: cypress/e2e/create_market.js
           filters:
             tags:
               only: /^stage_only.*/
@@ -164,13 +162,11 @@ workflows:
             branches:
               ignore: /.*/
       - cypress/run:
-          store_artifacts: true
           requires:
             - prepare_ruby
             - prepare_python
             - cypress/install
           install-command: 'npm install --no-optional --unsafe-perm'
-          spec: cypress/e2e/create_market.js
           filters:
             tags:
               only: /^dev_only.*/
