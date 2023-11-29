@@ -117,6 +117,7 @@ workflows:
             - prepare_ruby
             - prepare_python
           install-command: 'npm install --no-optional --unsafe-perm'
+          working-directory: '.'
           filters:
             tags:
               only: /^stage_only.*/
@@ -132,39 +133,3 @@ workflows:
             branches:
               ignore: /.*/
           context: stage
-  test-dev:
-    jobs:
-      - prepare_ruby:
-          filters:
-            tags:
-              only: /^dev_only.*/
-            branches:
-              ignore: /.*/
-          context: dev
-      - prepare_python:
-          filters:
-            tags:
-              only: /^dev_only.*/
-            branches:
-              ignore: /.*/
-          context: dev
-      - cypress/run:
-          requires:
-            - prepare_ruby
-            - prepare_python
-          install-command: 'npm install --no-optional --unsafe-perm'
-          filters:
-            tags:
-              only: /^dev_only.*/
-            branches:
-              ignore: /.*/
-          context: dev
-      - record:
-          requires:
-            - cypress/run
-          filters:
-            tags:
-              only: /^dev_only.*/
-            branches:
-              ignore: /.*/
-          context: dev
