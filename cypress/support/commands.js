@@ -224,7 +224,7 @@ Cypress.Commands.add("createWorkspaceFromDemoBanner", (name, participants=[]) =>
     cy.get('#workspaceFromDemoBanner', { timeout: 8000 }).type(name);
     cy.get('#OnboardingWizardNext').click();
     cy.get('#copyInviteLink', { timeout: 8000 }).should('be.visible');
-    if (_.isEmpty(participants)) {
+    if (participants.length === 0) {
         cy.get('#OnboardingWizardNext').click();
     } else {
         participants.forEach((participant) => {
