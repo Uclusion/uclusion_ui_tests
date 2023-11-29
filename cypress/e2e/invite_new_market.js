@@ -24,6 +24,7 @@ describe('Authenticator:', function() {
       // Wait for a read on Cognito of the signup that just happened to work
       cy.wait(8000);
       cy.getVerificationUrl('03', apiDestination).then((url) => {
+        cy.log(`verification url is ${url}`);
         cy.signIn(url, firstUserEmail, userPassword);
         cy.createWorkspaceFromDemoBanner('UI Smoke');
         cy.createMarketQuestionWithOption('Did you receive this question?', optionText);
