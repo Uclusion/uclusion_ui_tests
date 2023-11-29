@@ -1,7 +1,7 @@
 
 describe('Authenticator:', function() {
   const destination = 'https://stage.uclusion.com';
-  const apiDestination = 'stage.api.uclusion.com/v1'
+  const apiDestination = 'sso.stage.api.uclusion.com/v1'
   // Step 1: setup the application state
   beforeEach(function() {
     Cypress.on('uncaught:exception', (err, runnable) => {
