@@ -21,6 +21,8 @@ describe('Authenticator:', function() {
       const jobName = 'Creating this story to test placeholder gets it';
       cy.fillSignupForm(`${destination}?utm_campaign=test#signup`, 'Tester One Uclusion', firstUserEmail,
           userPassword);
+      // Wait for a read on Cognito of the signup that just happened to work
+      cy.wait(8000);
       cy.getVerificationUrl('03', apiDestination).then((url) => {
         cy.signIn(url, firstUserEmail, userPassword);
         cy.createWorkspaceFromDemoBanner('UI Smoke');
@@ -36,6 +38,8 @@ describe('Authenticator:', function() {
         cy.log(`clip board variable is ${inviteUrl}`);
         cy.logOut();
         cy.fillSignupForm(inviteUrl, 'Tester Two Uclusion', secondUserEmail, userPassword);
+        // Wait for a read on Cognito of the signup that just happened to work
+        cy.wait(8000);
         cy.getVerificationUrl('04', apiDestination);
       }).then((url) => {
         cy.signIn(url, secondUserEmail, userPassword);
