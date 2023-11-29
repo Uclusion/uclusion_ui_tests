@@ -1,6 +1,7 @@
 
 describe('Authenticator:', function() {
   const destination = 'https://stage.uclusion.com';
+  const apiDestination = 'stage.api.uclusion.com/v1'
   // Step 1: setup the application state
   beforeEach(function() {
     Cypress.on('uncaught:exception', (err, runnable) => {
@@ -16,14 +17,11 @@ describe('Authenticator:', function() {
       const secondUserEmail = 'tuser+04@uclusion.com';
       const thirdUserEmail = 'tuser+05@uclusion.com';
       const userPassword = 'Testme;1';
-      const verifySubject = 'Please verify your email address';
-      const inviteSubject = 'Tester Two Uclusion invites you to collaborate';
-      const testStartDate = new Date();
       const optionText = 'This is your option to vote for';
       const jobName = 'Creating this story to test placeholder gets it';
       cy.fillSignupForm(`${destination}?utm_campaign=test#signup`, 'Tester One Uclusion', firstUserEmail,
           userPassword);
-      cy.waitForEmail(firstUserEmail, destination, verifySubject, testStartDate).then((url) => {
+      cy.getVerificationUrl('03', apiDestination).then((url) => {
         cy.signIn(url, firstUserEmail, userPassword);
         cy.createWorkspaceFromDemoBanner('UI Smoke');
         cy.createMarketQuestionWithOption('Did you receive this question?', optionText);
@@ -38,7 +36,7 @@ describe('Authenticator:', function() {
         cy.log(`clip board variable is ${inviteUrl}`);
         cy.logOut();
         cy.fillSignupForm(inviteUrl, 'Tester Two Uclusion', secondUserEmail, userPassword);
-        cy.waitForEmail(secondUserEmail, destination, verifySubject, testStartDate);
+        cy.getVerificationUrl('04', apiDestination);
       }).then((url) => {
         cy.signIn(url, secondUserEmail, userPassword);
         cy.get('#Discussion', { timeout: 60000 }).click();
@@ -47,7 +45,7 @@ describe('Authenticator:', function() {
         // add a story for third user with vote
         cy.createJob(jobName, thirdUserEmail, 75);
         cy.logOut();
-        return cy.waitForEmail(thirdUserEmail, `${destination}/invite`, inviteSubject, testStartDate);
+        return cy.getInviteUrl('05', '03', apiDestination);
       }).then((url) => {
         cy.fillSignupForm(url, 'Tester Uclusion', undefined, userPassword);
         // Not requiring a third entry of the password here would be nice - have put in a when convenient for it

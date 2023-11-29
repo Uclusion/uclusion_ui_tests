@@ -24,12 +24,6 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
-import {cleanAccount} from "./fixture_management";
-
-Cypress.Commands.add("cleanAccount", (userConfiguration) => {
-    return cleanAccount(userConfiguration);
-})
-
 Cypress.Commands.add("fillSignupForm", (url, userName, userEmail, userPassword, useSignupLink=false) => {
     cy.visit(url, {failOnStatusCode: false});
     if (useSignupLink) {
@@ -45,21 +39,17 @@ Cypress.Commands.add("fillSignupForm", (url, userName, userEmail, userPassword, 
     cy.get('#signupButton').should('not.be.disabled').click();
 })
 
-Cypress.Commands.add("waitForEmail", (userEmail, destination, subject, testStartDate) => {
-    return cy.task("gmail:check", {
-        from: "support@uclusion.com",
-        to: userEmail,
-        subject,
-        after: testStartDate,
-        include_body: true
-    }, { timeout: 360000 }).then(emails => {
-        assert.isNotNull(emails, 'No email returned');
-        assert.isNotEmpty(emails, 'Email was not found');
-        assert.lengthOf(emails, 1, 'Too many emails - maybe concurrent tests');
-        const searchString = emails[0].body.html;
-        const begin = searchString.indexOf(`href="${destination}`) + 6;
-        const end = searchString.indexOf('"', begin);
-        return searchString.substring(begin, end);
+Cypress.Commands.add("getVerificationUrl", (emailIndex, destination) => {
+    return cy.request({
+        method: 'GET',
+        url: `https://${destination}/testonlyverification?index=${emailIndex}`
+    });
+})
+
+Cypress.Commands.add("getInviteUrl", (emailIndex, rEmailIndex, destination) => {
+    return cy.request({
+        method: 'GET',
+        url: `https://${destination}/testonlyinvite?index=${emailIndex}&rindex=${rEmailIndex}`
     });
 })
 
@@ -82,38 +72,6 @@ Cypress.Commands.add("logOut", () => {
     cy.get('#signoutButton').click();
     // Verify the sign out happened before allow Cypress to continue
     cy.get('#username', { timeout: 5000 });
-})
-
-Cypress.Commands.add("takeTour", (hasNext=false, extraWaitTime=0) => {
-    // Need the timeouts because market can still be loading
-    if (hasNext) {
-        cy.wait(1000);
-        cy.get('[title=Next]', { timeout: 10000 }).click();
-    }
-    cy.wait(1000);
-    cy.get('[title=Close]', { timeout: 10000+extraWaitTime }).first().click();
-})
-
-Cypress.Commands.add("sendComment", (hasWarning=false, hasTour=true, isRestricted) => {
-    cy.get('#commentSendButton').click();
-    if (hasWarning) {
-        cy.handleCommentWarning(hasTour, isRestricted);
-    }
-})
-
-Cypress.Commands.add("handleCommentWarning", (hasTour=true, isRestricted) => {
-    if (isRestricted === undefined) {
-        cy.get('#issueProceedButton', {timeout: 5000}).click();
-    } else if (isRestricted) {
-        cy.get('#proceedRestrictedButton', {timeout: 5000}).click();
-    } else {
-        cy.get('#proceedNormalButton', {timeout: 5000}).click();
-    }
-    if (hasTour) {
-        cy.takeTour();
-    } else {
-        cy.wait(5000);
-    }
 })
 
 Cypress.Commands.add("createCommentImmediate", (description) => {
@@ -311,26 +269,6 @@ Cypress.Commands.add("editNameDescription", (currentName, newName, newDescriptio
     cy.wait(5000);
 })
 
-Cypress.Commands.add("waitForInvite", (destination, userEmail, invitingUserName, userName,
-                                              userPassword, doTour=false) => {
-    const testStartDate = new Date();
-    // Running in parallel so the email might have been sent before we got here
-    testStartDate.setMinutes(testStartDate.getMinutes() - 2);
-    const inviteSubject = `${invitingUserName} invites you to collaborate`;
-    cy.waitForEmail(userEmail, `${destination}/invite`, inviteSubject, testStartDate).then((url) =>{
-        cy.fillSignupForm(url, userName, undefined, userPassword);
-        cy.signIn(undefined, undefined, userPassword);
-        if (doTour) {
-            cy.takeTour(true);
-        }
-    });
-})
-
-Cypress.Commands.add("waitForInviteAndTour", (destination, userEmail, invitingUserName, userName,
-                                              userPassword) => {
-    cy.waitForInvite(destination, userEmail, invitingUserName, userName, userPassword, true);
-})
-
 Cypress.Commands.add("verifyCollaborators", (collaborators) => {
     cy.get('#Settings').click();
     collaborators.forEach((collaborator) => {
@@ -342,10 +280,6 @@ Cypress.Commands.add("waitForReviewStage", () => {
     // Better way is to come in through inbox but for now just wait for in right stage
     cy.contains('Review Report', {timeout: 90000});
 })
-
-Cypress.Commands.add("nextStage", () => {
-    cy.get('#stageChangeActionButton').click();
-});
 
 Cypress.Commands.add("createAdditionalUser", (userEmail) => {
     cy.get('#Addcollaborators').click();
