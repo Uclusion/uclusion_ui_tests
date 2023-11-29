@@ -43,14 +43,14 @@ Cypress.Commands.add("getVerificationUrl", (emailIndex, destination) => {
     return cy.request({
         method: 'GET',
         url: `https://${destination}/testonlyverification?index=${emailIndex}`
-    });
+    }).then((response) => response.body);
 })
 
 Cypress.Commands.add("getInviteUrl", (emailIndex, rEmailIndex, destination) => {
     return cy.request({
         method: 'GET',
         url: `https://${destination}/testonlyinvite?index=${emailIndex}&rindex=${rEmailIndex}`
-    });
+    }).then((response) => response.body);
 })
 
 Cypress.Commands.add("signIn", (url, userEmail, userPassword) => {
