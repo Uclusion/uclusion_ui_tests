@@ -232,7 +232,7 @@ Cypress.Commands.add("createWorkspaceFromDemoBanner", (name, participants=[]) =>
     cy.get('#copyInviteLink', { timeout: 8000 }).should('be.visible');
     cy.get('#OnboardingWizardNext').click();
     // Skip Slack setup
-    cy.get('OnboardingWizardSkip').click();
+    cy.get('#OnboardingWizardSkip').click();
 })
 
 Cypress.Commands.add("vote", (certainty, reason) => {
