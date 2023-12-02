@@ -221,7 +221,8 @@ Cypress.Commands.add("createJob", (description, assigneeName, certainty, justifi
 })
 
 Cypress.Commands.add("createWorkspaceFromDemoBanner", (name, participants=[]) => {
-    cy.get('#workspaceFromDemoBanner', { timeout: 8000 }).type(name);
+    cy.get('#workspaceFromDemoBanner', { timeout: 10000 }).click()
+    cy.get('#workspaceName').type(name);
     cy.get('#OnboardingWizardNext').click();
     cy.get('#copyInviteLink', { timeout: 8000 }).should('be.visible');
     if (participants.length === 0) {
