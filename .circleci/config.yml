@@ -133,3 +133,19 @@ workflows:
             branches:
               ignore: /.*/
           context: stage
+  clean-dev:
+    jobs:
+      - prepare_ruby:
+          filters:
+            tags:
+              only: /^dev_only.*/
+            branches:
+              ignore: /.*/
+          context: dev
+      - prepare_python:
+          filters:
+            tags:
+              only: /^dev_only.*/
+            branches:
+              ignore: /.*/
+          context: dev
