@@ -52,6 +52,7 @@ describe('Authenticator:', function() {
         cy.logOut();
         return cy.getInviteUrl('05', '03', apiDestination);
       }).then((url) => {
+        cy.log(`invite url variable is ${url}`);
         cy.fillSignupForm(url, 'Tester Uclusion', undefined, userPassword);
         // Not requiring a third entry of the password here would be nice - have put in a when convenient for it
         cy.signIn(undefined, undefined, userPassword);
