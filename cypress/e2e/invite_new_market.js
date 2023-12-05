@@ -48,7 +48,7 @@ describe('Authenticator:', function() {
         cy.get('#commentBox', { timeout: 60000 }).contains(optionText, { timeout: 60000 });
         cy.createAdditionalUser(thirdUserEmail);
         // add a story for second user with vote
-        cy.createJob(jobName, 'Tester Two Uclusion', 75);
+        cy.createJob(jobName, thirdUserEmail, 75);
         cy.logOut();
         return cy.getInviteUrl('05', '03', apiDestination);
       }).then((url) => {
