@@ -199,29 +199,34 @@ Cypress.Commands.add("createJob", (description, assigneeName, certainty, justifi
     cy.get('[id^=editorBox-addJobWizard]', { timeout: 5000 }).type(description, { timeout: 5000 });
     if (assigneeName) {
         cy.get('#OnboardingWizardNext').click();
-        cy.get('#addAssignment', { timeout: 5000 }).type(assigneeName + '{enter}',
-            {delay: 60, force: true});
+        cy.get('#addressBook', { timeout: 5000 }).contains(assigneeName).click();
         if (certainty) {
             cy.get('#OnboardingWizardNext').click();
             cy.get(`#${certainty}`, { timeout: 8000 }).click();
             if (justification) {
                 cy.wait(1000);
-                cy.get('[id$=-newjobapproveeditor]').type(justification, { timeout: 5000 });
+                cy.get('[id^=editorBox-newjobapproveeditor]').type(justification, { timeout: 5000 });
             }
             cy.get('#OnboardingWizardNext').click();
         } else {
             cy.get('#OnboardingWizardSkip').click();
         }
     } else {
-        cy.get('#OnboardingWizardSkip').click();
+        if (isReady) {
+            cy.get('#READY').click();
+            cy.get('#READY').within(() => {
+                cy.get('input', {timeout: 8000}).should('have.value', 'true');
+            });
+        } else {
+            cy.get('#NOT_READY').click();
+            cy.get('#NOT_READY').within(() => {
+                cy.get('input', {timeout: 8000}).should('have.value', 'true');
+            });
+        }
+        cy.get('#OnboardingWizardNext').click();
     }
     cy.get('#Overview', {timeout: 10000}).should('be.visible');
-    if (isReady) {
-        cy.get('#readyToStartCheckbox').click();
-        cy.get('#readyToStartCheckbox').within(() => {
-            cy.get('input', {timeout: 8000}).should('have.value', 'true');
-        });
-    }
+
 })
 
 Cypress.Commands.add("createWorkspaceFromDemoBanner", (name, participants=[]) => {

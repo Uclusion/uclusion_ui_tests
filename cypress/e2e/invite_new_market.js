@@ -45,10 +45,10 @@ describe('Authenticator:', function() {
         cy.signIn(url, secondUserEmail, userPassword);
         cy.get('#Everyone', { timeout: 60000 }).click();
         cy.get('#Discussion').click();
-        cy.get('#currentVotingChildren', { timeout: 60000 }).contains(optionText, { timeout: 60000 });
+        cy.get('#commentBox', { timeout: 60000 }).contains(optionText, { timeout: 60000 });
         cy.createAdditionalUser(thirdUserEmail);
-        // add a story for third user with vote
-        cy.createJob(jobName, thirdUserEmail, 75);
+        // add a story for second user with vote
+        cy.createJob(jobName, 'Tester Two Uclusion', 75);
         cy.logOut();
         return cy.getInviteUrl('05', '03', apiDestination);
       }).then((url) => {
