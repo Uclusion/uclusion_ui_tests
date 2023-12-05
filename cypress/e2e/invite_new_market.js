@@ -40,7 +40,7 @@ describe('Authenticator:', function() {
         cy.fillSignupForm(inviteUrl, 'Tester Two Uclusion', secondUserEmail, userPassword);
         // Wait for a read on Cognito of the signup that just happened to work
         cy.wait(8000);
-        cy.getVerificationUrl('04', apiDestination, inviteUrl);
+        cy.getVerificationUrl('04', apiDestination, inviteUrl.substring(destination.length + 1));
       }).then((url) => {
         cy.signIn(url, secondUserEmail, userPassword);
         cy.get('#Everyone', { timeout: 60000 }).click();
