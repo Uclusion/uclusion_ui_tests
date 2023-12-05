@@ -39,10 +39,14 @@ Cypress.Commands.add("fillSignupForm", (url, userName, userEmail, userPassword, 
     cy.get('#signupButton').should('not.be.disabled').click();
 })
 
-Cypress.Commands.add("getVerificationUrl", (emailIndex, destination) => {
+Cypress.Commands.add("getVerificationUrl", (emailIndex, destination, redirect) => {
+    let url = `https://${destination}/testonlyverification?index=${emailIndex}`;
+    if (redirect) {
+        url = `https://${destination}/testonlyverification?index=${emailIndex}&redirect=${redirect}`
+    }
     return cy.request({
         method: 'GET',
-        url: `https://${destination}/testonlyverification?index=${emailIndex}`
+        url
     }).then((response) => response.body);
 })
 
