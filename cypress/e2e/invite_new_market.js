@@ -19,7 +19,7 @@ describe('Authenticator:', function() {
       const userPassword = 'Testme;1';
       const optionText = 'This is your option to vote for';
       const jobName = 'Creating this story to test placeholder gets it';
-      cy.fillSignupForm(`${destination}?utm_campaign=test#signup`, 'Tester One Uclusion', firstUserEmail,
+      cy.fillSignupForm(`${destination}?utm_campaign=test#signup`, 'Tester Three Uclusion', firstUserEmail,
           userPassword);
       // Wait for a read on Cognito of the signup that just happened to work
       cy.wait(8000);
@@ -37,7 +37,7 @@ describe('Authenticator:', function() {
       }).then(inviteUrl => {
         cy.log(`clip board variable is ${inviteUrl}`);
         cy.logOut();
-        cy.fillSignupForm(inviteUrl, 'Tester Two Uclusion', secondUserEmail, userPassword);
+        cy.fillSignupForm(inviteUrl, 'Tester Four Uclusion', secondUserEmail, userPassword);
         // Wait for a read on Cognito of the signup that just happened to work
         cy.wait(8000);
         cy.getVerificationUrl('04', apiDestination, inviteUrl.substring(destination.length + 1));
@@ -53,7 +53,7 @@ describe('Authenticator:', function() {
         return cy.getInviteUrl('05', '03', apiDestination);
       }).then((url) => {
         cy.log(`invite url variable is ${url}`);
-        cy.fillSignupForm(url, 'Tester Uclusion', undefined, userPassword);
+        cy.fillSignupForm(url, 'Tester Five Uclusion', undefined, userPassword);
         // Not requiring a third entry of the password here would be nice - have put in a when convenient for it
         cy.signIn(undefined, undefined, userPassword);
         // Correct way is to come in from inbox notification but this script doesn't do any inbox stuff
