@@ -19,6 +19,8 @@ describe('Authenticator:', function() {
             const userPassword = 'Testme;1';
             cy.fillSignupForm(`${destination}?utm_campaign=test#signup`, 'Tester One Uclusion', firstUserEmail,
                 userPassword);
+            // Wait for a read on Cognito of the signup
+            cy.wait(8000);
             cy.getVerificationUrl('01', apiDestination).then((url) => {
                 cy.signIn(url, firstUserEmail, userPassword);
                 cy.get('#workspaceFromDemoBanner', { timeout: 10000 }).should('exist');
