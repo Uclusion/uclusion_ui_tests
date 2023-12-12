@@ -3,7 +3,7 @@ describe('Authenticator:', function() {
     const destination = 'https://stage.uclusion.com';
     const apiDestination = 'sso.stage.api.uclusion.com/v1'
     const inboxContents = [{notification: 'UNREAD_JOB_APPROVAL_REQUEST', count: 3},
-        {notification: 'ISSUE', count: 1}, {notification: 'UNASSIGNED', count: 1},
+        {notification: 'UNREAD_COMMENT', count: 1}, {notification: 'UNASSIGNED', count: 1},
         {notification: 'UNREAD_MENTION', count: 1}, {notification: 'REVIEW_REQUIRED', count: 1}];
     beforeEach(function() {
         Cypress.on('uncaught:exception', (err, runnable) => {
