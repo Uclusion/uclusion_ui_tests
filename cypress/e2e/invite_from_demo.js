@@ -26,10 +26,10 @@ describe('Authenticator:', function() {
                 cy.get('#workspaceFromDemoBanner', { timeout: 15000 }).should('exist');
                 inboxContents.forEach((content) => {
                     const { notification, count } = content;
-                    cy.get(`[id^=#workListItem${notification}]`).should('have.length', count);
+                    cy.get(`[id^=workListItem${notification}]`).should('have.length', count);
                 });
                 cy.createAdditionalUser(secondUserEmail);
-                cy.get(`[id^=#workListItemREVIEW_REQUIRED]`).click();
+                cy.get(`[id^=workListItemREVIEW_REQUIRED]`).click();
                 cy.get('#OnboardingWizardNext').click();
                 cy.get('[id$=-comment-add-editor]').type('Would really love your opinion @');
                 cy.get(`li[data-value="${secondUserEmail}"]`).click();
