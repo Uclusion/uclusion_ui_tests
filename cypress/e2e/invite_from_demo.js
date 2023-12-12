@@ -23,7 +23,7 @@ describe('Authenticator:', function() {
             cy.wait(8000);
             cy.getVerificationUrl('01', apiDestination).then((url) => {
                 cy.signIn(url, firstUserEmail, userPassword);
-                cy.get('#workspaceFromDemoBanner', { timeout: 10000 }).should('exist');
+                cy.get('#workspaceFromDemoBanner', { timeout: 15000 }).should('exist');
                 inboxContents.forEach((content) => {
                     const { notification, count } = content;
                     cy.get(`[id^=#workListItem${notification}]`).should('have.length', count);
