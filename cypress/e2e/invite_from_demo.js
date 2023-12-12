@@ -28,7 +28,9 @@ describe('Authenticator:', function() {
                     const { notification, count } = content;
                     cy.get(`[id^=workListItem${notification}]`).should('have.length', count);
                 });
-                cy.createAdditionalUser(secondUserEmail);
+                cy.get('#Addcollaborators', { timeout: 10000 }).click();
+                cy.get('#emailEntryBox').type(secondUserEmail);
+                cy.get('#OnboardingWizardNext').click();
                 cy.get(`[id^=workListItemREVIEW_REQUIRED]`).click();
                 cy.get('#OnboardingWizardNext').click();
                 cy.get('[id$=-comment-add-editor]').type('Would really love your opinion @');
