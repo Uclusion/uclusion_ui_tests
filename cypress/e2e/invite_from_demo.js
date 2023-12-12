@@ -35,7 +35,7 @@ describe('Authenticator:', function() {
                 cy.get('#OnboardingWizardNext').click();
                 cy.get('[id^=editorBox-reply]').type('Would really love your opinion @');
                 cy.get(`li[data-value="${secondUserEmail}"]`).click();
-                cy.get('#commentSendButtonreply').click();
+                cy.get('#OnboardingWizardNext').click();
                 cy.logOut();
                 return cy.getInviteUrl('02', '01', apiDestination);
             }).then(url => {
