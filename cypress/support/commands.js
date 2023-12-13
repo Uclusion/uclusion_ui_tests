@@ -51,6 +51,8 @@ Cypress.Commands.add("getVerificationUrl", (emailIndex, destination, redirect) =
 })
 
 Cypress.Commands.add("getInviteUrl", (emailIndex, rEmailIndex, destination) => {
+    // Wait for eventual consistency on the invitation API
+    cy.wait(8000);
     return cy.request({
         method: 'GET',
         url: `https://${destination}/testonlyinvite?index=${emailIndex}&rindex=${rEmailIndex}`
