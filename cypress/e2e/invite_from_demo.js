@@ -42,7 +42,7 @@ describe('Authenticator:', function() {
                 cy.logOut();
                 cy.fillSignupForm(url, 'Tester Two Uclusion', undefined, userPassword);
                 cy.signIn(undefined, undefined, userPassword);
-                cy.get('[id^=#workListItemUNREAD_MENTION]', { timeout: 10000 }).should('exist');
+                cy.get('[id^=workListItemUNREAD_MENTION]', { timeout: 10000 }).should('exist');
             });
         });
     });
