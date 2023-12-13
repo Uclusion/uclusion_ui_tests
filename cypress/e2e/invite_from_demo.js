@@ -36,9 +36,10 @@ describe('Authenticator:', function() {
                 cy.get('[id^=editorBox-reply]').type('Would really love your opinion @');
                 cy.get(`li[data-value="${secondUserEmail}"]`).click();
                 cy.get('#OnboardingWizardNext').click();
-                cy.logOut();
-                return cy.getInviteUrl('02', '01', apiDestination);
+                cy.get('#Everyone').click();
+                return cy.url().then((url) => cy.getInviteUrlFromUrl('02', url, apiDestination))
             }).then(url => {
+                cy.logOut();
                 cy.fillSignupForm(url, 'Tester Two Uclusion', undefined, userPassword);
                 cy.signIn(undefined, undefined, userPassword);
                 cy.get('[id^=#workListItemUNREAD_MENTION]', { timeout: 10000 }).should('exist');

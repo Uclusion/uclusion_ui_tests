@@ -59,6 +59,15 @@ Cypress.Commands.add("getInviteUrl", (emailIndex, rEmailIndex, destination) => {
     }).then((response) => response.body);
 })
 
+Cypress.Commands.add("getInviteUrlFromUrl", (emailIndex, url, destination) => {
+    // Wait for eventual consistency on the invitation API
+    cy.wait(8000);
+    return cy.request({
+        method: 'GET',
+        url: `https://${destination}/testonlyinvite?index=${emailIndex}&url=${url}`
+    }).then((response) => response.body);
+})
+
 Cypress.Commands.add("signIn", (url, userEmail, userPassword) => {
     if (url) {
         cy.visit(url, {failOnStatusCode: false});
