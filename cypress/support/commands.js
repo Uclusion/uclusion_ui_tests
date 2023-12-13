@@ -64,7 +64,7 @@ Cypress.Commands.add("getInviteUrlFromUrl", (emailIndex, url, destination) => {
     cy.wait(8000);
     return cy.request({
         method: 'GET',
-        url: `https://${destination}/testonlyinvite?index=${emailIndex}&url=${url}`
+        url: `https://${destination}/testonlyinvite?index=${emailIndex}&url=${encodeURIComponent(url)}`
     }).then((response) => response.body);
 })
 
