@@ -110,6 +110,7 @@ Cypress.Commands.add("createMarketQuestionWithOption", (description, optionDescr
     cy.get('#OnboardingWizardNext').click();
     cy.wait(1000);
     cy.get('#OnboardingWizardNext').click();
+    cy.get('#commentBox', { timeout: 8000 }).contains(optionDescription);
 })
 
 Cypress.Commands.add("replyToComment", (parentDescription, description) => {

@@ -27,7 +27,6 @@ describe('Authenticator:', function() {
         cy.signIn(url, firstUserEmail, userPassword);
         cy.createWorkspaceFromDemoBanner('UI Smoke');
         cy.createMarketQuestionWithOption('Did you receive this question?', optionText);
-        cy.wait(5000);
         cy.get('#Addcollaborators').click();
         // If switch to Chrome then try realClick() below
         cy.get('#copyInviteLink').click();
