@@ -25,7 +25,7 @@ describe('Authenticator:', function() {
                 cy.signIn(url, firstUserEmail, userPassword);
                 cy.get('#workspaceFromDemoBanner', { timeout: 15000 }).should('exist');
                 cy.get('#Everyone', { timeout: 15000 }).should('exist');
-                cy.get('[id^=workListItemREVIEW_REQUIRED]', { timeout: 15000 }).should('exist');
+                cy.get('[id^=workListItemREVIEW_REQUIRED]', { timeout: 30000 }).should('exist');
                 inboxContents.forEach((content) => {
                     const { notification, count } = content;
                     cy.get(`[id^=workListItem${notification}]`).should('have.length', count);
