@@ -34,7 +34,8 @@ describe('Authenticator:', function() {
                 cy.get(`[id^=workListItemREVIEW_REQUIRED]`).click();
                 cy.get('#OnboardingWizardNext').click();
                 cy.get('[id^=editorBox-reply]').type('Would really love your opinion @');
-                cy.get(`li[data-value="${secondUserEmail}"]`, { timeout: 6000 }).click();
+                // Unfortunately not clearing previous runs demo markets so the name is in the system for this email
+                cy.get(`li[data-value="Tester Two Uclusion"]`).click();
                 cy.get('#OnboardingWizardNext').click();
                 cy.get('#Everyone').click();
                 return cy.url().then((url) => cy.getInviteUrlFromUrl('02', url, apiDestination))
