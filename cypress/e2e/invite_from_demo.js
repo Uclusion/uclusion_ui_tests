@@ -25,6 +25,7 @@ describe('Authenticator:', function() {
                 cy.signIn(url, firstUserEmail, userPassword);
                 cy.get('#workspaceFromDemoBanner', { timeout: 15000 }).should('exist');
                 cy.get('#Everyone', { timeout: 15000 }).should('exist');
+                cy.get('[id^=workListItemREVIEW_REQUIRED]', { timeout: 15000 }).should('exist');
                 inboxContents.forEach((content) => {
                     const { notification, count } = content;
                     cy.get(`[id^=workListItem${notification}]`).should('have.length', count);
@@ -32,14 +33,14 @@ describe('Authenticator:', function() {
                 cy.get('#Addcollaborators', { timeout: 10000 }).click();
                 cy.get('#emailEntryBox').type(secondUserEmail);
                 cy.get('#OnboardingWizardNext').click();
-                cy.get(`[id^=workListItemREVIEW_REQUIRED]`).click();
+                cy.get('[id^=workListItemREVIEW_REQUIRED]').click();
                 cy.get('#OnboardingWizardNext').click();
                 cy.get('[id^=editorBox-reply]').type('Would really love your opinion @');
                 // Unfortunately not clearing previous runs demo markets so the name is in the system for this email
-                cy.get(`li[data-value="Tester Two Uclusion"]`).click();
+                cy.get('li[data-value="Tester Two Uclusion"]').click();
                 cy.get('#OnboardingWizardNext').click();
                 // Make sure back in inbox and done with operation before click anything
-                cy.get('#ForYou', { timeout: 8000 });
+                cy.get('#ForYou', { timeout: 8000 }).should('exist');
                 cy.get('#Everyone').click();
                 return cy.url().then((url) => cy.getInviteUrlFromUrl('02', url, apiDestination))
             }).then(url => {
