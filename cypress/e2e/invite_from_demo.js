@@ -38,6 +38,8 @@ describe('Authenticator:', function() {
                 // Unfortunately not clearing previous runs demo markets so the name is in the system for this email
                 cy.get(`li[data-value="Tester Two Uclusion"]`).click();
                 cy.get('#OnboardingWizardNext').click();
+                // Make sure back in inbox and done with operation before click anything
+                cy.get('#ForYou', { timeout: 8000 });
                 cy.get('#Everyone').click();
                 return cy.url().then((url) => cy.getInviteUrlFromUrl('02', url, apiDestination))
             }).then(url => {
