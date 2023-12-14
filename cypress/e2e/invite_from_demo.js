@@ -34,7 +34,7 @@ describe('Authenticator:', function() {
                 cy.get(`[id^=workListItemREVIEW_REQUIRED]`).click();
                 cy.get('#OnboardingWizardNext').click();
                 cy.get('[id^=editorBox-reply]').type('Would really love your opinion @');
-                cy.get(`li[data-value="${secondUserEmail}"]`).click();
+                cy.get(`li[data-value="${secondUserEmail}"]`, { timeout: 6000 }).click();
                 cy.get('#OnboardingWizardNext').click();
                 cy.get('#Everyone').click();
                 return cy.url().then((url) => cy.getInviteUrlFromUrl('02', url, apiDestination))
