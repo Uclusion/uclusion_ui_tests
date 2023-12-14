@@ -35,7 +35,8 @@ describe('Authenticator:', function() {
                 cy.get('#OnboardingWizardNext').click();
                 cy.get('[id^=workListItemREVIEW_REQUIRED]').click();
                 cy.get('#OnboardingWizardNext').click();
-                cy.get('[id^=editorBox-reply]').type('Would really love your opinion @');
+                cy.get('[id^=editorBox-reply]').type('Would really love your opinion @',
+                    { delay: 500 });
                 // Unfortunately not clearing previous runs demo markets so the name is in the system for this email
                 cy.get('li[data-value="Tester Two Uclusion"]').click();
                 cy.get('#OnboardingWizardNext').click();
