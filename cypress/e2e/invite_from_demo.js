@@ -45,7 +45,7 @@ describe('Authenticator:', function() {
                 // Make sure back in inbox and done with operation before click anything
                 cy.get('#ForYou', { timeout: 8000 }).should('exist');
                 cy.get('#Everyone').click();
-                cy.navigateIntoJob('Upgrade language spec');
+                cy.navigateIntoJob('Null safety');
                 cy.createSuggestion('Test that creating a suggestion works.');
                 return cy.url().then((url) => cy.getInviteUrlFromUrl('02', url, apiDestination))
             }).then(url => {
