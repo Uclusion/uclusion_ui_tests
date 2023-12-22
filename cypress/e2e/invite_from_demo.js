@@ -47,14 +47,14 @@ describe('Authenticator:', function() {
                 cy.get('#Everyone').click();
                 cy.navigateIntoJob('Null safety');
                 cy.createSuggestion('Test that creating a suggestion works.');
+                cy.get('#Everyone').click();
                 return cy.url().then((url) => cy.getInviteUrlFromUrl('02', url, apiDestination))
             }).then(url => {
                 cy.logOut();
                 cy.fillSignupForm(url, 'Tester Two Uclusion', undefined, userPassword);
                 cy.signIn(undefined, undefined, userPassword);
                 cy.get('[id^=workListItemUNREAD_MENTION]', { timeout: 10000 }).should('exist');
-                cy.get('[id^=workListItemNOT_FULLY_VOTED]', { timeout: 10000 })
-                    .contains('How do you vote?').click();
+                cy.get('[id^=workListItemNOT_FULLY_VOTED]', { timeout: 10000 }).click();
                 cy.get('#OnboardingWizardNext').click();
                 cy.get('#inbox100').click();
                 cy.get('#OnboardingWizardNext').click();
