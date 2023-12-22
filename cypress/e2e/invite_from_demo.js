@@ -15,9 +15,10 @@ describe('Authenticator:', function() {
     describe('Check demo market creation', () => {
         it('signs up and creates template market and verifies', () => {
             const firstUserEmail = 'tuser+01@uclusion.com';
+            const firstUserName = 'Tester One Uclusion';
             const secondUserEmail = 'tuser+02@uclusion.com';
             const userPassword = 'Testme;1';
-            cy.fillSignupForm(`${destination}?utm_campaign=test#signup`, 'Tester One Uclusion', firstUserEmail,
+            cy.fillSignupForm(`${destination}?utm_campaign=test#signup`, firstUserName, firstUserEmail,
                 userPassword);
             // Wait for a read on Cognito of the signup
             cy.wait(8000);
@@ -37,17 +38,27 @@ describe('Authenticator:', function() {
                 cy.get('#OnboardingWizardNext').click();
                 cy.get('[id^=editorBox-reply]').type('Would really love your opinion @',
                     { delay: 500 });
+                // First check that target user's name is correct in drop down
+                cy.get(`li[data-value="${firstUserName}"]`).should('exist');
                 cy.get(`li[data-value="${secondUserEmail}"]`).click();
                 cy.get('#OnboardingWizardNext').click();
                 // Make sure back in inbox and done with operation before click anything
                 cy.get('#ForYou', { timeout: 8000 }).should('exist');
                 cy.get('#Everyone').click();
+                cy.navigateIntoJob('Upgrade language spec');
+                cy.createSuggestion('Test that creating a suggestion works.');
                 return cy.url().then((url) => cy.getInviteUrlFromUrl('02', url, apiDestination))
             }).then(url => {
                 cy.logOut();
                 cy.fillSignupForm(url, 'Tester Two Uclusion', undefined, userPassword);
                 cy.signIn(undefined, undefined, userPassword);
                 cy.get('[id^=workListItemUNREAD_MENTION]', { timeout: 10000 }).should('exist');
+                cy.get('[id^=workListItemNOT_FULLY_VOTED]', { timeout: 10000 })
+                    .contains('How do you vote?').click();
+                cy.get('#OnboardingWizardNext').click();
+                cy.get('#inbox100').click();
+                cy.get('#OnboardingWizardNext').click();
+                cy.get('#ForYou', { timeout: 10000 }).should('exist');
             });
         });
     });

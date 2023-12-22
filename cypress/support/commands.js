@@ -139,6 +139,14 @@ Cypress.Commands.add("createTodo", (type, section, description) => {
     });
 })
 
+Cypress.Commands.add("createSuggestion", (description) => {
+    cy.get('#Assistance').click();
+    cy.get('#newSUGGEST').click();
+    cy.focused({ timeout: 8000 }).type(description);
+    cy.get('#OnboardingWizardNext').click();
+    cy.get('#Assistance', { timeout: 20000 }).should('exist');
+})
+
 Cypress.Commands.add("navigateIntoJob", (name, isAssigned=true, sectionSelector='storiesSection') => {
     if (isAssigned) {
         cy.get('#AssignedJobs', {timeout: 30000}).click();
@@ -266,10 +274,7 @@ Cypress.Commands.add("vote", (certainty, reason) => {
     cy.wait(10000);
 })
 
-Cypress.Commands.add("voteSuggestion", (voteFor, certainty, reason, hasTour=false) => {
-    if (hasTour) {
-        cy.get('[title=Close]', { timeout: 120000 }).first().click();
-    }
+Cypress.Commands.add("voteSuggestion", (voteFor, certainty, reason) => {
     cy.get(`#${voteFor ? 'for' : 'against'}`, { timeout: 120000 }).click();
     // This is happening too quickly to debug so add a wait
     cy.wait(2000);
@@ -294,11 +299,6 @@ Cypress.Commands.add("verifyCollaborators", (collaborators) => {
     collaborators.forEach((collaborator) => {
         cy.contains(collaborator, {timeout: 180000});
     });
-})
-
-Cypress.Commands.add("waitForReviewStage", () => {
-    // Better way is to come in through inbox but for now just wait for in right stage
-    cy.contains('Review Report', {timeout: 90000});
 })
 
 Cypress.Commands.add("createAdditionalUser", (userEmail) => {
