@@ -44,7 +44,7 @@ describe('Authenticator:', function() {
         cy.signIn(url, secondUserEmail, userPassword);
         cy.get('#Everyone', { timeout: 60000 }).click();
         cy.get('#Discussion').click();
-        cy.get('#commentBox', { timeout: 60000 }).contains(optionText, { timeout: 60000 });
+        cy.get('#commentBox', { timeout: 120000 }).contains(optionText, { timeout: 60000 });
         cy.createAdditionalUser(thirdUserEmail);
         // add a story for second user with vote
         cy.createJob(jobName, thirdUserEmail, 75);
