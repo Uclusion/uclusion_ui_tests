@@ -54,6 +54,8 @@ describe('Authenticator:', function() {
                 cy.fillSignupForm(url, 'Tester Two Uclusion', undefined, userPassword);
                 cy.signIn(undefined, undefined, userPassword);
                 cy.get('[id^=workListItemUNREAD_MENTION]', { timeout: 10000 }).should('exist');
+                // Should have a help unblock but not another UNREAD_COMMENT for the suggestion
+                cy.get('[id^=workListItemUNREAD_COMMENT]').should('have.length', 1);
                 cy.get('[id^=workListItemNOT_FULLY_VOTED]', { timeout: 10000 }).click();
                 cy.get('#OnboardingWizardNext').click();
                 cy.get('#inbox100').click();
