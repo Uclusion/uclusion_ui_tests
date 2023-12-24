@@ -2,9 +2,6 @@
 describe('Authenticator:', function() {
     const destination = 'https://stage.uclusion.com';
     const apiDestination = 'sso.stage.api.uclusion.com/v1'
-    const inboxContents = [{notification: 'UNREAD_JOB_APPROVAL_REQUEST', count: 3},
-        {notification: 'UNREAD_COMMENT', count: 1}, {notification: 'UNASSIGNED', count: 1},
-        {notification: 'UNREAD_MENTION', count: 1}, {notification: 'REVIEW_REQUIRED', count: 1}];
     beforeEach(function() {
         Cypress.on('uncaught:exception', (err, runnable) => {
             // returning false here prevents Cypress from failing the test
@@ -24,13 +21,7 @@ describe('Authenticator:', function() {
             cy.wait(8000);
             cy.getVerificationUrl('01', apiDestination).then((url) => {
                 cy.signIn(url, firstUserEmail, userPassword);
-                cy.get('#workspaceFromDemoBanner', { timeout: 30000 }).should('exist');
-                cy.get('#Everyone', { timeout: 30000 }).should('exist');
-                cy.get('[id^=workListItemREVIEW_REQUIRED]', { timeout: 30000 }).should('exist');
-                inboxContents.forEach((content) => {
-                    const { notification, count } = content;
-                    cy.get(`[id^=workListItem${notification}]`).should('have.length', count);
-                });
+                cy.confirmDemoMarketInbox();
                 cy.get('#Addcollaborators', { timeout: 10000 }).click();
                 cy.get('#emailEntryBox').type(secondUserEmail);
                 cy.get('#OnboardingWizardNext').click();

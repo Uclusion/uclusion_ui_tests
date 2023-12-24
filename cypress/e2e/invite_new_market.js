@@ -25,6 +25,7 @@ describe('Authenticator:', function() {
       cy.wait(8000);
       cy.getVerificationUrl('03', apiDestination).then((url) => {
         cy.signIn(url, firstUserEmail, userPassword);
+        cy.confirmDemoMarketInbox();
         cy.createWorkspaceFromDemoBanner('UI Smoke');
         cy.createMarketQuestionWithOption('Did you receive this question?', optionText);
         cy.get('#Addcollaborators').click();

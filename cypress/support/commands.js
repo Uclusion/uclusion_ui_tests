@@ -147,6 +147,19 @@ Cypress.Commands.add("createSuggestion", (description) => {
     cy.get('#Assistance', { timeout: 20000 }).should('exist');
 })
 
+Cypress.Commands.add("confirmDemoMarketInbox", (description) => {
+    cy.get('#workspaceFromDemoBanner', { timeout: 30000 }).should('exist');
+    cy.get('#Everyone', { timeout: 30000 }).should('exist');
+    cy.get('[id^=workListItemREVIEW_REQUIRED]', { timeout: 30000 }).should('exist');
+    const inboxContents = [{notification: 'UNREAD_JOB_APPROVAL_REQUEST', count: 3},
+        {notification: 'UNREAD_COMMENT', count: 1}, {notification: 'UNASSIGNED', count: 1},
+        {notification: 'UNREAD_MENTION', count: 1}, {notification: 'REVIEW_REQUIRED', count: 1}];
+    inboxContents.forEach((content) => {
+        const { notification, count } = content;
+        cy.get(`[id^=workListItem${notification}]`).should('have.length', count);
+    });
+})
+
 Cypress.Commands.add("navigateIntoJob", (name, isAssigned=true, sectionSelector='storiesSection') => {
     if (isAssigned) {
         cy.get('#AssignedJobs', {timeout: 30000}).click();
