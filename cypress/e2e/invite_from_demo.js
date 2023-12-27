@@ -2,7 +2,10 @@
 describe('Authenticator:', function() {
     const destination = 'https://stage.uclusion.com';
     const apiDestination = 'sso.stage.api.uclusion.com/v1'
+
     beforeEach(function() {
+        // https://github.com/cypress-io/cypress/issues/1208
+        indexedDB.deleteDatabase('localforage');
         Cypress.on('uncaught:exception', (err, runnable) => {
             // returning false here prevents Cypress from failing the test
             return false;
