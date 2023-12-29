@@ -155,7 +155,7 @@ workflows:
           emails: 'disrael@uclusion.com, bfollis@uclusion.com'
           filters:
             tags:
-              only: /^dev_only.*/
+              only: /^dev_specific.*/
             branches:
               ignore: /.*/
           context: dev
@@ -163,7 +163,7 @@ workflows:
           emails: 'disrael@uclusion.com, bfollis@uclusion.com'
           filters:
             tags:
-              only: /^dev_only.*/
+              only: /^dev_specific.*/
             branches:
               ignore: /.*/
           context: dev
