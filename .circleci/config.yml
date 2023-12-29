@@ -193,6 +193,24 @@ workflows:
             branches:
               ignore: /.*/
           context: stage
+  clean-production-specified:
+    jobs:
+      - prepare_ruby:
+          emails: 'disrael@uclusion.com,bfollis@uclusion.com'
+          filters:
+            tags:
+              only: /^production_specific.*/
+            branches:
+              ignore: /.*/
+          context: production
+      - prepare_python:
+          emails: 'disrael@uclusion.com,bfollis@uclusion.com'
+          filters:
+            tags:
+              only: /^production_specific.*/
+            branches:
+              ignore: /.*/
+          context: production
   clean-production:
     jobs:
       - prepare_ruby:
