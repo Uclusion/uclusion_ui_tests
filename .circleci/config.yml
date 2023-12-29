@@ -149,3 +149,19 @@ workflows:
             branches:
               ignore: /.*/
           context: dev
+  clean-production:
+    jobs:
+      - prepare_ruby:
+          filters:
+            tags:
+              only: /^production_only.*/
+            branches:
+              ignore: /.*/
+          context: production
+      - prepare_python:
+          filters:
+            tags:
+              only: /^production_only.*/
+            branches:
+              ignore: /.*/
+          context: production
