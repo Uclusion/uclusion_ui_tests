@@ -160,7 +160,7 @@ workflows:
   clean-dev-specified:
     jobs:
       - prepare_ruby:
-          emails: 'disrael@uclusion.com, bfollis@uclusion.com'
+          emails: 'disrael@uclusion.com,bfollis@uclusion.com'
           filters:
             tags:
               only: /^dev_specific.*/
@@ -168,7 +168,7 @@ workflows:
               ignore: /.*/
           context: dev
       - prepare_python:
-          emails: 'disrael@uclusion.com, bfollis@uclusion.com'
+          emails: 'disrael@uclusion.com,bfollis@uclusion.com'
           filters:
             tags:
               only: /^dev_specific.*/
@@ -178,7 +178,7 @@ workflows:
   clean-stage-specified:
     jobs:
       - prepare_ruby:
-          emails: 'david.israel@uclude.com, 827hooshang@gmail.com'
+          emails: 'david.israel@uclude.com,827hooshang@gmail.com'
           filters:
             tags:
               only: /^stage_specific.*/
@@ -186,7 +186,7 @@ workflows:
               ignore: /.*/
           context: stage
       - prepare_python:
-          emails: 'david.israel@uclude.com, 827hooshang@gmail.com'
+          emails: 'david.israel@uclude.com,827hooshang@gmail.com'
           filters:
             tags:
               only: /^stage_specific.*/
