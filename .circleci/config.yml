@@ -42,7 +42,7 @@ jobs:
           name: delete tusers from Cognito
           command: |
             cd ~/circleci_orbs/scripts
-            ./test_user_deleter.rb --poolId=${pool_id} -e << parameters.emails >>
+            ./test_user_deleter.rb --poolId=${pool_id} -e "<< parameters.emails >>"
   prepare_python:
     <<: *defaults
     parameters:
@@ -78,7 +78,7 @@ jobs:
           command: |
             cd ~/circleci_orbs
             export ENV_NAME=${env_name}
-            python -m scripts.cleanup_test_users -e << parameters.emails >>
+            python -m scripts.cleanup_test_users -e "<< parameters.emails >>"
   record:
     <<: *defaults
     steps:
