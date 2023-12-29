@@ -175,6 +175,24 @@ workflows:
             branches:
               ignore: /.*/
           context: dev
+  clean-stage-specified:
+    jobs:
+      - prepare_ruby:
+          emails: 'david.israel@uclude.com, 827hooshang@gmail.com'
+          filters:
+            tags:
+              only: /^stage_specific.*/
+            branches:
+              ignore: /.*/
+          context: stage
+      - prepare_python:
+          emails: 'david.israel@uclude.com, 827hooshang@gmail.com'
+          filters:
+            tags:
+              only: /^stage_specific.*/
+            branches:
+              ignore: /.*/
+          context: stage
   clean-production:
     jobs:
       - prepare_ruby:
