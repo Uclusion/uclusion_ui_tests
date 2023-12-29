@@ -18,6 +18,10 @@ jobs:
     working_directory: ~/src
     docker:
         - image: circleci/ruby:2.7
+    parameters:
+      emails:
+        type: string
+        default: ''
     steps:
       - aws-cli/install
       - aws-cli/setup:
@@ -41,6 +45,10 @@ jobs:
             ./test_user_deleter.rb --poolId=${pool_id} -e << parameters.emails >>
   prepare_python:
     <<: *defaults
+    parameters:
+      emails:
+        type: string
+        default: ''
     steps:
       - run:
           name: disable strict host checking
@@ -99,7 +107,6 @@ workflows:
   test-stage:
     jobs:
       - prepare_ruby:
-          emails: ''
           filters:
             tags:
               only: /^stage_only.*/
@@ -107,7 +114,6 @@ workflows:
               ignore: /.*/
           context: stage
       - prepare_python:
-          emails: ''
           filters:
             tags:
               only: /^stage_only.*/
@@ -138,7 +144,6 @@ workflows:
   clean-dev:
     jobs:
       - prepare_ruby:
-          emails: ''
           filters:
             tags:
               only: /^dev_only.*/
@@ -146,7 +151,6 @@ workflows:
               ignore: /.*/
           context: dev
       - prepare_python:
-          emails: ''
           filters:
             tags:
               only: /^dev_only.*/
@@ -174,7 +178,6 @@ workflows:
   clean-production:
     jobs:
       - prepare_ruby:
-          emails: ''
           filters:
             tags:
               only: /^production_only.*/
@@ -182,7 +185,6 @@ workflows:
               ignore: /.*/
           context: production
       - prepare_python:
-          emails: ''
           filters:
             tags:
               only: /^production_only.*/
