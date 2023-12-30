@@ -17,6 +17,7 @@ describe('Authenticator:', function() {
             const firstUserEmail = 'tuser+01@uclusion.com';
             const firstUserName = 'Tester One Uclusion';
             const secondUserEmail = 'tuser+02@uclusion.com';
+            const secondUserName = 'Tester Two Uclusion';
             const userPassword = 'Testme;1';
             cy.fillSignupForm(`${destination}?utm_campaign=test#signup`, firstUserName, firstUserEmail,
                 userPassword);
@@ -34,7 +35,7 @@ describe('Authenticator:', function() {
                     { delay: 500 });
                 // First check that target user's name is correct in drop down
                 cy.get(`li[data-value="${firstUserName}"]`).should('exist');
-                cy.get(`li[data-value="${secondUserEmail}"]`).click();
+                cy.get(`li[data-value="${secondUserEmail}"],li[data-value="${secondUserName}"]`).click();
                 cy.get('#OnboardingWizardNext').click();
                 // Make sure back in inbox and done with operation before click anything
                 cy.get('#ForYou', { timeout: 8000 }).should('exist');
@@ -45,7 +46,7 @@ describe('Authenticator:', function() {
                 return cy.url().then((url) => cy.getInviteUrlFromUrl('02', url, apiDestination))
             }).then(url => {
                 cy.logOut();
-                cy.fillSignupForm(url, 'Tester Two Uclusion', undefined, userPassword);
+                cy.fillSignupForm(url, secondUserName, undefined, userPassword);
                 cy.signIn(undefined, undefined, userPassword);
                 cy.get('[id^=workListItemUNREAD_MENTION]', { timeout: 10000 }).should('exist');
                 // Should have a help unblock but not another UNREAD_COMMENT for the suggestion
