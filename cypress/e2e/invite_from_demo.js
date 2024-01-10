@@ -49,8 +49,8 @@ describe('Authenticator:', function() {
                 cy.fillSignupForm(url, secondUserName, undefined, userPassword);
                 cy.signIn(undefined, undefined, userPassword);
                 cy.get('[id^=workListItemUNREAD_MENTION]', { timeout: 10000 }).should('exist');
-                // Should have a help unblock but not another UNREAD_COMMENT for the suggestion
-                cy.get('[id^=workListItemUNREAD_COMMENT]').should('have.length', 1);
+                // Should have a help unblock and a help answer
+                cy.get('[id^=workListItemUNREAD_COMMENT]').should('have.length', 2);
                 cy.get('[id^=linkNOT_FULLY_VOTED]', { timeout: 10000 }).click();
                 cy.get('#OnboardingWizardNext').click();
                 cy.get('#inbox100').click();
