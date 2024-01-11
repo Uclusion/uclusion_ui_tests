@@ -48,7 +48,7 @@ describe('Authenticator:', function() {
                 cy.logOut();
                 cy.fillSignupForm(url, secondUserName, undefined, userPassword);
                 cy.signIn(undefined, undefined, userPassword);
-                cy.get('[id^=workListItemUNREAD_MENTION]', { timeout: 10000 }).should('exist');
+                cy.get('[id^=workListItemREPLY_MENTION]', { timeout: 10000 }).should('exist');
                 // Should have a help unblock and a help answer
                 cy.get('[id^=workListItemUNREAD_COMMENT]').should('have.length', 2);
                 cy.get('[id^=linkNOT_FULLY_VOTED]', { timeout: 10000 }).click();
