@@ -54,6 +54,7 @@ describe('Authenticator:', function() {
         // add a story for second user with vote
         cy.createJob(jobName, thirdUserEmail, 75);
         cy.logOut();
+        cy.wait(8000);
         return cy.getInviteUrl('05', '03', apiDestination);
       }).then((url) => {
         cy.log(`invite url variable is ${url}`);
