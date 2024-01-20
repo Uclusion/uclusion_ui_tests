@@ -29,6 +29,8 @@ describe('Authenticator:', function() {
         cy.signIn(url, firstUserEmail, userPassword);
         cy.confirmDemoMarketInbox();
         cy.createWorkspaceFromDemoBanner('UI Smoke');
+        // Check that inbox clears of demo notifications
+        cy.confirmDemoMarketClearedInbox();
         cy.createMarketQuestionWithOption('Did you receive this question?', optionText);
         cy.get('#Addcollaborators').click();
         // If switch to Chrome then try realClick() below

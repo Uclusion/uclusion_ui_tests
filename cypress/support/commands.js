@@ -99,6 +99,7 @@ Cypress.Commands.add("createCommentImmediate", (description) => {
 })
 
 Cypress.Commands.add("createMarketQuestionWithOption", (description, optionDescription) => {
+    cy.get('#Everyone' ).click();
     cy.get('#Discussion').click();
     cy.get('#newMarketQuestion').click();
     cy.wait(1000);
@@ -147,7 +148,7 @@ Cypress.Commands.add("createSuggestion", (description) => {
     cy.get('#Assistance', { timeout: 20000 }).should('exist');
 })
 
-Cypress.Commands.add("confirmDemoMarketInbox", (description) => {
+Cypress.Commands.add("confirmDemoMarketInbox", () => {
     cy.get('#workspaceFromDemoBanner', { timeout: 30000 }).should('exist');
     cy.get('#Everyone', { timeout: 30000 }).should('exist');
     cy.get('[id^=workListItemREVIEW_REQUIRED]', { timeout: 30000 }).should('exist');
@@ -155,6 +156,21 @@ Cypress.Commands.add("confirmDemoMarketInbox", (description) => {
         {notification: 'UNREAD_COMMENT', count: 2}, {notification: 'UNASSIGNED', count: 1},
         {notification: 'NOT_FULLY_VOTED', count: 2}, {notification: 'REPLY_MENTION', count: 1},
         {notification: 'REVIEW_REQUIRED', count: 1}, {notification:'UNREAD_REVIEWABLE', count: 1}];
+    inboxContents.forEach((content) => {
+        const { notification, count } = content;
+        cy.get(`[id^=workListItem${notification}]`).should('have.length', count);
+    });
+})
+
+Cypress.Commands.add("confirmDemoMarketClearedInbox", () => {
+    cy.get('#Inbox').click();
+    // See https://docs.cypress.io/api/commands/should#Timeouts
+    cy.get('#workspaceFromDemoBanner', { timeout: 60000 }).should('not.exist');
+    cy.get('[id^=workListItemREVIEW_REQUIRED]', { timeout: 60000 }).should('not.exist');
+    const inboxContents = [{notification: 'UNREAD_JOB_APPROVAL_REQUEST', count: 0},
+        {notification: 'UNREAD_COMMENT', count: 1}, {notification: 'UNASSIGNED', count: 0},
+        {notification: 'NOT_FULLY_VOTED', count: 0}, {notification: 'REPLY_MENTION', count: 0},
+        {notification: 'REVIEW_REQUIRED', count: 0}, {notification:'UNREAD_REVIEWABLE', count: 0}];
     inboxContents.forEach((content) => {
         const { notification, count } = content;
         cy.get(`[id^=workListItem${notification}]`).should('have.length', count);
