@@ -52,7 +52,7 @@ describe('Authenticator:', function() {
                 // Should have a help unblock and a help answer
                 cy.get('[id^=workListItemUNREAD_COMMENT]').should('have.length', 4);
                 cy.get('[id^=linkNOT_FULLY_VOTED]', { timeout: 10000 }).click();
-                cy.get('#OnboardingWizardNext').click();
+                cy.get('[id^=voteFor]').click();
                 cy.get('#inbox100').click();
                 cy.get('#OnboardingWizardNext').click();
                 cy.get('#ForYou', { timeout: 10000 }).should('exist');
