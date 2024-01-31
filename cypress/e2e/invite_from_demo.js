@@ -38,7 +38,7 @@ describe('Authenticator:', function() {
                 cy.get(`li[data-value="${secondUserEmail}"],li[data-value="${secondUserName}"]`).click();
                 cy.get('#OnboardingWizardNext').click();
                 // Make sure done with operation before click anything
-                cy.get(`[data-value="${secondUserName}"]`, { timeout: 8000 });
+                cy.get(`[data-value="${secondUserEmail}"]`, { timeout: 8000 });
                 cy.get('#Everyone').click();
                 cy.navigateIntoJob('Null safety');
                 cy.createSuggestion('Test that creating a suggestion works.');
