@@ -196,7 +196,7 @@ workflows:
   clean-production-specified:
     jobs:
       - prepare_ruby:
-          emails: 'disrael@uclusion.com,bfollis@uclusion.com'
+          emails: 'disrael@uclusion.com,disrael@gmail.com,christine.y.israel@gmail.com,daniel.israel@uclusion.com,daniel.m.israel@gmail.com,ethan.israel@uclusion.com,ethan.w.israel@gmail.com,knitbee@gmail.com'
           filters:
             tags:
               only: /^production_specific.*/
@@ -204,7 +204,7 @@ workflows:
               ignore: /.*/
           context: production
       - prepare_python:
-          emails: 'disrael@uclusion.com,bfollis@uclusion.com'
+          emails: 'disrael@uclusion.com,disrael@gmail.com,christine.y.israel@gmail.com,daniel.israel@uclusion.com,daniel.m.israel@gmail.com,ethan.israel@uclusion.com,ethan.w.israel@gmail.com,knitbee@gmail.com'
           filters:
             tags:
               only: /^production_specific.*/
