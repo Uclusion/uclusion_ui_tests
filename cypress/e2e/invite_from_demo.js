@@ -37,8 +37,8 @@ describe('Authenticator:', function() {
                 cy.get(`li[data-value="${firstUserName}"]`).should('exist');
                 cy.get(`li[data-value="${secondUserEmail}"],li[data-value="${secondUserName}"]`).click();
                 cy.get('#OnboardingWizardNext').click();
-                // Make sure back in inbox and done with operation before click anything
-                cy.get('#inviteLinker', { timeout: 8000 }).contains('R-all-1');
+                // Make sure done with operation before click anything
+                cy.get(`[data-value="${secondUserName}"]`, { timeout: 8000 });
                 cy.get('#Everyone').click();
                 cy.navigateIntoJob('Null safety');
                 cy.createSuggestion('Test that creating a suggestion works.');
