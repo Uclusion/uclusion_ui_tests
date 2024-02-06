@@ -50,8 +50,9 @@ describe('Authenticator:', function() {
                 cy.fillSignupForm(url, secondUserName, undefined, userPassword);
                 cy.signIn(undefined, undefined, userPassword);
                 cy.get('[id^=workListItemREPLY_MENTION]', { timeout: 10000 }).should('exist');
-                // Should have a help unblock and a help answer
-                cy.get('[id^=workListItemUNREAD_COMMENT]').should('have.length', 4);
+                // Special case the support notification as it is not from quick add like the rest
+                cy.get('[id^=workListItemUNREAD_COMMENT]', { timeout: 30000 })
+                    .should('have.length', 4);
                 cy.get('[id^=linkNOT_FULLY_VOTED]', { timeout: 10000 }).click();
                 cy.get('[id^=voteFor]', { timeout: 10000 }).click();
                 cy.get('#100').click();
