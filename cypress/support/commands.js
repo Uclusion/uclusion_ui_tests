@@ -149,7 +149,6 @@ Cypress.Commands.add("createSuggestion", (description) => {
 })
 
 Cypress.Commands.add("confirmDemoMarketInbox", () => {
-    cy.get('#workspaceFromDemoBanner', { timeout: 30000 }).should('exist');
     cy.get('#Everyone', { timeout: 30000 }).should('exist');
     // Special case the support notification as it is not from quick add like the rest
     cy.get('[id^=workListItemUNREAD_COMMENT]', { timeout: 30000 }).should('have.length', 2);
