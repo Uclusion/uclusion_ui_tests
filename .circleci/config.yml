@@ -160,7 +160,7 @@ workflows:
   clean-dev-specified:
     jobs:
       - prepare_ruby:
-          emails: 'disrael@uclusion.com,support@uclusion.com,testeruclusion@gmail.com,production@uclusion.com'
+          emails: 'disrael@uclusion.com,support@uclusion.com,testeruclusion@gmail.com,production.amazon@uclusion.com'
           filters:
             tags:
               only: /^dev_specific.*/
@@ -168,7 +168,7 @@ workflows:
               ignore: /.*/
           context: dev
       - prepare_python:
-          emails: 'disrael@uclusion.com,support@uclusion.com,testeruclusion@gmail.com,production@uclusion.com'
+          emails: 'disrael@uclusion.com,support@uclusion.com,testeruclusion@gmail.com,production.amazon@uclusion.com'
           filters:
             tags:
               only: /^dev_specific.*/
