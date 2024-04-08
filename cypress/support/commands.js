@@ -161,7 +161,7 @@ Cypress.Commands.add("confirmDemoMarketInbox", () => {
         {notification: 'REVIEW_REQUIRED', count: 1}, {notification:'UNREAD_REVIEWABLE', count: 1}];
     inboxContents.forEach((content) => {
         const { notification, count } = content;
-        cy.get(`[id^=workListItem${notification}]`).should('be.gte', count);
+        cy.get(`[id^=workListItem${notification}]`).its('length').should('be.gte', count);
     });
 })
 
