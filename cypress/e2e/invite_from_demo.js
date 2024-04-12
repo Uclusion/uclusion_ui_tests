@@ -50,6 +50,8 @@ describe('Authenticator:', function() {
                 cy.logOut();
                 cy.fillSignupForm(url, secondUserName, undefined, userPassword);
                 cy.signIn(undefined, undefined, userPassword);
+                cy.get('#swimlanesDemoBannerText').should('exist');
+                cy.get('#Inbox').click();
                 cy.get('[id^=workListItemREPLY_MENTION]', { timeout: 10000 }).should('exist');
                 // Special case the support notification as it is not from quick add like the rest
                 cy.get('[id^=workListItemUNREAD_COMMENT]', { timeout: 30000 })
