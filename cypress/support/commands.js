@@ -85,6 +85,7 @@ Cypress.Commands.add("signIn", (url, userEmail, userPassword) => {
 Cypress.Commands.add("logOut", () => {
     cy.get('#identityButton').click();
     cy.get('#signoutButton').click();
+    cy.get('#OnboardingWizardNext').click();
     // Verify the sign out happened before allow Cypress to continue
     cy.get('#username', { timeout: 5000 });
 })
