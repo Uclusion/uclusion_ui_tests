@@ -28,12 +28,11 @@ describe('Authenticator:', function() {
       cy.getVerificationUrl('03', apiDestination).then((url) => {
         cy.signIn(url, firstUserEmail, userPassword);
         cy.confirmDemoMarketInbox();
-        cy.get('[id^=workListItemREPLY_MENTION]', { timeout: 10000 }).click();
-        cy.get('#OnboardingWizardOtherNext').click();
-        cy.get('#newTODO', { timeout: 20000 }).should('exist');
-        cy.get('#Inbox').click();
-        cy.get('[id^=workListItemUNREAD_COMMENT]').first().click();
-        cy.get('#OnboardingWizardSkip').click();
+        // verify next button does something
+        cy.get('#nextNavigation').click();
+        cy.get('[id^=workListItem]').should('exist');
+        cy.get('#nextNavigation').click();
+        cy.get('[id^=workListItem]').should('exist');
         cy.createWorkspaceFromDemoBanner('UI Smoke');
         // Check that inbox clears of demo notifications
         cy.confirmDemoMarketClearedInbox();
