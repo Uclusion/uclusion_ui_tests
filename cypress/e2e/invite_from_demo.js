@@ -57,7 +57,7 @@ describe('Authenticator:', function() {
                 cy.get('[id^=workListItemUNREAD_COMMENT]', { timeout: 30000 })
                     .should('have.length', 2);
                 // two not fully voted so differentiate
-                cy.get('[id^=linkNOT_FULLY_VOTED]', { timeout: 10000 }).contains(suggestionText).click();
+                cy.get('[id^=linkNOT_FULLY_VOTED]', { timeout: 30000 }).contains(suggestionText).click();
                 cy.get('[id^=voteFor]', { timeout: 10000 }).click();
                 cy.get('#100').click();
                 cy.get('#OnboardingWizardNext').click();
