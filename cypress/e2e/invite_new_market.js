@@ -39,8 +39,6 @@ describe('Authenticator:', function() {
         // Now process a couple of inbox items to get the workspace from demo banner
         cy.get('[id^=workListItemREPLY_MENTION]', { timeout: 10000 }).click();
         cy.get('#OnboardingWizardOtherNext').click();
-        cy.get('#newTODO', { timeout: 20000 }).should('exist');
-        cy.get('#Inbox').click();
         cy.get('[id^=workListItemUNREAD_COMMENT]').first().click();
         cy.get('#OnboardingWizardSkip').click();
         cy.createWorkspaceFromDemoBanner('UI Smoke');
