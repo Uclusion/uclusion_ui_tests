@@ -36,11 +36,9 @@ describe('Authenticator:', function() {
         cy.get('#Inbox').click();
         // Before processing inbox items we are invited to compose
         cy.get('#composeFromDemoBanner').should('exist');
-        // Now process a couple of inbox items to get the workspace from demo banner
+        // Now process an inbox item to get the workspace from demo banner
         cy.get('[id^=workListItemREPLY_MENTION]', { timeout: 10000 }).click();
         cy.get('#OnboardingWizardOtherNext').click();
-        cy.get('[id^=workListItemUNREAD_COMMENT]').first().click();
-        cy.get('#OnboardingWizardSkip').click();
         cy.createWorkspaceFromDemoBanner('UI Smoke');
         // Check that inbox clears of demo notifications
         cy.confirmDemoMarketClearedInbox();
