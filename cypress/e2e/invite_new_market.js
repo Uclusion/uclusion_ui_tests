@@ -39,6 +39,7 @@ describe('Authenticator:', function() {
         // Now process an inbox item to get the workspace from demo banner
         cy.get('[id^=workListItemREPLY_MENTION]', { timeout: 10000 }).click();
         cy.get('#OnboardingWizardOtherNext').click();
+        cy.get('#Inbox').click();
         cy.createWorkspaceFromDemoBanner('UI Smoke');
         // Check that inbox clears of demo notifications
         cy.confirmDemoMarketClearedInbox();
