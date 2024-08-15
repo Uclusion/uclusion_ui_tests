@@ -62,6 +62,8 @@ describe('Authenticator:', function() {
         cy.getVerificationUrl('04', apiDestination, inviteUrl.substring(destination.length + 1));
       }).then((url) => {
         cy.signIn(url, secondUserEmail, userPassword);
+        // Will be on workspace notification
+        cy.get('#Everyone', { timeout: 30000 }).click();
         cy.get('#Discussion', { timeout: 60000 }).click();
         cy.get('#commentBox', { timeout: 120000 }).contains(optionText, { timeout: 60000 });
         cy.createAdditionalUser(thirdUserEmail);
@@ -75,6 +77,7 @@ describe('Authenticator:', function() {
         cy.fillSignupForm(url, 'Tester Five Uclusion', undefined, userPassword);
         // Not requiring a third entry of the password here would be nice - have put in a when convenient for it
         cy.signIn(undefined, undefined, userPassword);
+        cy.get('#Everyone', { timeout: 30000 }).click();
         cy.navigateIntoJob(jobName);
         // Have to use wait here because otherwise contains can find the inbox not visible or job visible
         cy.wait(10000);

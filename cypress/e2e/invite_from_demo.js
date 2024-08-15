@@ -50,6 +50,8 @@ describe('Authenticator:', function() {
                 cy.logOut();
                 cy.fillSignupForm(url, secondUserName, undefined, userPassword);
                 cy.signIn(undefined, undefined, userPassword);
+                // first dismiss the workspace notification
+                cy.get('#OnboardingWizardSkip', { timeout: 30000 }).click();
                 cy.get('#swimlanesDemoBannerText', { timeout: 10000 }).should('exist');
                 cy.get('#Inbox').click();
                 cy.get('[id^=workListItemREPLY_MENTION]', { timeout: 10000 }).should('exist');
