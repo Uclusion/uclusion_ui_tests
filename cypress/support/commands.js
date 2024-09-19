@@ -344,4 +344,6 @@ Cypress.Commands.add("createAdditionalUser", (userEmail) => {
     cy.get('#Addcollaborators').click();
     cy.get('#emailEntryBox').type(userEmail);
     cy.get('#OnboardingWizardNext').click();
+    // Go past confirmation screen
+    cy.get('#OnboardingWizardNext').click();
 })
