@@ -288,6 +288,7 @@ Cypress.Commands.add("createJob", (description, assigneeName, certainty, justifi
 Cypress.Commands.add("createWorkspaceFromDemoBanner", (name, participants=[]) => {
     cy.get('#workspaceFromDemoBanner', { timeout: 10000 }).click()
     cy.get('#workspaceName').type(name);
+    cy.get('#OnboardingWizardNext').click();
     // Skip Slack setup
     cy.get('#OnboardingWizardNext').click();
     // Now should be on single person or add people choice step
