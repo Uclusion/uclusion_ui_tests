@@ -288,6 +288,8 @@ Cypress.Commands.add("createJob", (description, assigneeName, certainty, justifi
 Cypress.Commands.add("createWorkspaceFromDemoBanner", (name, participants=[]) => {
     cy.get('#workspaceFromDemoBanner', { timeout: 10000 }).click()
     cy.get('#workspaceName').type(name);
+    // Skip Slack setup
+    cy.get('#OnboardingWizardNext').click();
     cy.get('#OnboardingWizardNext').click();
     if (participants.length > 0) {
         participants.forEach((participant) => {
@@ -296,8 +298,6 @@ Cypress.Commands.add("createWorkspaceFromDemoBanner", (name, participants=[]) =>
     }
     cy.get('#copyInviteLink', { timeout: 8000 }).should('be.visible');
     cy.get('#OnboardingWizardNext').click();
-    // Skip Slack setup
-    cy.get('#OnboardingWizardSkip').click();
 })
 
 Cypress.Commands.add("vote", (certainty, reason) => {
