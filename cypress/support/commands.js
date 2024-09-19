@@ -29,10 +29,10 @@ Cypress.Commands.add("fillSignupForm", (url, userName, userEmail, userPassword, 
     if (useSignupLink) {
         cy.contains('Don\'t have an account? Sign up').click();
     }
-    cy.get('#name', { timeout: 5000 }).type(userName);
     if (userEmail) {
-        cy.get('#email').type(userEmail);
+        cy.get('#email', { timeout: 5000 }).type(userEmail);
     }
+    cy.get('#name', { timeout: 5000 }).type(userName);
     cy.get('#password').type(userPassword);
     cy.get('#repeat').type(userPassword);
     cy.get('#terms').click();
