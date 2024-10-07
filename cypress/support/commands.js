@@ -105,7 +105,7 @@ Cypress.Commands.add("createMarketQuestionWithOption", (description, optionDescr
     cy.get('#newMarketQuestion').click();
     cy.wait(1000);
     // focus is not reliable in React so have to use get even though should be focussed
-    cy.get('[id^=editorBox-marketCommentDiscussionCommentAdd]').type(description);
+    cy.get('[id^=editorBox-marketComment]').type(description);
     cy.get('#OnboardingWizardNext').click();
     cy.wait(3000);
     cy.get('[id^=editorBox-addOptionWizard]', {timeout: 8000}).type(optionDescription);
