@@ -265,6 +265,7 @@ Cypress.Commands.add("createJob", (description, assigneeName, certainty, justifi
             }
             cy.get('#OnboardingWizardNext').click();
         } else if (isSkipApprovals) {
+            cy.get('#OnboardingWizardNext').click();
             cy.get('#OnboardingWizardOtherNext').click();
         }
         else {
