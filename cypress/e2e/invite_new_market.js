@@ -89,7 +89,7 @@ describe('Authenticator:', function() {
         cy.get('[id^=moveComment]').click();
         cy.get('#OnboardingWizardNext').click();
         cy.get('#OnboardingWizardNext').click();
-        cy.get('#OnboardingWizardTerminate').click();
+        cy.get('#OnboardingWizardTerminate').contains('Skip', { timeout: 30000 }).click();
         cy.get('#Overview', {timeout: 10000}).should('be.visible');
         cy.get('#Inbox').click();
         cy.get('[id^=linkUNREAD_REVIEWABLE]').click();
