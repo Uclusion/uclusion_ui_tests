@@ -16,6 +16,7 @@ describe('Authenticator:', function() {
   describe('Check market creation', () => {
     it('signs up and creates template market and verifies', () => {
       const firstUserEmail = 'tuser+03@uclusion.com';
+      const firstUserName = 'Tester Three Uclusion';
       const secondUserEmail = 'tuser+04@uclusion.com';
       const thirdUserEmail = 'tuser+05@uclusion.com';
       const userPassword = 'Testme;1';
@@ -24,7 +25,7 @@ describe('Authenticator:', function() {
       const jobName = 'Creating this story to test placeholder gets it';
       const reviewJobName = 'Job getting a review on.';
       const blockingIssue = 'This is my issue with this progress.';
-      cy.fillSignupForm(`${destination}?utm_campaign=test#signup`, 'Tester Three Uclusion', firstUserEmail,
+      cy.fillSignupForm(`${destination}?utm_campaign=test#signup`, firstUserName, firstUserEmail,
           userPassword);
       // Wait for a read on Cognito of the signup that just happened to work
       cy.wait(8000);
@@ -55,7 +56,7 @@ describe('Authenticator:', function() {
         cy.get('#OnboardingWizardNext').click();
         cy.get('[id^=editorBox-addBugCommentAddBug]').type('This is my critical bug.');
         cy.get('#OnboardingWizardNext').click();
-        cy.createJob(reviewJobName, firstUserEmail, undefined, undefined, undefined, true);
+        cy.createJob(reviewJobName, firstUserName, undefined, undefined, undefined, true);
         cy.navigateIntoJob(reviewJobName);
         cy.get('#newReport').click();
         cy.get(['id^=editorBox-jobCommentREPORTJobCommentAdd]']).type('This is my report yea!');
