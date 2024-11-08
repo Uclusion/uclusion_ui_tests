@@ -249,7 +249,7 @@ Cypress.Commands.add("voteOption", (optionName, certainty, reason) => {
 })
 
 Cypress.Commands.add("createJob", (description, assigneeName, certainty, justification,
-                                   isReady) => {
+                                   isReady, isSkipApprovals=false) => {
     cy.get('#AssignedJobs', { timeout: 10000 }).click();
     cy.get('#addJob', { timeout: 5000 }).click();
     cy.get('[id^=editorBox-addJobWizard]', { timeout: 5000 }).type(description, { timeout: 5000 });
@@ -264,7 +264,10 @@ Cypress.Commands.add("createJob", (description, assigneeName, certainty, justifi
                 cy.get('[id^=editorBox-newjobapproveeditor]').type(justification, { timeout: 5000 });
             }
             cy.get('#OnboardingWizardNext').click();
-        } else {
+        } else if (isSkipApprovals) {
+            cy.get('#OnboardingWizardOtherNext').click();
+        }
+        else {
             cy.get('#OnboardingWizardSkip').click();
         }
     } else {
@@ -303,12 +306,16 @@ Cypress.Commands.add("createWorkspaceFromDemoBanner", (name, participants=[]) =>
     cy.get('#OnboardingWizardNext').click();
 })
 
-Cypress.Commands.add("vote", (certainty, reason) => {
+Cypress.Commands.add("vote", (certainty, reason, isInbox=false) => {
     cy.get(`#${certainty}`).click();
     if (reason) {
         cy.focused({ timeout: 10000 }).type(reason);
     }
-    cy.get('#addOrUpdateVoteButton').click();
+    if (isInbox) {
+        cy.get('#OnboardingWizardNext').click();
+    } else {
+        cy.get('#addOrUpdateVoteButton').click();
+    }
     // Should find way to verify when done but just kludging for now
     cy.wait(10000);
 })

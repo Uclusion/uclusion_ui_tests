@@ -19,8 +19,11 @@ describe('Authenticator:', function() {
       const secondUserEmail = 'tuser+04@uclusion.com';
       const thirdUserEmail = 'tuser+05@uclusion.com';
       const userPassword = 'Testme;1';
+      const questionText = 'Did you receive this question?';
       const optionText = 'This is your option to vote for';
       const jobName = 'Creating this story to test placeholder gets it';
+      const reviewJobName = 'Job getting a review on.';
+      const blockingIssue = 'This is my issue with this progress.';
       cy.fillSignupForm(`${destination}?utm_campaign=test#signup`, 'Tester Three Uclusion', firstUserEmail,
           userPassword);
       // Wait for a read on Cognito of the signup that just happened to work
@@ -46,7 +49,16 @@ describe('Authenticator:', function() {
         cy.createWorkspaceFromDemoBanner('UI Smoke');
         // Check that inbox clears of demo notifications
         cy.confirmDemoMarketClearedInbox();
-        cy.createMarketQuestionWithOption('Did you receive this question?', optionText);
+        cy.createMarketQuestionWithOption(questionText, optionText);
+        cy.get('#Compose').click();
+        cy.get('#typeTODO').click();
+        cy.get('#OnboardingWizardNext').click();
+        cy.get('[id^=editorBox-addBugCommentAddBug]').type('This is my critical bug.');
+        cy.get('#OnboardingWizardNext').click();
+        cy.createJob(reviewJobName, firstUserEmail, undefined, undefined, undefined, true);
+        cy.navigateIntoJob(reviewJobName);
+        cy.get('#newReport').click();
+        cy.get(['id^=editorBox-jobCommentREPORTJobCommentAdd]']).type('This is my report yea!');
         cy.get('#Addcollaborators').click();
         // If switch to Chrome then try realClick() below
         cy.get('#copyInviteLink').click();
@@ -66,6 +78,24 @@ describe('Authenticator:', function() {
         cy.get('#Everyone', { timeout: 30000 }).click();
         cy.get('#Discussion', { timeout: 60000 }).click();
         cy.get('#commentBox', { timeout: 120000 }).contains(optionText, { timeout: 60000 });
+        cy.get('#Inbox').click();
+        cy.get('[id^=linkNOT_FULLY_VOTED]', { timeout: 30000 }).contains(questionText).click();
+        cy.get('#approvalButton').click();
+        cy.vote(75, 'My vote for option reason.', true);
+        cy.get('#Inbox').click();
+        cy.get('[id^=workListItemUNASSIGNED]').click();
+        cy.get('[id^=moveComment]').click();
+        cy.get('#OnboardingWizardNext').click();
+        cy.get('#OnboardingWizardNext').click();
+        cy.get('#OnboardingWizardTerminate').click();
+        cy.get('#Overview', {timeout: 10000}).should('be.visible');
+        cy.get('#Inbox').click();
+        cy.get('[id^=linkUNREAD_REVIEWABLE]').click();
+        cy.get('#OnboardingWizardOtherNext').click();
+        cy.get('#commentAddLabelISSUE').click();
+        cy.get('#OnboardingWizardNext').click();
+        cy.type(blockingIssue);
+        cy.get('#OnboardingWizardNext').click();
         cy.createAdditionalUser(thirdUserEmail);
         // add a story for second user with vote
         cy.createJob(jobName, thirdUserEmail, 75);
@@ -82,6 +112,16 @@ describe('Authenticator:', function() {
         // Have to use wait here because otherwise contains can find the inbox not visible or job visible
         cy.wait(10000);
         cy.get('span').filter(':visible').contains('Certain');
+        cy.get('#Inbox').click();
+        cy.get('[id^=linkUNREAD_JOB_APPROVAL_REQUEST]').click();
+        cy.vote(75, 'My vote for take job reason.', true);
+        cy.get('span').filter(':visible').contains('Certain');
+        cy.get('#Inbox').click();
+        cy.get('[id^=workListItemUNREAD_COMMENT]').contains(blockingIssue).click();
+        cy.get('[id^=readOnlyinboxComment]').click();
+        cy.get('[id^=moveComment]').click();
+        cy.get('#OnboardingWizardTerminate').click();
+        cy.get('#Bugs').should('be.visible');
       });
     });
   });
