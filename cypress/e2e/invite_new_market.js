@@ -57,6 +57,7 @@ describe('Authenticator:', function() {
         cy.get('[id^=editorBox-addBugCommentAddBug]').type('This is my critical bug.');
         cy.get('#OnboardingWizardNext').click();
         cy.createJob(reviewJobName, firstUserName, undefined, undefined, undefined, true);
+        cy.get('#Everyone').click();
         cy.navigateIntoJob(reviewJobName);
         cy.get('#newReport').click();
         cy.get(['id^=editorBox-jobCommentREPORTJobCommentAdd]']).type('This is my report yea!');
