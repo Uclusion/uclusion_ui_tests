@@ -123,7 +123,7 @@ describe('Authenticator:', function() {
         cy.get('span').filter(':visible').contains('Certain');
         cy.get('#Inbox').click();
         cy.get('[id^=workListItemUNREAD_COMMENT]').contains(blockingIssue).click();
-        cy.get('[id^=commentBox]').click();
+        cy.contains(blockingIssue, {timeout: 10000}).click();
         cy.get('[id^=moveComment]').click();
         cy.get('#OnboardingWizardTerminate').click();
         cy.get('#Bugs').should('be.visible');
