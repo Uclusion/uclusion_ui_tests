@@ -98,7 +98,7 @@ describe('Authenticator:', function() {
         cy.get('#OnboardingWizardOtherNext').click();
         cy.get('#commentAddLabelISSUE').click();
         cy.get('#OnboardingWizardNext').click();
-        cy.type(blockingIssue);
+        cy.focused({ timeout: 10000 }).type(blockingIssue);
         cy.get('#OnboardingWizardNext').click();
         cy.createAdditionalUser(thirdUserEmail);
         // add a story for second user with vote
