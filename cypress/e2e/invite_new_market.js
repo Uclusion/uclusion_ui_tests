@@ -61,6 +61,8 @@ describe('Authenticator:', function() {
         cy.navigateIntoJob(reviewJobName);
         cy.get('#newReport').click();
         cy.get('[id^=editorBox-jobCommentREPORTJobCommentAdd]').type('This is my report yea!');
+        cy.get('#OnboardingWizardNext').click();
+        cy.get('#Overview', {timeout: 10000}).should('be.visible');
         cy.get('#Addcollaborators').click();
         // If switch to Chrome then try realClick() below
         cy.get('#copyInviteLink').click();
