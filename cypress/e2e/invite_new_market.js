@@ -100,6 +100,7 @@ describe('Authenticator:', function() {
         cy.get('#OnboardingWizardNext').click();
         cy.focused({ timeout: 10000 }).type(blockingIssue);
         cy.get('#OnboardingWizardNext').click();
+        cy.get('#Overview', {timeout: 10000}).should('be.visible');
         cy.createAdditionalUser(thirdUserEmail);
         // add a story for second user with vote
         cy.createJob(jobName, thirdUserEmail, 75);
