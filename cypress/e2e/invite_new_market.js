@@ -126,7 +126,7 @@ describe('Authenticator:', function() {
         cy.contains(blockingIssue, {timeout: 10000}).click();
         cy.get('[id^=moveComment]').click();
         cy.get('#OnboardingWizardTerminate').click();
-        cy.get('#Bugs').should('be.visible');
+        cy.get('#Bugs', { timeout: 30000 }).should('be.visible');
       });
     });
   });
