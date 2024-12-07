@@ -349,9 +349,10 @@ Cypress.Commands.add("verifyCollaborators", (collaborators) => {
 })
 
 Cypress.Commands.add("createAdditionalUser", (userEmail) => {
-    cy.get('#Addcollaborators').click();
+    cy.get('#Addcollaborators', { timeout: 10000 }).click();
     cy.get('#emailEntryBox').type(userEmail);
     cy.get('#OnboardingWizardNext').click();
+    cy.contains('Sent', { timeout: 8000 });
     // Go past confirmation screen
     cy.get('#OnboardingWizardNext').click();
 })

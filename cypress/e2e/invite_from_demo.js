@@ -27,9 +27,7 @@ describe('Authenticator:', function() {
             cy.getVerificationUrl('01', apiDestination).then((url) => {
                 cy.signIn(url, firstUserEmail, userPassword);
                 cy.confirmDemoMarketInbox();
-                cy.get('#Addcollaborators', { timeout: 10000 }).click();
-                cy.get('#emailEntryBox').type(secondUserEmail);
-                cy.get('#OnboardingWizardNext').click();
+                cy.createAdditionalUser(secondUserEmail);
                 cy.get('#Inbox').click();
                 cy.get('[id^=workListItemREVIEW_REQUIRED]', { timeout: 10000 }).click();
                 cy.get('#OnboardingWizardNext').click();
