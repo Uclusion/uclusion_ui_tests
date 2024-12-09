@@ -196,7 +196,7 @@ workflows:
   clean-production-specified:
     jobs:
       - prepare_ruby:
-          emails: 'david.israel@uclude.com,827hooshang@gmail.com'
+          emails: 'olivier.tassinari@gmail.com'
           filters:
             tags:
               only: /^production_specific.*/
@@ -204,7 +204,7 @@ workflows:
               ignore: /.*/
           context: production
       - prepare_python:
-          emails: 'david.israel@uclude.com,827hooshang@gmail.com'
+          emails: 'olivier.tassinari@gmail.com'
           filters:
             tags:
               only: /^production_specific.*/
