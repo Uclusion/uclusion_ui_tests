@@ -293,10 +293,7 @@ Cypress.Commands.add("createWorkspaceFromDemoBanner", (name, participants=[]) =>
     cy.get('#workspaceFromDemoBanner', { timeout: 10000 }).click()
     cy.get('#workspaceName').type(name);
     cy.get('#OnboardingWizardNext').click();
-    // Skip Slack setup
-    cy.get('#OnboardingWizardNext').click();
-    // Now should be on single person or add people choice step
-    cy.get('#OnboardingWizardOtherNext').should('be.visible');
+    // Go past Slack setup to add participants
     cy.get('#OnboardingWizardNext').click();
     if (participants.length > 0) {
         participants.forEach((participant) => {
