@@ -255,7 +255,7 @@ Cypress.Commands.add("createJob", (description, assigneeName, certainty, justifi
     cy.get('[id^=editorBox-addJobWizard]', { timeout: 5000 }).type(description, { timeout: 5000 });
     if (assigneeName) {
         cy.get('#OnboardingWizardNext').click();
-        cy.get('#addressBook', { timeout: 5000 }).contains(assigneeName).click();
+        cy.get('#addressBook', { timeout: 5000 }).contains(assigneeName.replace('@', ' ')).click();
         if (certainty) {
             cy.get('#OnboardingWizardNext').click();
             cy.get(`#${certainty}`, { timeout: 8000 }).click();
