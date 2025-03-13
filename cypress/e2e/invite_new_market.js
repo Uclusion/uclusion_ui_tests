@@ -57,7 +57,7 @@ describe('Authenticator:', function() {
         cy.get('[id^=editorBox-addBugCommentAddBug]').type('This is my critical bug.');
         cy.get('#OnboardingWizardNext').click();
         cy.createJob(reviewJobName, firstUserName, undefined, undefined, undefined, true);
-        cy.get('#Everyone').click();
+        cy.get('#Default').click();
         cy.navigateIntoJob(reviewJobName);
         cy.get('#newReport').click();
         cy.get('[id^=editorBox-jobCommentREPORTJobCommentAdd]').type('This is my report yea!');
@@ -79,7 +79,7 @@ describe('Authenticator:', function() {
       }).then((url) => {
         cy.signIn(url, secondUserEmail, userPassword);
         // Will be on workspace notification
-        cy.get('#Everyone', { timeout: 30000 }).click();
+        cy.get('#Default', { timeout: 30000 }).click();
         cy.get('#Discussion', { timeout: 60000 }).click();
         cy.get('#commentBox', { timeout: 120000 }).contains(optionText, { timeout: 60000 });
         cy.get('#Inbox').click();
@@ -115,7 +115,7 @@ describe('Authenticator:', function() {
         cy.fillSignupForm(url, 'Tester Five Uclusion', undefined, userPassword);
         // Not requiring a third entry of the password here would be nice - have put in a when convenient for it
         cy.signIn(undefined, undefined, userPassword);
-        cy.get('#Everyone', { timeout: 30000 }).click();
+        cy.get('#Default', { timeout: 30000 }).click();
         cy.navigateIntoJob(jobName);
         // Have to use wait here because otherwise contains can find the inbox not visible or job visible
         cy.wait(10000);

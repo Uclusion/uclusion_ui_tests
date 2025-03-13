@@ -40,10 +40,10 @@ describe('Authenticator:', function() {
                 // Make sure done with operation before click anything
                 cy.get('#investible-header', { timeout: 8000 })
                 cy.get(`[data-value="${secondUserEmail}"]`, { timeout: 8000 });
-                cy.get('#Everyone').click();
+                cy.get('#Default').click();
                 cy.navigateIntoJob('Null safety');
                 cy.createSuggestion(suggestionText);
-                cy.get('#Everyone').click();
+                cy.get('#Default').click();
                 return cy.url().then((url) => cy.getInviteUrlFromUrl('02', url, apiDestination))
             }).then(url => {
                 cy.logOut();
@@ -51,7 +51,7 @@ describe('Authenticator:', function() {
                 cy.signIn(undefined, undefined, userPassword);
                 // first dismiss the workspace notification
                 cy.get('#OnboardingWizardSkip', { timeout: 30000 }).click();
-                cy.get('#Everyone', { timeout: 30000 }).click();
+                cy.get('#Default', { timeout: 30000 }).click();
                 cy.get('#swimlanesDemoBannerText', { timeout: 10000 }).should('exist');
                 cy.get('#Inbox').click();
                 cy.get('[id^=workListItemREPLY_MENTION]', { timeout: 10000 }).should('exist');
