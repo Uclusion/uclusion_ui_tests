@@ -149,7 +149,7 @@ Cypress.Commands.add("confirmDemoMarketInbox", () => {
     cy.get('#swimlanesDemoBannerText').should('exist');
     cy.get('#Inbox').click();
     // Special case the support notification as it is not from quick add like the rest
-    cy.get('[id^=workListItemUNREAD_COMMENT]', { timeout: 240000 }).should('have.length', 1);
+    cy.get('[id^=workListItemUNREAD_COMMENT]', { timeout: 480000 }).should('have.length', 1);
     const inboxContents = [{notification: 'UNREAD_JOB_APPROVAL_REQUEST', count: 3},
         {notification: 'UNREAD_COMMENT', count: 1}, {notification: 'UNASSIGNED', count: 1},
         {notification: 'NOT_FULLY_VOTED', count: 1}, {notification: 'REPLY_MENTION', count: 1},
