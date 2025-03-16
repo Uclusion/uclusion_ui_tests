@@ -19,7 +19,7 @@ describe('Authenticator:', function() {
             const secondUserEmail = 'tuser+02@uclusion.com';
             const secondUserName = 'Tester Two Uclusion';
             const userPassword = 'Testme;1';
-            const suggestionText = 'Test that creating a suggestion works.';
+            const suggestionText = 'Test a suggestion for @';
             cy.fillSignupForm(`${destination}?utm_campaign=test#signup`, firstUserName, firstUserEmail,
                 userPassword);
             // Wait for a read on Cognito of the signup
@@ -42,7 +42,13 @@ describe('Authenticator:', function() {
                 cy.get(`[data-value="${secondUserEmail}"]`, { timeout: 8000 });
                 cy.get('#Default').click();
                 cy.navigateIntoJob('Null safety');
-                cy.createSuggestion(suggestionText);
+                cy.get('#Assistance').click();
+                cy.get('#newSUGGEST').click();
+                cy.focused({ timeout: 8000 }).type(suggestionText, { delay: 500 });
+                // mention so that suggestion will generate a notification
+                cy.get(`li[data-value="${secondUserEmail}"],li[data-value="${secondUserName}"]`).click();
+                cy.get('#OnboardingWizardNext').click();
+                cy.get('#Assistance', { timeout: 20000 }).should('exist');
                 cy.get('#Default').click();
                 return cy.url().then((url) => cy.getInviteUrlFromUrl('02', url, apiDestination))
             }).then(url => {
@@ -57,7 +63,7 @@ describe('Authenticator:', function() {
                 cy.get('[id^=workListItemREPLY_MENTION]', { timeout: 10000 }).should('exist');
                 // Special case the support notification as it is not from quick add like the rest
                 cy.get('[id^=workListItemUNREAD_COMMENT]', { timeout: 30000 })
-                    .should('have.length', 2);
+                    .should('have.length', 1);
                 // two not fully voted so differentiate
                 cy.get('[id^=linkNOT_FULLY_VOTED]', { timeout: 30000 }).contains(suggestionText).click();
                 cy.get('[id^=voteFor]', { timeout: 10000 }).click();

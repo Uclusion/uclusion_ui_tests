@@ -141,14 +141,6 @@ Cypress.Commands.add("createTodo", (type, section, description) => {
     });
 })
 
-Cypress.Commands.add("createSuggestion", (description) => {
-    cy.get('#Assistance').click();
-    cy.get('#newSUGGEST').click();
-    cy.focused({ timeout: 8000 }).type(description);
-    cy.get('#OnboardingWizardNext').click();
-    cy.get('#Assistance', { timeout: 20000 }).should('exist');
-})
-
 Cypress.Commands.add("confirmDemoMarketInbox", () => {
     // first dismiss the workspace notification to confirm there
     cy.get('#OnboardingWizardSkip', { timeout: 30000 }).click();

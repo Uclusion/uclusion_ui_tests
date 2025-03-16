@@ -25,6 +25,7 @@ describe('Authenticator:', function() {
       const jobName = 'Creating this story to test placeholder gets it';
       const reviewJobName = 'Job getting a review on.';
       const blockingIssue = 'This is my issue with this progress.';
+      const thirdUserEmailNamePart = thirdUserEmail.substring(0, thirdUserEmail.indexOf('@'));
       cy.fillSignupForm(`${destination}?utm_campaign=test#signup`, firstUserName, firstUserEmail,
           userPassword);
       // Wait for a read on Cognito of the signup that just happened to work
@@ -93,18 +94,28 @@ describe('Authenticator:', function() {
         cy.get('#OnboardingWizardNext').click();
         cy.get('#OnboardingWizardTerminate').contains('Skip', { timeout: 30000 }).click();
         cy.get('#Overview', {timeout: 10000}).should('be.visible');
-        cy.get('#Inbox').click();
-        cy.get('[id^=linkUNREAD_REVIEWABLE]').click();
-        cy.get('#OnboardingWizardOtherNext').click();
-        cy.get('#commentAddLabelISSUE').click();
-        cy.get('#OnboardingWizardNext').click();
+        cy.createAdditionalUser(thirdUserEmail);
+        cy.get('#Default').click();
+        cy.get('#endDefault').click();
+        cy.get('#manageMembersId').click();
+        // add third user to default view
+        cy.get('li').filter(':visible').contains(thirdUserEmailNamePart).within(() => {
+          cy.get('input').click();
+        });
+        cy.get('#participantAddButton').click();
+        cy.get('#viewMembersList').contains(thirdUserEmailNamePart, { timeout: 30000 })
+            .should('be.visible');
+        // go into the job to create this blocking issue since not a member of this view
+        cy.get('#Default').click();
+        cy.navigateIntoJob(reviewJobName);
+        cy.get('#Assistance').click();
+        cy.get('#newISSUE').click();
         cy.focused({ timeout: 10000 }).type(blockingIssue);
         cy.get('#OnboardingWizardNext').click();
         // Decision of send to team or not
         cy.get('#ISSUEYes', {timeout: 10000}).should('be.visible');
         cy.get('#OnboardingWizardNext').click();
         cy.get('#Overview', {timeout: 10000}).should('be.visible');
-        cy.createAdditionalUser(thirdUserEmail);
         // add a story for second user with vote
         cy.createJob(jobName, thirdUserEmail, 75);
         cy.logOut();
