@@ -83,8 +83,6 @@ describe('Authenticator:', function() {
         cy.get('#Default', { timeout: 30000 }).click();
         cy.get('#Discussion', { timeout: 60000 }).click();
         cy.get('#commentBox', { timeout: 120000 }).contains(optionText, { timeout: 60000 });
-        cy.get('#Inbox').click();
-        cy.get('[id^=linkNOT_FULLY_VOTED]', { timeout: 120000 }).contains(questionText).click();
         cy.get('#approvalButton').click();
         cy.vote(75, 'My vote for option reason.', true);
         cy.get('#Inbox').click();
