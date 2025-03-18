@@ -117,6 +117,12 @@ describe('Authenticator:', function() {
         // Not requiring a third entry of the password here would be nice - have put in a when convenient for it
         cy.signIn(undefined, undefined, userPassword);
         cy.get('#Inbox').click();
+        cy.get('#Default', { timeout: 30000 }).click();
+        cy.navigateIntoJob(jobName);
+        // Have to use wait here because otherwise contains can find the inbox not visible or job visible
+        cy.wait(10000);
+        cy.get('span').filter(':visible').contains('Certain');
+        cy.get('#Inbox').click();
         // We are a member of this view so should get the critical bugs
         cy.get('[id^=workListItemUNASSIGNED]').click();
         cy.get('[id^=moveComment]').click();
@@ -124,11 +130,6 @@ describe('Authenticator:', function() {
         cy.get('#OnboardingWizardNext').click();
         cy.get('#OnboardingWizardTerminate').contains('Skip', { timeout: 30000 }).click();
         cy.get('#Overview', {timeout: 10000}).should('be.visible');
-        cy.get('#Default', { timeout: 30000 }).click();
-        cy.navigateIntoJob(jobName);
-        // Have to use wait here because otherwise contains can find the inbox not visible or job visible
-        cy.wait(10000);
-        cy.get('span').filter(':visible').contains('Certain');
         cy.get('#Inbox').click();
         cy.get('[id^=linkUNREAD_JOB_APPROVAL_REQUEST]').click();
         cy.vote(75, 'My vote for take job reason.', true);
