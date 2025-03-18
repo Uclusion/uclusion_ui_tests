@@ -106,6 +106,7 @@ describe('Authenticator:', function() {
         cy.get('#OnboardingWizardNext').click();
         cy.get('#Overview', {timeout: 10000}).should('be.visible');
         // add a story for second user with vote
+        cy.get('#Default').click();
         cy.createJob(jobName, thirdUserEmail, 75);
         cy.logOut();
         cy.wait(8000);
