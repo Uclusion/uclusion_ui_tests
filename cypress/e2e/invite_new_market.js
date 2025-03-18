@@ -90,9 +90,7 @@ describe('Authenticator:', function() {
         cy.get('#endDefault').click();
         cy.get('#manageMembersId').click();
         // add third user to default view
-        cy.get('li').filter(':visible').contains(thirdUserEmailNamePart).within(() => {
-          cy.get('input').click();
-        });
+        cy.get('li').filter(':visible').contains(thirdUserEmailNamePart).click();
         cy.get('#participantAddButton').click();
         cy.get('#viewMembersList').contains(thirdUserEmailNamePart, { timeout: 30000 })
             .should('be.visible');
