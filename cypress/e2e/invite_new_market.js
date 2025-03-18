@@ -116,7 +116,6 @@ describe('Authenticator:', function() {
         cy.fillSignupForm(url, 'Tester Five Uclusion', undefined, userPassword);
         // Not requiring a third entry of the password here would be nice - have put in a when convenient for it
         cy.signIn(undefined, undefined, userPassword);
-        cy.get('#Inbox').click();
         cy.get('#Default', { timeout: 30000 }).click();
         cy.navigateIntoJob(jobName);
         // Have to use wait here because otherwise contains can find the inbox not visible or job visible
