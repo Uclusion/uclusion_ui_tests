@@ -291,9 +291,11 @@ Cypress.Commands.add("createWorkspaceFromDemoBanner", (name, participants=[]) =>
         participants.forEach((participant) => {
             cy.get('#emailEntryBox').type(participant + '{enter}', {delay: 60, force: true});
         });
+        cy.get('#copyInviteLink', { timeout: 8000 }).should('be.visible');
+        cy.get('#OnboardingWizardNext').click();
+    } else {
+        cy.get('#copyInviteLink', { timeout: 8000 }).should('be.visible');
     }
-    cy.get('#copyInviteLink', { timeout: 8000 }).should('be.visible');
-    cy.get('#OnboardingWizardNext').click();
 })
 
 Cypress.Commands.add("vote", (certainty, reason, isInbox=false) => {
