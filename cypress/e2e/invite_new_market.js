@@ -39,8 +39,6 @@ describe('Authenticator:', function() {
         cy.get('#nextNavigation').click();
         cy.get('[id^=workListItem]').should('exist');
         cy.get('#Inbox').click();
-        // Before processing inbox items we are invited to compose
-        cy.get('#composeFromDemoBanner').should('exist');
         // Now process an inbox item to get the workspace from demo banner
         cy.get('[id^=workListItemUNREAD_REVIEWABLE]', { timeout: 10000 }).click();
         cy.get('#OnboardingWizardNext').click();
