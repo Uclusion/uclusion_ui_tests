@@ -343,5 +343,5 @@ Cypress.Commands.add("createAdditionalUser", (userEmail) => {
     cy.get('#OnboardingWizardNext').click();
     cy.contains('Sent', { timeout: 8000 });
     // Go past confirmation screen
-    cy.get('#OnboardingWizardNext').click();
+    cy.get('#OnboardingWizardSkip').click();
 })
