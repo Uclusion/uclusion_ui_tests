@@ -346,5 +346,5 @@ Cypress.Commands.add("createAdditionalUser", (userEmail) => {
     cy.get('#OnboardingWizardNext').click();
     cy.contains('view', { timeout: 8000 });
     // Go past add to view screen
-    cy.get('#OnboardingWizardSkip').click();
+    cy.get('#OnboardingWizardNext').click();
 })
