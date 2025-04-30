@@ -54,6 +54,9 @@ describe('Authenticator:', function() {
         cy.get('#Compose').click();
         cy.get('#typeTODO').click();
         cy.get('#OnboardingWizardNext').click();
+        // Put the bug in the Engineering view
+        cy.contains('label', 'Engineering', {timeout: 8000}).click();
+        cy.get('#OnboardingWizardNext').click();
         cy.get('[id^=editorBox-addBugCommentAddBug]').type('This is my critical bug.');
         cy.get('#OnboardingWizardNext').click();
         cy.createJob(reviewJobName, firstUserName, undefined, undefined, undefined, true);
