@@ -56,7 +56,7 @@ describe('Authenticator:', function() {
         cy.get('[id^=editorBox-addBugCommentAddBug]').type('This is my critical bug.');
         cy.get('#OnboardingWizardNext').click();
         cy.createJob(reviewJobName, firstUserName, undefined, undefined, undefined, true);
-        cy.get('#Default').click();
+        cy.get('#Engineering').click();
         cy.navigateIntoJob(reviewJobName);
         cy.get('#newReport').click();
         cy.get('[id^=editorBox-jobCommentREPORTJobCommentAdd]').type('This is my report yea!');
@@ -78,22 +78,22 @@ describe('Authenticator:', function() {
       }).then((url) => {
         cy.signIn(url, secondUserEmail, userPassword);
         // Will be on workspace notification
-        cy.get('#Default', { timeout: 30000 }).click();
+        cy.get('#Engineering', { timeout: 30000 }).click();
         cy.get('#Discussion', { timeout: 60000 }).click();
         cy.get('#commentBox', { timeout: 120000 }).contains(optionText, { timeout: 60000 });
         cy.get('#approvalButton').click();
         cy.vote(75, 'My vote for option reason.', true);
         cy.createAdditionalUser(thirdUserEmail);
-        cy.get('#Default').click();
-        cy.get('#endDefault').click();
+        cy.get('#Engineering').click();
+        cy.get('#endEngineering').click();
         cy.get('#manageMembersId').click();
-        // add third user to default view
+        // add third user to Engineering view
         cy.get('li').filter(':visible').contains(thirdUserEmailNamePart).click();
         cy.get('#participantAddButton').click();
         cy.get('#viewMembersList').contains(thirdUserEmailNamePart, { timeout: 30000 })
             .should('be.visible');
         // go into the job to create this blocking issue since not a member of this view
-        cy.get('#Default').click();
+        cy.get('#Engineering').click();
         cy.navigateIntoJob(reviewJobName);
         cy.get('#Assistance').click();
         cy.get('#newISSUE').click();
@@ -104,7 +104,7 @@ describe('Authenticator:', function() {
         cy.get('#OnboardingWizardNext').click();
         cy.get('#Overview', {timeout: 10000}).should('be.visible');
         // add a story for second user with vote
-        cy.get('#Default').click();
+        cy.get('#Engineering').click();
         cy.createJob(jobName, thirdUserEmail, 75);
         cy.logOut();
         cy.wait(8000);
@@ -114,7 +114,7 @@ describe('Authenticator:', function() {
         cy.fillSignupForm(url, 'Tester Five Uclusion', undefined, userPassword);
         // Not requiring a third entry of the password here would be nice - have put in a when convenient for it
         cy.signIn(undefined, undefined, userPassword);
-        cy.get('#Default', { timeout: 30000 }).click();
+        cy.get('#Engineering', { timeout: 30000 }).click();
         cy.navigateIntoJob(jobName);
         // Have to use wait here because otherwise contains can find the inbox not visible or job visible
         cy.wait(10000);
