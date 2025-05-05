@@ -142,8 +142,6 @@ Cypress.Commands.add("createTodo", (type, section, description) => {
 })
 
 Cypress.Commands.add("confirmDemoMarketInbox", () => {
-    // first dismiss the workspace notification to confirm there
-    cy.get('#OnboardingWizardSkip', { timeout: 30000 }).click();
     cy.get('#Engineering', { timeout: 30000 }).click();
     // Demo starts in swimlanes
     cy.get('#swimlanesDemoBannerText').should('exist');
