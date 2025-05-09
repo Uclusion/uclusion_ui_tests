@@ -179,7 +179,7 @@ Cypress.Commands.add("confirmDemoMarketClearedInbox", () => {
 
 Cypress.Commands.add("navigateIntoJob", (name, isAssigned=true, sectionSelector='storiesSection') => {
     if (isAssigned) {
-        cy.get('#AssignedJobs', {timeout: 30000}).click();
+        cy.get('#JobStatus', {timeout: 30000}).click();
     } else {
         cy.get('#JobBacklog', {timeout: 30000}).click();
     }
@@ -244,7 +244,7 @@ Cypress.Commands.add("voteOption", (optionName, certainty, reason) => {
 
 Cypress.Commands.add("createJob", (description, assigneeName, certainty, justification,
                                    isReady, isSkipApprovals=false) => {
-    cy.get('#AssignedJobs', { timeout: 10000 }).click();
+    cy.get('#JobStatus', { timeout: 10000 }).click();
     cy.get('#addJob', { timeout: 5000 }).click();
     cy.get('[id^=editorBox-addJobWizard]', { timeout: 5000 }).type(description, { timeout: 5000 });
     if (assigneeName) {
