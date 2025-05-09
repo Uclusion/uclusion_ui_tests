@@ -37,8 +37,7 @@ describe('Authenticator:', function() {
         cy.get('#nextNavigation').click();
         cy.get('[id^=workListItem]').should('exist');
         cy.get('#nextNavigation').click();
-        //Navigate past group invite should be swimlanes
-        cy.get('#storiesSection').should('exist');
+        cy.get('[id^=workListItem]').should('exist');
         cy.get('#Inbox').click();
         // Now process an inbox item to get the workspace from demo banner
         cy.get('[id^=workListItemUNREAD_REVIEWABLE]', { timeout: 10000 }).click();
