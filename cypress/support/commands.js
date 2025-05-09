@@ -149,10 +149,11 @@ Cypress.Commands.add("confirmDemoMarketInbox", () => {
     // Special case the support notification as it is not from quick add like the rest
     cy.get('[id^=workListItemUNREAD_COMMENT]', { timeout: 960000 })
         .contains('Good idea?', { timeout: 960000 });
-    const inboxContents = [{notification: 'UNREAD_JOB_APPROVAL_REQUEST', count: 3},
-        {notification: 'UNREAD_COMMENT', count: 2}, {notification: 'UNASSIGNED', count: 1},
-        {notification: 'NOT_FULLY_VOTED', count: 2}, {notification: 'REPLY_MENTION', count: 1},
-        {notification: 'REVIEW_REQUIRED', count: 1}, {notification:'UNREAD_REVIEWABLE', count: 1}];
+    const inboxContents = [{notification: 'UNREAD_JOB_APPROVAL_REQUEST', count: 1},
+        {notification: 'UNREAD_COMMENT', count: 3}, {notification: 'UNASSIGNED', count: 1},
+        {notification: 'UNREAD_ESTIMATE', count: 1}, {notification: 'NOT_FULLY_VOTED', count: 2},
+        {notification: 'REPLY_MENTION', count: 1}, {notification: 'REVIEW_REQUIRED', count: 1},
+        {notification:'UNREAD_REVIEWABLE', count: 2}];
     inboxContents.forEach((content) => {
         const { notification, count } = content;
         cy.get(`[id^=workListItem${notification}]`).its('length').should('be.gte', count);
