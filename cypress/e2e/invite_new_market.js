@@ -40,11 +40,17 @@ describe('Authenticator:', function() {
         cy.get('[id^=workListItem]').should('exist');
         cy.get('#Inbox').click();
         // Now process an inbox item to get the workspace from demo banner
-        cy.get('[id^=workListItemUNREAD_REVIEWABLE]', { timeout: 10000 }).first().click();
-        cy.get('#OnboardingWizardNext').click();
-        cy.get('#5', { timeout: 15000 }).should('exist');
+        cy.get('[id^=workListItemREPLY_MENTION]', { timeout: 10000 }).click();
         cy.get('#OnboardingWizardOtherNext').click();
-        cy.get('#newReport', { timeout: 10000 }).should('exist');
+        cy.get('#typeTask', { timeout: 15000 }).click();
+        cy.get('#OnboardingWizardNext').click();
+        cy.get('#typeOther', { timeout: 10000 }).click();
+        cy.get('#OnboardingWizardNext').click();
+        cy.contains('h6', 'You are converting', {timeout: 8000}).should('exist');
+        cy.get('#OnboardingWizardNext').click();
+        cy.get('#READY').click();
+        cy.get('#OnboardingWizardNext').click();
+        cy.get('#readyToStartCheckbox').should('exist');
         cy.get('#Inbox').click();
         cy.createWorkspaceFromDemoBanner('UI Smoke');
         // Check that inbox clears of demo notifications
