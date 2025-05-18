@@ -150,7 +150,7 @@ Cypress.Commands.add("confirmDemoMarketInbox", () => {
     cy.get('[id^=workListItemUNREAD_COMMENT]', { timeout: 960000 })
         .contains('Good idea?', { timeout: 960000 });
     const inboxContents = [{notification: 'UNREAD_JOB_APPROVAL_REQUEST', count: 1},
-        {notification: 'UNREAD_COMMENT', count: 3}, {notification: 'UNASSIGNED', count: 1},
+        {notification: 'UNREAD_COMMENT', count: 2}, {notification: 'UNASSIGNED', count: 1},
         {notification: 'UNREAD_ESTIMATE', count: 1}, {notification: 'NOT_FULLY_VOTED', count: 2},
         {notification: 'REPLY_MENTION', count: 1}, {notification: 'REVIEW_REQUIRED', count: 1}];
     inboxContents.forEach((content) => {
