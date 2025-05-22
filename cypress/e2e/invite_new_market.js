@@ -40,7 +40,8 @@ describe('Authenticator:', function() {
         cy.get('[id^=workListItem]').should('exist');
         cy.get('#Inbox').click();
         // Now process an inbox item to get the workspace from demo banner
-        cy.get('[id^=workListItemREPLY_MENTION]', { timeout: 10000 }).click();
+        // No idea why says multiple for this id - allow multiple and see what happens
+        cy.get('[id^=workListItemREPLY_MENTION]', { multiple: true, timeout: 10000 }).click();
         cy.get('#OnboardingWizardOtherNext').click();
         cy.get('#typeTask', { timeout: 15000 }).click();
         cy.get('#OnboardingWizardNext').click();
