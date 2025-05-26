@@ -29,7 +29,7 @@ describe('Authenticator:', function() {
                 cy.confirmDemoMarketInbox();
                 cy.createAdditionalUser(secondUserEmail);
                 cy.get('#Inbox').click();
-                cy.get('[id^=workListItemREVIEW_REQUIRED]', { timeout: 10000 }).click();
+                cy.get('[id^=workListItemUNREAD_REPLY]', { timeout: 10000 }).first().click();
                 cy.get('#OnboardingWizardNext').click();
                 cy.get('[id^=editorBox-reply]').type('Would really love your opinion @',
                     { delay: 500 });
