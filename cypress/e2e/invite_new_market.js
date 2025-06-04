@@ -68,6 +68,7 @@ describe('Authenticator:', function() {
         cy.createJob(reviewJobName, firstUserName, undefined, undefined, undefined, true);
         cy.get('#Engineering').click();
         cy.navigateIntoJob(reviewJobName);
+        cy.get('#Overview').click();
         cy.get('#newReport').click();
         cy.get('[id^=editorBox-jobCommentREPORTJobCommentAdd]').type('This is my report yea!');
         cy.get('#OnboardingWizardNext').click();
@@ -128,6 +129,7 @@ describe('Authenticator:', function() {
         cy.navigateIntoJob(jobName);
         // Have to use wait here because otherwise contains can find the inbox not visible or job visible
         cy.wait(10000);
+        cy.get('#Overview').click();
         cy.get('span').filter(':visible').contains('Certain');
         cy.get('#Inbox').click();
         // We are a member of this view so should get the critical bugs
