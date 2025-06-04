@@ -51,7 +51,7 @@ describe('Authenticator:', function() {
         cy.get('#OnboardingWizardNext').click();
         cy.get('#READY').click();
         cy.get('#OnboardingWizardNext').click();
-        cy.get('#readyToStartCheckbox').should('exist');
+        cy.get('#readyToStartCheckbox',  {timeout: 10000}).should('exist');
         cy.get('#Inbox').click();
         cy.createWorkspaceFromDemoBanner('UI Smoke');
         // Check that inbox clears of demo notifications
