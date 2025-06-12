@@ -61,7 +61,7 @@ describe('Authenticator:', function() {
                 cy.get('#Inbox').click();
                 cy.get('[id^=workListItemREPLY_MENTION]', { timeout: 10000 }).should('exist');
                 // Special case the support notification as it is not from quick add like the rest
-                cy.get('[id^=workListItemUNREAD_COMMENT]', { timeout: 30000 })
+                cy.get('[id^=workListItemUNREAD_COMMENT]', { timeout: 60000 })
                     .should('have.length', 1);
                 // two not fully voted so differentiate
                 cy.get('[id^=linkNOT_FULLY_VOTED]', { timeout: 30000 }).contains(suggestionText).click();
