@@ -141,15 +141,15 @@ Cypress.Commands.add("createTodo", (type, section, description) => {
     });
 })
 
-Cypress.Commands.add("confirmDemoMarketInbox", () => {
-    cy.get('#Engineering', { timeout: 30000 }).click();
+Cypress.Commands.add("confirmDemoMarketInbox", (isTeam) => {
+    cy.get(isTeam ? '#Engineering' : '#3work', { timeout: 30000 }).click();
     // Demo starts in swimlanes
     cy.get('#swimlanesDemoBannerText').should('exist');
     cy.get('#Inbox').click();
     // Special case the support notification as it is not from quick add like the rest
     cy.get('[id^=workListItemUNREAD_COMMENT]', { timeout: 960000 })
         .contains('Good idea?', { timeout: 960000 });
-    const inboxContents = [
+    const inboxContents = isTeam ? [
         {notification: 'UNREAD_VOTE', count: 1},
         {notification: 'NOT_FULLY_VOTED', count: 2},
         {notification: 'UNASSIGNED', count: 1},
@@ -157,7 +157,10 @@ Cypress.Commands.add("confirmDemoMarketInbox", () => {
         {notification: 'UNREAD_REPLY', count: 3},
         {notification: 'UNREAD_REVIEWABLE', count: 2},
         {notification: 'UNREAD_COMMENT', count: 2},
-        {notification: 'UNREAD_JOB_APPROVAL_REQUEST', count: 1}];
+        {notification: 'UNREAD_JOB_APPROVAL_REQUEST', count: 1}] : [
+            {notification: 'UNASSIGNED', count: 1},
+            {notification: 'REPORT_REQUIRED', count: 1}
+        ];
     inboxContents.forEach((content) => {
         const { notification, count } = content;
         cy.get(`[id^=workListItem${notification}]`).its('length').should('be.gte', count);

@@ -26,13 +26,13 @@ describe('Authenticator:', function() {
       const reviewJobName = 'Job getting a review on.';
       const blockingIssue = 'This is my issue with this progress.';
       const thirdUserEmailNamePart = thirdUserEmail.substring(0, thirdUserEmail.indexOf('@'));
-      cy.fillSignupForm(`${destination}?utm_campaign=test#signup`, firstUserName, firstUserEmail,
+      cy.fillSignupForm(`${destination}?utm_campaign=team#signup`, firstUserName, firstUserEmail,
           userPassword);
       // Wait for a read on Cognito of the signup that just happened to work
       cy.wait(8000);
       cy.getVerificationUrl('03', apiDestination).then((url) => {
         cy.signIn(url, firstUserEmail, userPassword);
-        cy.confirmDemoMarketInbox();
+        cy.confirmDemoMarketInbox(true);
         // verify next button does something
         cy.get('#nextNavigation').click();
         cy.get('[id^=workListItem]').should('exist');
@@ -42,7 +42,7 @@ describe('Authenticator:', function() {
         // Now process an inbox item to get the workspace from demo banner
         // No idea why says multiple for this id - allow multiple and see what happens
         cy.get('[id^=workListItemREPLY_MENTION]', { timeout: 10000 }).click({multiple: true});
-        cy.get('#OnboardingWizardOtherNext').click();;
+        cy.get('#OnboardingWizardOtherNext').click();
         cy.get('#typeOther', { timeout: 10000 }).click();
         cy.get('#OnboardingWizardNext').click();
         cy.contains('h6', 'You are converting', {timeout: 8000}).should('exist');
