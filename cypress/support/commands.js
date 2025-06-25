@@ -349,11 +349,17 @@ Cypress.Commands.add("verifyCollaborators", (collaborators) => {
     });
 })
 
-Cypress.Commands.add("createAdditionalUser", (userEmail) => {
+Cypress.Commands.add("createAdditionalUser", (userEmail, isTeam=true) => {
     cy.get('#Addcollaborators', { timeout: 10000 }).click();
+    if (!isTeam) {
+        // Skip team view creation
+        cy.get('#OnboardingWizardSkip').click();
+    }
     cy.get('#emailEntryBox').type(userEmail);
     cy.get('#OnboardingWizardNext').click();
-    cy.contains('view', { timeout: 8000 });
-    // Go past add to view screen
-    cy.get('#OnboardingWizardNext').click();
+    if (isTeam) {
+        cy.contains('view', {timeout: 8000});
+        // Go past add to view screen
+        cy.get('#OnboardingWizardNext').click();
+    }
 })
