@@ -32,8 +32,8 @@ describe('Authenticator:', function() {
                 cy.navigateIntoJob('Region based memory management for garbage collection.');
                 cy.get('#Assistance').click();
                 cy.get('#newQUESTION').click();
-                cy.get('[id^=comment-add-editor]').type('Tell me something? Would really love your opinion @',
-                    { delay: 500 });
+                cy.get('[id^=editorBox-jobCommentQUESTIONJobCommentAdd]')
+                    .type('Tell me something? Would really love your opinion @', { delay: 500 });
                 // First check that target user's name is correct in drop down
                 cy.get(`li[data-value="${firstUserName}"]`).should('exist');
                 cy.get(`li[data-value="${secondUserEmail}"],li[data-value="${secondUserName}"]`).click();
