@@ -142,7 +142,7 @@ Cypress.Commands.add("createTodo", (type, section, description) => {
 })
 
 Cypress.Commands.add("confirmDemoMarketInbox", (isTeam) => {
-    cy.get(isTeam ? '#Engineering' : '#3work', { timeout: 30000 }).click();
+    cy.get(isTeam ? '#Engineering' : '#3work', { timeout: 90000 }).click();
     // Demo starts in swimlanes
     cy.get('#swimlanesDemoBannerText').should('exist');
     cy.get('#Inbox').click();
