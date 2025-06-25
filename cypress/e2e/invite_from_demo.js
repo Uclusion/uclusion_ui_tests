@@ -37,7 +37,7 @@ describe('Authenticator:', function() {
                 // First check that target user's name is correct in drop down
                 cy.get(`li[data-value="${firstUserName}"]`).should('exist');
                 cy.get(`li[data-value="${secondUserEmail}"],li[data-value="${secondUserName}"]`).click();
-                cy.get('#OnboardingWizardNext').click();
+                cy.get('#OnboardingWizardOtherNext').click();
                 // Make sure done with operation before click anything
                 cy.get('#Assistance', { timeout: 20000 }).should('exist');
                 cy.get(`[data-value="${secondUserEmail}"]`, { timeout: 8000 });
