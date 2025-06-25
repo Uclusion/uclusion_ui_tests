@@ -66,8 +66,10 @@ describe('Authenticator:', function() {
                 // Special case the support notification as it is not from quick add like the rest
                 cy.get('[id^=workListItemUNREAD_COMMENT]', { timeout: 60000 })
                     .should('have.length', 1);
-                cy.get('[id^=workListItemISSUE]', { timeout: 30000 }).contains(suggestionText)
-                    .should('exist');
+                cy.get('[id^=linkNOT_FULLY_VOTED]', { timeout: 30000 }).contains(suggestionText).click();
+                cy.get('[id^=voteFor]', { timeout: 10000 }).click();
+                cy.get('#100').click();
+                cy.get('#OnboardingWizardNext').click();
                 cy.get('#ForYou', { timeout: 10000 }).should('exist');
             });
         });
