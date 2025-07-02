@@ -27,7 +27,7 @@ describe('Authenticator:', function() {
             cy.getVerificationUrl('01', apiDestination).then((url) => {
                 cy.signIn(url, firstUserEmail, userPassword);
                 cy.confirmDemoMarketInbox(false);
-                cy.createAdditionalUser(secondUserEmail, false);
+                cy.createAdditionalUser(secondUserEmail);
                 cy.get('#3work').click();
                 cy.navigateIntoJob('Region based memory management for garbage collection.');
                 cy.get('#Assistance').click();

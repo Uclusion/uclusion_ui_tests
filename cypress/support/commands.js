@@ -250,27 +250,28 @@ Cypress.Commands.add("voteOption", (optionName, certainty, reason) => {
 })
 
 Cypress.Commands.add("createJob", (description, assigneeName, certainty, justification,
-                                   isReady, isSkipApprovals=false) => {
+                                   isReady, isSkipApprovals=false, isSingleUser=false) => {
     cy.get('#JobStatus', { timeout: 10000 }).click();
     cy.get('#addJob', { timeout: 5000 }).click();
     cy.get('[id^=editorBox-addJobWizard]', { timeout: 5000 }).type(description, { timeout: 5000 });
     if (assigneeName) {
         cy.get('#OnboardingWizardNext').click();
-        cy.get('#addressBook', { timeout: 5000 }).contains(assigneeName.replace('@', ' ')).click();
-        if (certainty) {
-            cy.get('#OnboardingWizardNext').click();
-            cy.get(`#${certainty}`, { timeout: 8000 }).click();
-            if (justification) {
-                cy.wait(1000);
-                cy.get('[id^=editorBox-newjobapproveeditor]').type(justification, { timeout: 5000 });
+        if (!isSingleUser) {
+            cy.get('#addressBook', {timeout: 5000}).contains(assigneeName.replace('@', ' ')).click();
+            if (certainty) {
+                cy.get('#OnboardingWizardNext').click();
+                cy.get(`#${certainty}`, {timeout: 8000}).click();
+                if (justification) {
+                    cy.wait(1000);
+                    cy.get('[id^=editorBox-newjobapproveeditor]').type(justification, {timeout: 5000});
+                }
+                cy.get('#OnboardingWizardNext').click();
+            } else if (isSkipApprovals) {
+                cy.get('#OnboardingWizardNext').click();
+                cy.get('#OnboardingWizardOtherNext', {timeout: 10000}).click();
+            } else {
+                cy.get('#OnboardingWizardSkip').click();
             }
-            cy.get('#OnboardingWizardNext').click();
-        } else if (isSkipApprovals) {
-            cy.get('#OnboardingWizardNext').click();
-            cy.get('#OnboardingWizardOtherNext', { timeout: 10000 }).click();
-        }
-        else {
-            cy.get('#OnboardingWizardSkip').click();
         }
     } else {
         if (isReady) {
@@ -349,15 +350,15 @@ Cypress.Commands.add("verifyCollaborators", (collaborators) => {
     });
 })
 
-Cypress.Commands.add("createAdditionalUser", (userEmail, isTeam=true) => {
+Cypress.Commands.add("createAdditionalUser", (userEmail, hasNonAutonomousView=true) => {
     cy.get('#Addcollaborators', { timeout: 10000 }).click();
-    if (!isTeam) {
+    if (!hasNonAutonomousView) {
         // Skip team view creation
         cy.get('#OnboardingWizardSkip').click();
     }
     cy.get('#emailEntryBox').type(userEmail);
     cy.get('#OnboardingWizardNext').click();
-    if (isTeam) {
+    if (hasNonAutonomousView) {
         cy.contains('view', {timeout: 8000});
         // Go past add to view screen
         cy.get('#OnboardingWizardNext').click();

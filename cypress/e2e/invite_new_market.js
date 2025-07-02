@@ -63,7 +63,7 @@ describe('Authenticator:', function() {
         cy.get('#OnboardingWizardNext').click();
         cy.get('[id^=editorBox-addBugCommentAddBug]').type('This is my critical bug.');
         cy.get('#OnboardingWizardNext').click();
-        cy.createJob(reviewJobName, firstUserName, undefined, undefined, undefined, true);
+        cy.createJob(reviewJobName, firstUserName, undefined, undefined, undefined, true, true);
         cy.get('#Engineering').click();
         cy.navigateIntoJob(reviewJobName);
         cy.get('#Overview').click();
