@@ -88,7 +88,7 @@ describe('Authenticator:', function() {
         cy.signIn(url, secondUserEmail, userPassword);
         // Will be on workspace notification
         cy.get('#Engineering', { timeout: 30000 }).click();
-        cy.get('#Notes/Discussion', { timeout: 60000 }).click();
+        cy.get('#NotesDiscussion', { timeout: 60000 }).click();
         cy.get('#commentBox', { timeout: 120000 }).contains(optionText, { timeout: 60000 });
         cy.get('#approvalButton').click();
         cy.vote(75, 'My vote for option reason.', true);
