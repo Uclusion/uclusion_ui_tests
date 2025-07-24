@@ -97,7 +97,9 @@ describe('Authenticator:', function() {
         cy.get('#endEngineering').click();
         cy.get('#manageMembersId').click();
         // add third user to Engineering view
-        cy.get('li').filter(':visible').contains(thirdUserEmailNamePart).click();
+        cy.get('#addressBook').within(()=> {
+          cy.get('li').filter(':visible').contains(thirdUserEmailNamePart).click();
+        });
         cy.get('#participantAddButton').click();
         cy.get('#viewMembersList').within(() => {
           cy.contains(thirdUserEmailNamePart, { timeout: 30000 }).should('be.visible');
