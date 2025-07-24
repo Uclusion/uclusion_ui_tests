@@ -172,10 +172,10 @@ Cypress.Commands.add("confirmDemoMarketClearedInbox", () => {
     cy.get('#Inbox').click();
     // See https://docs.cypress.io/api/commands/should#Timeouts
     cy.get('#workspaceFromDemoBanner', { timeout: 60000 }).should('not.exist');
-    cy.get('[id^=workListItemREVIEW_REQUIRED]', { timeout: 60000 }).should('not.exist');
+    cy.get('[id^=workListItemUNASSIGNED]', { timeout: 60000 }).should('not.exist');
     const inboxContents = [{notification: 'UNREAD_JOB_APPROVAL_REQUEST', count: 0},
         {notification: 'UNASSIGNED', count: 0}, {notification: 'NOT_FULLY_VOTED', count: 0},
-        {notification: 'REPLY_MENTION', count: 0}, {notification: 'REVIEW_REQUIRED', count: 0},
+        {notification: 'REPLY_MENTION', count: 0}, {notification: 'REPORT_REQUIRED', count: 0},
         {notification:'UNREAD_REVIEWABLE', count: 0}];
     inboxContents.forEach((content) => {
         const { notification, count } = content;
