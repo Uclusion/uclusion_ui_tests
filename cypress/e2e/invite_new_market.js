@@ -99,8 +99,9 @@ describe('Authenticator:', function() {
         // add third user to Engineering view
         cy.get('li').filter(':visible').contains(thirdUserEmailNamePart).click();
         cy.get('#participantAddButton').click();
-        cy.get('#viewMembersList').contains(thirdUserEmailNamePart, { timeout: 30000 })
-            .should('be.visible');
+        cy.get('#viewMembersList').within(() => {
+          cy.contains(thirdUserEmailNamePart, { timeout: 30000 }).should('be.visible');
+        });
         // go into the job to create this blocking issue since not a member of this view
         cy.get('#Engineering').click();
         cy.navigateIntoJob(reviewJobName);
