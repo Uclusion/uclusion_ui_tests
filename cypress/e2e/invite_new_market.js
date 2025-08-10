@@ -66,6 +66,7 @@ describe('Authenticator:', function() {
         cy.get('#Engineering').click();
         cy.navigateIntoJob(reviewJobName);
         cy.get('#Overview').click();
+        cy.get('#reportsToggleId').click();
         cy.get('#newReport').click();
         cy.get('[id^=editorBox-jobCommentREPORTJobCommentAdd]').type('This is my report yea!');
         cy.get('#OnboardingWizardNext').click();
