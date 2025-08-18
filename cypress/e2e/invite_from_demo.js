@@ -47,7 +47,7 @@ describe('Authenticator:', function() {
                 cy.get('#newSUGGEST').click();
                 cy.focused({ timeout: 8000 }).type(suggestionText, { delay: 500 });
                 // mention so that suggestion will generate a notification
-                cy.get(`li[data-value="${secondUserEmail}"],li[data-value="${secondUserName}"]`).click();
+                cy.get(`li[data-value="${secondUserEmail}"],li[data-value="${secondUserName}"]`, { timeout: 8000 }).click();
                 cy.get('#OnboardingWizardNext').click();
                 cy.get('#Assistance', { timeout: 20000 }).should('exist');
                 cy.get('#2work').click();
