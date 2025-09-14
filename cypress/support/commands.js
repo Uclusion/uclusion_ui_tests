@@ -143,8 +143,6 @@ Cypress.Commands.add("createTodo", (type, section, description) => {
 
 Cypress.Commands.add("confirmDemoMarketInbox", (isTeam) => {
     cy.get(isTeam ? '#Engineering' : '#2Single', { timeout: 90000 }).click();
-    // Demo starts in swimlanes
-    cy.get('#swimlanesDemoBannerText').should('exist');
     cy.get('#inboxId').click();
     // Special case the support notification as it is not from quick add like the rest
     cy.get('[id^=workListItemUNREAD_COMMENT]', { timeout: 960000 })

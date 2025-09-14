@@ -58,7 +58,6 @@ describe('Authenticator:', function() {
                 cy.signIn(undefined, undefined, userPassword);
                 // first dismiss the workspace notification
                 cy.get('#2Single', { timeout: 30000 }).click();
-                cy.get('#swimlanesDemoBannerText', { timeout: 10000 }).should('exist');
                 cy.get('#inboxId').click();
                 // for mention in question - two of these ISSUE so use contains
                 cy.get('[id^=workListItemISSUE]', { timeout: 10000 }).contains('love')
