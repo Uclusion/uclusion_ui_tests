@@ -142,10 +142,10 @@ Cypress.Commands.add("createTodo", (type, section, description) => {
 })
 
 Cypress.Commands.add("confirmDemoMarketInbox", (isTeam) => {
-    cy.get(isTeam ? '#Engineering' : '#2work', { timeout: 90000 }).click();
+    cy.get(isTeam ? '#Engineering' : '#2Single', { timeout: 90000 }).click();
     // Demo starts in swimlanes
     cy.get('#swimlanesDemoBannerText').should('exist');
-    cy.get('#Inbox').click();
+    cy.get('#inboxId').click();
     // Special case the support notification as it is not from quick add like the rest
     cy.get('[id^=workListItemUNREAD_COMMENT]', { timeout: 960000 })
         .contains('Good idea?', { timeout: 960000 });
@@ -162,14 +162,10 @@ Cypress.Commands.add("confirmDemoMarketInbox", (isTeam) => {
         const { notification, count } = content;
         cy.get(`[id^=workListItem${notification}]`).its('length').should('be.gte', count);
     });
-    // Before processing inbox items, we are invited to compose
-    cy.get('#composeFromDemoBanner').should('exist');
 })
 
 Cypress.Commands.add("confirmDemoMarketClearedInbox", () => {
-    cy.get('#Inbox').click();
-    // See https://docs.cypress.io/api/commands/should#Timeouts
-    cy.get('#workspaceFromDemoBanner', { timeout: 60000 }).should('not.exist');
+    cy.get('#inboxId').click(); 
     cy.get('[id^=workListItemUNASSIGNED]', { timeout: 60000 }).should('not.exist');
     const inboxContents = [{notification: 'UNREAD_JOB_APPROVAL_REQUEST', count: 0},
         {notification: 'UNASSIGNED', count: 0}, {notification: 'NOT_FULLY_VOTED', count: 0},
@@ -288,8 +284,8 @@ Cypress.Commands.add("createJob", (description, assigneeName, certainty, justifi
 
 })
 
-Cypress.Commands.add("createWorkspaceFromDemoBanner", (name, participants=[]) => {
-    cy.get('#workspaceFromDemoBanner', { timeout: 10000 }).click()
+Cypress.Commands.add("createWorkspace", (name, participants=[]) => {
+    cy.get('#createWorkspaceId', { timeout: 10000 }).click()
     cy.get('#workspaceName').type(name);
     cy.get('#OnboardingWizardNext').click();
     // Create an Engineering view

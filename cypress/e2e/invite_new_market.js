@@ -38,7 +38,7 @@ describe('Authenticator:', function() {
         cy.get('[id^=workListItem]').should('exist');
         cy.get('#nextNavigation').click();
         cy.get('[id^=workListItem]').should('exist');
-        cy.get('#Inbox').click();
+        cy.get('#inboxId').click();
         // Now process an inbox item to get the workspace from demo banner
         cy.get('[id^=workListItemUNREAD_REPLY]', { timeout: 10000 }).click();
         cy.get('#OnboardingWizardOtherNext').click();
@@ -49,8 +49,8 @@ describe('Authenticator:', function() {
         cy.get('#READY').click();
         cy.get('#OnboardingWizardNext').click();
         cy.get('#readyToStartCheckbox',  {timeout: 10000}).should('exist');
-        cy.get('#Inbox').click();
-        cy.createWorkspaceFromDemoBanner('UI Smoke');
+        cy.get('#inboxId').click();
+        cy.createWorkspace('UI Smoke');
         // Check that inbox clears of demo notifications
         cy.confirmDemoMarketClearedInbox();
         cy.createMarketQuestionWithOption(questionText, optionText);
@@ -132,7 +132,7 @@ describe('Authenticator:', function() {
         cy.wait(10000);
         cy.get('#Overview').click();
         cy.get('span').filter(':visible').contains('Certain');
-        cy.get('#Inbox').click();
+        cy.get('#inboxId').click();
         // We are a member of this view so should get the critical bugs
         cy.get('[id^=workListItemUNASSIGNED]').click();
         cy.get('[id^=moveComment]').click();
@@ -140,11 +140,11 @@ describe('Authenticator:', function() {
         cy.get('#OnboardingWizardNext').click();
         cy.get('#OnboardingWizardTerminate').contains('Skip', { timeout: 30000 }).click();
         cy.get('#Overview', {timeout: 10000}).should('be.visible');
-        cy.get('#Inbox').click();
+        cy.get('#inboxId').click();
         cy.get('[id^=linkUNREAD_JOB_APPROVAL_REQUEST]').click();
         cy.vote(75, 'My vote for take job reason.', true);
         cy.get('span').filter(':visible').contains('Certain');
-        cy.get('#Inbox').click();
+        cy.get('#inboxId').click();
         cy.get('[id^=workListItemUNREAD_COMMENT]').contains(blockingIssue).click();
         cy.contains(blockingIssue, {timeout: 10000}).click();
         cy.get('[id^=moveComment]').click();

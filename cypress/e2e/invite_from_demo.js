@@ -28,7 +28,7 @@ describe('Authenticator:', function() {
                 cy.signIn(url, firstUserEmail, userPassword);
                 cy.confirmDemoMarketInbox(false);
                 cy.createAdditionalUser(secondUserEmail);
-                cy.get('#2work').click();
+                cy.get('#2Single').click();
                 cy.navigateIntoJob('Region based memory management for garbage collection.');
                 cy.get('#Assistance').click();
                 cy.get('#newQUESTION').click();
@@ -41,7 +41,7 @@ describe('Authenticator:', function() {
                 // Make sure done with operation before click anything
                 cy.get('#Assistance', { timeout: 20000 }).should('exist');
                 cy.get(`[data-value="${secondUserEmail}"]`, { timeout: 8000 });
-                cy.get('#2work').click();
+                cy.get('#2Single').click();
                 cy.navigateIntoJob('Null safety');
                 cy.get('#Assistance').click();
                 cy.get('#newSUGGEST').click();
@@ -50,16 +50,16 @@ describe('Authenticator:', function() {
                 cy.get(`li[data-value="${secondUserEmail}"],li[data-value="${secondUserName}"]`, { timeout: 8000 }).click();
                 cy.get('#OnboardingWizardNext').click();
                 cy.get('#Assistance', { timeout: 20000 }).should('exist');
-                cy.get('#2work').click();
+                cy.get('#2Single').click();
                 return cy.url().then((url) => cy.getInviteUrlFromUrl('02', url, apiDestination))
             }).then(url => {
                 cy.logOut();
                 cy.fillSignupForm(url, secondUserName, undefined, userPassword);
                 cy.signIn(undefined, undefined, userPassword);
                 // first dismiss the workspace notification
-                cy.get('#2work', { timeout: 30000 }).click();
+                cy.get('#2Single', { timeout: 30000 }).click();
                 cy.get('#swimlanesDemoBannerText', { timeout: 10000 }).should('exist');
-                cy.get('#Inbox').click();
+                cy.get('#inboxId').click();
                 // for mention in question - two of these ISSUE so use contains
                 cy.get('[id^=workListItemISSUE]', { timeout: 10000 }).contains('love')
                     .should('exist');
