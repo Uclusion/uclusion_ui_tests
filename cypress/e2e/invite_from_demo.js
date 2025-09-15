@@ -66,7 +66,9 @@ describe('Authenticator:', function() {
                 cy.get('[id^=voteFor]', { timeout: 10000 }).click();
                 cy.get('#100').click();
                 cy.get('#OnboardingWizardNext').click();
-                cy.get('#ForYou', { timeout: 10000 }).should('exist');
+                // verify made it back to inbox
+                cy.get('[id^=workListItemISSUE]', { timeout: 10000 }).contains('love')
+                    .should('exist');
             });
         });
     });
