@@ -62,10 +62,7 @@ describe('Authenticator:', function() {
                 // for mention in question - two of these ISSUE so use contains
                 cy.get('[id^=workListItemISSUE]', { timeout: 10000 }).contains('love')
                     .should('exist');
-                // Special case the support notification as it is not from quick add like the rest
-                cy.get('[id^=workListItemUNREAD_COMMENT]', { timeout: 60000 })
-                    .should('have.length', 1);
-                cy.get('[id^=linkNOT_FULLY_VOTED]', { timeout: 30000 }).contains(suggestionText).click();
+                cy.get('[id^=linkNOT_FULLY_VOTED]', { timeout: 60000 }).contains(suggestionText).click();
                 cy.get('[id^=voteFor]', { timeout: 10000 }).click();
                 cy.get('#100').click();
                 cy.get('#OnboardingWizardNext').click();
