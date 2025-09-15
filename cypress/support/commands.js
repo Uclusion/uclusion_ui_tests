@@ -351,4 +351,6 @@ Cypress.Commands.add("createAdditionalUser", (userEmail, hasNonAutonomousView=tr
         // Go past add to view screen
         cy.get('#OnboardingWizardNext').click();
     }
+    // verify done with operation before click anything
+    cy.get('#JobStatus', { timeout: 10000 }).should('be.visible');
 })
