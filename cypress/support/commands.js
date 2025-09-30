@@ -282,10 +282,12 @@ Cypress.Commands.add("createJob", (description, assigneeName, certainty, justifi
 Cypress.Commands.add("createWorkspace", (name, participants=[]) => {
     cy.get('#createWorkspaceId', { timeout: 10000 }).click()
     cy.get('#workspaceName').type(name);
-    cy.get('#OnboardingWizardNext').click();
+    cy.get('#OnboardingWizardOtherNext').click();
     // Create an Engineering view
     cy.get('#groupName', { timeout: 8000 }).type('Engineering');
     cy.get('#OnboardingWizardNext').click();
+    cy.get('#workspaceMenuButton').contains(name, { timeout: 10000 });
+    cy.get('#Addcollaborators').click();
     if (participants.length > 0) {
         participants.forEach((participant) => {
             cy.get('#emailEntryBox').type(participant + '{enter}', {delay: 60, force: true});
