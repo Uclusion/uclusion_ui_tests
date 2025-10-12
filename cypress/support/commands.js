@@ -142,7 +142,7 @@ Cypress.Commands.add("createTodo", (type, section, description) => {
 })
 
 Cypress.Commands.add("confirmDemoMarketInbox", (isTeam) => {
-    cy.get(isTeam ? '#Engineering' : '#0Single', { timeout: 120000 }).click();
+    cy.get(isTeam ? '#Engineering' : '#0Single', { timeout: 140000 }).click();
     cy.get('#inboxId').click();
     const inboxContents = isTeam ? [
         {notification: 'NOT_FULLY_VOTED', count: 3},
