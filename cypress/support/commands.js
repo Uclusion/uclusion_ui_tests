@@ -141,13 +141,16 @@ Cypress.Commands.add("createTodo", (type, section, description) => {
     });
 })
 
-Cypress.Commands.add('grantClipboardPermissions', () => {
-    if (Cypress.browser.isElectron || Cypress.browser.name === 'chrome') {
-        cy.wrap(Cypress.automation('browser:grantPermissions', {
-            permissions: ['clipboard-read', 'clipboard-sanitized-write'],
-            origin: window.location.origin,
-        }));
-    }
+Cypress.Commands.add("grantClipboardPermissions", () => {
+    cy.wrap(
+      Cypress.automation('remote:debugger:protocol', {
+        command: 'Browser.setPermission',
+        params: {
+          permission: 'clipboard-read',
+          setting: 'granted'
+        },
+      })
+    );
 })
 
 Cypress.Commands.add("confirmDemoMarketInbox", (isTeam) => {
