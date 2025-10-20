@@ -1,0 +1,14 @@
+name: Remove Stage Users
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    if: startsWith(github.event.release.tag_name, 'stage_specific')
+    uses: ./.github/workflows/reusableRemoveSpecificUsers.yml
+    secrets: inherit
+    with:
+      emails: 'david.israel@uclude.com,827hooshang@gmail.com'
+      environment: "stage"

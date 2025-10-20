@@ -1,0 +1,46 @@
+name: Clear Specific Users
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
+      emails:
+        required: true
+        type: string
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ inputs.environment }}
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-west-2
+      - name: Install Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+      - name: Clone build utils
+        uses: actions/checkout@v4
+        with:
+          repository: 'Uclusion/circleci_orbs'
+          token: ${{ secrets.GIT_TOKEN }}
+          path: utils_repo
+      - name: Run clean up old releases
+        run: |
+          cd utils_repo/scripts
+          ./test_user_deleter.rb --poolId=${{ secrets.POOL_ID }} -e "${{ inputs.emails }}"
+          cd ..
+          pip install --user PyGithub
+          python -m scripts.cleanup_old_releases -e ${{ inputs.environment }} -a ${{ secrets.GIT_TOKEN }}
+          export ENV_NAME=${{ inputs.environment }}
+          python -m scripts.cleanup_test_users -e "${{ inputs.emails }}"

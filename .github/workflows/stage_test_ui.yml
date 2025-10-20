@@ -1,0 +1,13 @@
+name: Test Stage UI
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    if: startsWith(github.event.release.tag_name, 'stage_only')
+    uses: ./.github/workflows/reusableTestUI.yml
+    secrets: inherit
+    with:
+      environment: "stage"

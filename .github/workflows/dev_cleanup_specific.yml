@@ -1,0 +1,14 @@
+name: Remove Specific Dev Users
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    if: startsWith(github.event.release.tag_name, 'dev_specific')
+    uses: ./.github/workflows/reusableRemoveSpecificUsers.yml
+    secrets: inherit
+    with:
+      emails: 'disrael@uclusion.com,support@uclusion.com,testeruclusion@gmail.com,production.amazon@uclusion.com,disrael@gmail.com'
+      environment: "development"
