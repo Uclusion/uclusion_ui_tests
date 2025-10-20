@@ -40,7 +40,8 @@ jobs:
           cd utils_repo/scripts
           ./test_user_deleter.rb --poolId=${{ secrets.POOL_ID }} -e "${{ inputs.emails }}"
           cd ..
-          pip install --user PyGithub
-          python -m scripts.cleanup_old_releases -e ${{ inputs.environment }} -a ${{ secrets.GIT_TOKEN }}
+          pip install --user boto3
+          pip install --user pynamodb
+          pip install --user PyJWT
           export ENV_NAME=${{ inputs.environment }}
           python -m scripts.cleanup_test_users -e "${{ inputs.emails }}"

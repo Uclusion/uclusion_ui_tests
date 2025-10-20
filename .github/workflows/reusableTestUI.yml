@@ -16,24 +16,38 @@ jobs:
       id-token: write
       contents: read
     steps:
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-west-2
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Install Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.9'
-      - name: Cypress install
-        uses: cypress-io/github-action@v6
-        with:
-          # Disable running of tests within install job
-          runTests: false
       - name: Clone build utils
         uses: actions/checkout@v4
         with:
           repository: 'Uclusion/circleci_orbs'
           token: ${{ secrets.GIT_TOKEN }}
           path: utils_repo
-      - name: Run tests and bless
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        with:
+          browser: chrome
+          record: true
+      - name: Upload Cypress artifacts
+        uses: actions/upload-artifact@v4
+        if: always() # Upload artifacts even if the Cypress run fails
+        with:
+          name: cypress-artifacts
+          path: |
+            cypress/screenshots
+            cypress/videos
+      - name: Bless UI that was tested
         run: |
           npm install
           cd utils_repo/scripts
