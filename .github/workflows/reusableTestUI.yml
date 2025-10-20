@@ -27,7 +27,6 @@ jobs:
         with:
           # Disable running of tests within install job
           runTests: false
-          build: npm run build
       - name: Clone build utils
         uses: actions/checkout@v4
         with:
