@@ -28,6 +28,8 @@ describe('Authenticator:', function() {
       const thirdUserEmailNamePart = thirdUserEmail.substring(0, thirdUserEmail.indexOf('@'));
       cy.fillSignupForm(`${destination}?utm_campaign=team#signup`, firstUserName, firstUserEmail,
           userPassword);
+      // Grant clipboard permissions to avoid errors when copying invite link
+      cy.grantClipboardPermissions();
       // Wait for a read on Cognito of the signup that just happened to work
       cy.wait(8000);
       cy.getVerificationUrl('03', apiDestination).then((url) => {

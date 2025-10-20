@@ -40,7 +40,7 @@ describe('Authenticator:', function() {
                 cy.get('#OnboardingWizardOtherNext').click();
                 // Make sure done with operation before click anything
                 cy.get('#Assistance', { timeout: 20000 }).should('exist');
-                cy.get(`[data-value="${secondUserEmail}"]`, { timeout: 8000 });
+                cy.get(`[data-value="${secondUserEmail}"],[data-value="${secondUserName}"]`, { timeout: 8000 });
                 cy.get('#0Single').click();
                 cy.navigateIntoJob('Null safety');
                 cy.get('#Assistance').click();

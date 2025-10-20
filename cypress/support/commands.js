@@ -141,6 +141,15 @@ Cypress.Commands.add("createTodo", (type, section, description) => {
     });
 })
 
+Cypress.Commands.add('grantClipboardPermissions', () => {
+    if (Cypress.browser.isElectron || Cypress.browser.name === 'chrome') {
+        cy.wrap(Cypress.automation('browser:grantPermissions', {
+            permissions: ['clipboard-read', 'clipboard-sanitized-write'],
+            origin: window.location.origin,
+        }));
+    }
+})
+
 Cypress.Commands.add("confirmDemoMarketInbox", (isTeam) => {
     cy.get(isTeam ? '#Engineering' : '#0Single', { timeout: 140000 }).click();
     cy.get('#inboxId').click();
