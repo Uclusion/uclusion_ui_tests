@@ -38,12 +38,13 @@ jobs:
         run: |
           cd utils_repo/scripts
           ./test_user_deleter.rb --poolId=${{ secrets.POOL_ID }}
-          cd ../..
+          cd ..
           pip install --user boto3
           pip install --user pynamodb
           pip install --user PyJWT
           export ENV_NAME=${{ inputs.environment }}
           python -m scripts.cleanup_test_users
+          cd ..
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
@@ -58,5 +59,6 @@ jobs:
             cypress/videos
       - name: Bless UI that was tested
         run: |
+          cd utils_repo
           pip install --user PyGithub
           python -m scripts.test_and_bless -e ${{ inputs.environment }} -a ${{ secrets.GIT_TOKEN }} -u true
