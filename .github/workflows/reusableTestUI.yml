@@ -34,11 +34,16 @@ jobs:
           repository: 'Uclusion/circleci_orbs'
           token: ${{ secrets.GIT_TOKEN }}
           path: utils_repo
-      - name: Remove test users
+      - name: Clean up old users
         run: |
           cd utils_repo/scripts
           ./test_user_deleter.rb --poolId=${{ secrets.POOL_ID }}
           cd ../..
+          pip install --user boto3
+          pip install --user pynamodb
+          pip install --user PyJWT
+          export ENV_NAME=${{ inputs.environment }}
+          python -m scripts.cleanup_test_users
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:

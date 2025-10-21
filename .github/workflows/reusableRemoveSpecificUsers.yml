@@ -35,7 +35,7 @@ jobs:
           repository: 'Uclusion/circleci_orbs'
           token: ${{ secrets.GIT_TOKEN }}
           path: utils_repo
-      - name: Run clean up old releases
+      - name: Run clean up old users
         run: |
           cd utils_repo/scripts
           ./test_user_deleter.rb --poolId=${{ secrets.POOL_ID }} -e "${{ inputs.emails }}"

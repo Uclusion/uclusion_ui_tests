@@ -146,7 +146,7 @@ Cypress.Commands.add("grantClipboardPermissions", () => {
       Cypress.automation('remote:debugger:protocol', {
         command: 'Browser.setPermission',
         params: {
-          permission: 'clipboard-read',
+          permission: 'clipboardRead',
           setting: 'granted'
         },
       })
