@@ -38,10 +38,10 @@ jobs:
       - name: Run clean up old users
         run: |
           cd utils_repo/scripts
-          ./test_user_deleter.rb --poolId=${{ secrets.POOL_ID }} -e "${{ inputs.emails }}"
+          ./test_user_deleter.rb --poolId="${{ secrets.POOL_ID }}" -e "${{ inputs.emails }}"
           cd ..
           pip install --user boto3
           pip install --user pynamodb
           pip install --user PyJWT
-          export ENV_NAME=${{ inputs.environment }}
+          export ENV_NAME="${{ inputs.environment }}"
           python -m scripts.cleanup_test_users -e "${{ inputs.emails }}"
