@@ -37,8 +37,6 @@ jobs:
           path: utils_repo
       - name: Run clean up old users
         run: |
-          aws s3 ls
-          aws cognito-idp list-users --user-pool-id=${{ secrets.POOL_ID }}
           cd utils_repo/scripts
           ./test_user_deleter.rb --poolId="${{ secrets.POOL_ID }}" -e "${{ inputs.emails }}"
           cd ..
