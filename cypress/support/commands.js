@@ -187,6 +187,7 @@ Cypress.Commands.add("confirmDemoMarketClearedInbox", () => {
 Cypress.Commands.add("navigateIntoJob", (name, isAssigned=true, sectionSelector='storiesSection') => {
     if (isAssigned) {
         cy.get('#JobProgress', {timeout: 30000}).click();
+    } else {
         cy.get('#JobBacklog', {timeout: 30000}).click();
     }
     cy.get(`#${sectionSelector}`, {timeout: 120000}).contains(name, {timeout: 180000}).click();
