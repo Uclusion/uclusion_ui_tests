@@ -10,5 +10,5 @@ jobs:
     uses: ./.github/workflows/reusableRemoveSpecificUsers.yml
     secrets: inherit
     with:
-      emails: 'support@uclusion.com,testeruclusion@gmail.com,production.amazon@uclusion.com,disrael@gmail.com'
+      emails: 'disrael@uclusion.com,support@uclusion.com,testeruclusion@gmail.com,production.amazon@uclusion.com,disrael@gmail.com'
       environment: "development"
