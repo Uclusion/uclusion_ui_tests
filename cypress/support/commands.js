@@ -294,7 +294,8 @@ Cypress.Commands.add("createJob", (description, assigneeName, certainty, justifi
 Cypress.Commands.add("createWorkspace", (name, participants=[]) => {
     cy.get('#createWorkspaceId', { timeout: 10000 }).click()
     cy.get('#workspaceName').type(name);
-    cy.get('#OnboardingWizardOtherNext').click();
+    // Third button to get team view
+    cy.get('#OnboardingWizardTerminate').click();
     // Create an Engineering view
     cy.get('#groupName', { timeout: 8000 }).type('Engineering');
     cy.get('#OnboardingWizardNext').click();
