@@ -154,7 +154,7 @@ Cypress.Commands.add("grantClipboardPermissions", () => {
 })
 
 Cypress.Commands.add("confirmDemoMarketInbox", (isTeam) => {
-    cy.get(isTeam ? '#Engineering' : '#0Single', { timeout: 140000 }).click();
+    cy.get(isTeam ? '#Engineering' : '#0TesterOneUclusion', { timeout: 140000 }).click();
     cy.get('#inboxId').click();
     const inboxContents = isTeam ? [
         {notification: 'NOT_FULLY_VOTED', count: 3},
@@ -168,6 +168,7 @@ Cypress.Commands.add("confirmDemoMarketInbox", (isTeam) => {
     inboxContents.forEach((content) => {
         const { notification, count } = content;
         cy.get(`[id^=workListItem${notification}]`).its('length').should('be.gte', count);
+        cy.get(`[id^=workListItem${notification}]`, { timeout: 140000 }).first().should('be.not.disabled');
     });
 })
 
