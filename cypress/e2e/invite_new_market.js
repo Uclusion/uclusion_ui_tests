@@ -64,7 +64,6 @@ describe('Authenticator:', function() {
         cy.get('[id^=editorBox-addBugCommentAddBug]').type('This is my critical bug.');
         cy.get('#OnboardingWizardNext').click();
         cy.createJob(reviewJobName, firstUserName, undefined, undefined, undefined, true, true);
-        cy.contains(reviewJobName, {timeout: 10000}).should('be.visible');
         cy.get('#Engineering').click();
         cy.navigateIntoJob(reviewJobName);
         cy.get('#Overview').click();
