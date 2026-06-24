@@ -252,7 +252,7 @@ Cypress.Commands.add("voteOption", (optionName, certainty, reason) => {
 Cypress.Commands.add("createJob", (description, assigneeName, certainty, justification,
                                    isReady, isSkipApprovals=false, isSingleUser=false) => {
     cy.get('#JobProgress', { timeout: 10000 }).click();
-    cy.get('#addJob', { timeout: 5000 }).click();
+    cy.get('#addJob', { timeout: 10000 }).click();
     cy.get('[id^=editorBox-addJobWizard]', { timeout: 5000 }).type(description, { timeout: 5000 });
     if (assigneeName) {
         cy.get('#OnboardingWizardNext').click();
