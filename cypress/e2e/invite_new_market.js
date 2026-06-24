@@ -71,7 +71,7 @@ describe('Authenticator:', function() {
         cy.get('#newReport').click();
         cy.get('[id^=editorBox-jobCommentREPORTJobCommentAdd]').type(reportText);
         cy.get('#OnboardingWizardNext').click();
-        cy.get('#approvals', {timeout: 10000}).should('be.visible');
+        cy.get('[id^=commentReplyButton]', {timeout: 10000}).should('be.visible');
         cy.contains(reportText, {timeout: 10000}).should('be.visible');
         cy.get('#Addcollaborators').click();
         // If switch to Chrome then try realClick() below
@@ -94,6 +94,7 @@ describe('Authenticator:', function() {
         cy.get('#commentBox', { timeout: 120000 }).contains(optionText, { timeout: 60000 });
         cy.get('#approvalButton').click();
         cy.vote(75, voteReason, true);
+        cy.contains('Expires in', {timeout: 10000}).should('be.visible');
         cy.get('#approvals', {timeout: 10000}).should('be.visible');
         cy.contains(voteReason, {timeout: 10000}).should('be.visible');
         cy.createAdditionalUser(thirdUserEmail);
@@ -147,6 +148,7 @@ describe('Authenticator:', function() {
         cy.get('#inboxId').click();
         cy.get('[id^=linkUNREAD_JOB_APPROVAL_REQUEST]').click();
         cy.vote(75, 'My vote for take job reason.', true);
+        cy.contains('Expires in', {timeout: 10000}).should('be.visible');
         cy.get('span').filter(':visible').contains('Certain');
         cy.get('#inboxId').click();
         cy.get('[id^=workListItemUNREAD_COMMENT]').contains(blockingIssue).click();
