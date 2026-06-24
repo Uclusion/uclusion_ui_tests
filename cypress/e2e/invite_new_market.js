@@ -25,6 +25,8 @@ describe('Authenticator:', function() {
       const jobName = 'Creating this story to test placeholder gets it';
       const reviewJobName = 'Job getting a review on.';
       const blockingIssue = 'This is my issue with this progress.';
+      const reportText = 'This is my report yea!';
+      const voteReason = 'My vote for option reason.';
       const thirdUserEmailNamePart = thirdUserEmail.substring(0, thirdUserEmail.indexOf('@'));
       cy.fillSignupForm(`${destination}?utm_campaign=team#signup`, firstUserName, firstUserEmail,
           userPassword);
@@ -62,14 +64,15 @@ describe('Authenticator:', function() {
         cy.get('[id^=editorBox-addBugCommentAddBug]').type('This is my critical bug.');
         cy.get('#OnboardingWizardNext').click();
         cy.createJob(reviewJobName, firstUserName, undefined, undefined, undefined, true, true);
+        cy.contains(reviewJobName, {timeout: 10000}).should('be.visible');
         cy.get('#Engineering').click();
         cy.navigateIntoJob(reviewJobName);
         cy.get('#Overview').click();
         cy.get('#reportsToggleId').click();
         cy.get('#newReport').click();
-        cy.get('[id^=editorBox-jobCommentREPORTJobCommentAdd]').type('This is my report yea!');
+        cy.get('[id^=editorBox-jobCommentREPORTJobCommentAdd]').type(reportText);
         cy.get('#OnboardingWizardNext').click();
-        cy.get('#Overview', {timeout: 10000}).should('be.visible');
+        cy.contains(reportText, {timeout: 10000}).should('be.visible');
         cy.get('#Addcollaborators').click();
         // If switch to Chrome then try realClick() below
         cy.get('#copyInviteLink').click();
@@ -90,7 +93,8 @@ describe('Authenticator:', function() {
         cy.get('#NotesDiscussion', { timeout: 60000 }).click();
         cy.get('#commentBox', { timeout: 120000 }).contains(optionText, { timeout: 60000 });
         cy.get('#approvalButton').click();
-        cy.vote(75, 'My vote for option reason.', true);
+        cy.vote(75, voteReason, true);
+        cy.contains(voteReason, {timeout: 10000}).should('be.visible');
         cy.createAdditionalUser(thirdUserEmail);
         cy.get('#Engineering').click();
         cy.get('#endEngineering').click();
