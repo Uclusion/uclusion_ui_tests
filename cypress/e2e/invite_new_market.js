@@ -113,7 +113,7 @@ describe('Authenticator:', function() {
         // Decision of send to team or not
         cy.get('#ISSUEYes', {timeout: 10000}).should('be.visible');
         cy.get('#OnboardingWizardNext').click();
-        cy.get('#Overview', {timeout: 10000}).should('be.visible');
+        cy.contains(blockingIssue, {timeout: 10000}).should('be.visible');
         // add a story for second user with vote
         cy.get('#Engineering').click();
         cy.createJob(jobName, thirdUserEmail, 75);
