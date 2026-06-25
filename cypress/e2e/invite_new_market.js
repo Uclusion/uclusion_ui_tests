@@ -120,6 +120,8 @@ describe('Authenticator:', function() {
         cy.get('#OnboardingWizardNext').click();
         cy.get('#newISSUE', {timeout: 10000}).should('be.visible');
         cy.contains(blockingIssue, {timeout: 10000}).should('be.visible');
+        // Prevent race condition between navigation to new issue and engineering click
+        cy.wait(5000);
         // add a story for second user with vote
         cy.get('#Engineering').click();
         cy.createJob(jobName, thirdUserEmail, 75);
