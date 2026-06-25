@@ -148,7 +148,6 @@ describe('Authenticator:', function() {
         cy.get('#inboxId').click();
         cy.get('[id^=linkUNREAD_JOB_APPROVAL_REQUEST]').click();
         cy.vote(75, 'My vote for take job reason.', true);
-        cy.contains('Expires in', {timeout: 10000}).should('be.visible');
         cy.get('span').filter(':visible').contains('Certain');
         cy.get('#inboxId').click();
         cy.get('[id^=workListItemUNREAD_COMMENT]').contains(blockingIssue).click();

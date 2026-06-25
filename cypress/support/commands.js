@@ -166,8 +166,8 @@ Cypress.Commands.add("confirmDemoMarketInbox", (isTeam) => {
         ];
     inboxContents.forEach((content) => {
         const { notification, count } = content;
-        cy.get(`[id^=workListItem${notification}]`).its('length').should('be.gte', count);
         cy.get(`[id^=workListItem${notification}]`, { timeout: 140000 }).first().should('be.not.disabled');
+        cy.get(`[id^=workListItem${notification}]`).its('length').should('be.gte', count);
     });
 })
 
