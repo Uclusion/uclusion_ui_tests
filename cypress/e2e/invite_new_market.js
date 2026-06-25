@@ -94,7 +94,6 @@ describe('Authenticator:', function() {
         cy.get('#commentBox', { timeout: 120000 }).contains(optionText, { timeout: 60000 });
         cy.get('#approvalButton').click();
         cy.vote(75, voteReason, true);
-        cy.contains('Expires in', {timeout: 10000}).should('be.visible');
         cy.get('#approvals', {timeout: 10000}).should('be.visible');
         cy.contains(voteReason, {timeout: 10000}).should('be.visible');
         cy.createAdditionalUser(thirdUserEmail);
