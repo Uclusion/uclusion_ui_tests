@@ -20,6 +20,7 @@ describe('Authenticator:', function() {
             const secondUserName = 'Tester Two Uclusion';
             const userPassword = 'Testme;1';
             const suggestionText = 'Test a suggestion for @';
+            const debatable =  '#Debatable';
             cy.fillSignupForm(`${destination}?utm_campaign=solo#signup`, firstUserName, firstUserEmail,
                 userPassword);
             // Wait for a read on Cognito of the signup
@@ -30,7 +31,7 @@ describe('Authenticator:', function() {
                 cy.createAdditionalUser(secondUserEmail, false);
                 cy.get('#0TesterOneUclusion').click();
                 cy.navigateIntoJob('Region based memory management for garbage collection.');
-                cy.get('#Assistance').click();
+                cy.get(debatable).click();
                 cy.get('#newQUESTION').click();
                 cy.get('[id^=editorBox-jobCommentQUESTIONJobCommentAdd]')
                     .type('Tell me something? Would really love your opinion @', { delay: 500 });
@@ -39,17 +40,17 @@ describe('Authenticator:', function() {
                 cy.get(`li[data-value="${secondUserEmail}"],li[data-value="${secondUserName}"]`).click();
                 cy.get('#OnboardingWizardOtherNext').click();
                 // Make sure done with operation before click anything
-                cy.get('#Assistance', { timeout: 20000 }).should('exist');
+                cy.get(debatable, { timeout: 20000 }).should('exist');
                 cy.get(`[data-value="${secondUserEmail}"],[data-value="${secondUserName}"]`, { timeout: 8000 });
                 cy.get('#0TesterOneUclusion').click();
                 cy.navigateIntoJob('Null safety');
-                cy.get('#Assistance').click();
+                cy.get(debatable).click();
                 cy.get('#newSUGGEST').click();
                 cy.focused({ timeout: 8000 }).type(suggestionText, { delay: 500 });
                 // mention so that suggestion will generate a notification
                 cy.get(`li[data-value="${secondUserEmail}"],li[data-value="${secondUserName}"]`, { timeout: 8000 }).click();
                 cy.get('#OnboardingWizardNext').click();
-                cy.get('#Assistance', { timeout: 20000 }).should('exist');
+                cy.get(debatable, { timeout: 20000 }).should('exist');
                 cy.get('#0TesterOneUclusion').click();
                 return cy.url().then((url) => cy.getInviteUrlFromUrl('02', url, apiDestination))
             }).then(url => {
@@ -67,7 +68,7 @@ describe('Authenticator:', function() {
                 cy.get('#100').click();
                 cy.get('#OnboardingWizardNext').click();
                 // verify returned to the suggestion
-                cy.get('#Assistance', { timeout: 20000 }).should('exist');
+                cy.get(debatable, { timeout: 20000 }).should('exist');
             });
         });
     });

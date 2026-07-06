@@ -111,7 +111,7 @@ describe('Authenticator:', function() {
         // go into the job to create this blocking issue since not a member of this view
         cy.get('#Engineering').click();
         cy.navigateIntoJob(reviewJobName);
-        cy.get('#Assistance').click();
+        cy.get('#Debatable').click();
         cy.get('#newISSUE').click();
         cy.focused({ timeout: 10000 }).type(blockingIssue);
         cy.get('#OnboardingWizardNext').click();
