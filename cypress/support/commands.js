@@ -161,7 +161,7 @@ Cypress.Commands.add("confirmDemoMarketInbox", (isTeam) => {
         {notification: 'UNREAD_REPLY', count: 1},
         {notification: 'UNREAD_COMMENT', count: 1},
         {notification: 'UNREAD_JOB_APPROVAL_REQUEST', count: 1}] : [
-            {notification: 'REPORT_REQUIRED', count: 1}
+            {notification: 'UNREAD_REPLY', count: 2}
         ];
     inboxContents.forEach((content) => {
         const { notification, count } = content;
