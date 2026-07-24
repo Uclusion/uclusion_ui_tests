@@ -28,7 +28,8 @@ describe('Authenticator:', function() {
       const reportText = 'This is my report yea!';
       const voteReason = 'My vote for option reason.';
       const thirdUserEmailNamePart = thirdUserEmail.substring(0, thirdUserEmail.indexOf('@'));
-      cy.fillSignupForm(`${destination}?utm_campaign=team#signup`, firstUserName, firstUserEmail,
+      cy.fillSignupForm(`${destination}?utm_campaign=team&market_sub_type=TEST#signup`,
+          firstUserName, firstUserEmail,
           userPassword);
       // Grant clipboard permissions to avoid errors when copying invite link
       cy.grantClipboardPermissions();

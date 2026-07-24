@@ -21,7 +21,8 @@ describe('Authenticator:', function() {
             const userPassword = 'Testme;1';
             const suggestionText = 'Test a suggestion for @';
             const debatable =  '#Debatable';
-            cy.fillSignupForm(`${destination}?utm_campaign=solo#signup`, firstUserName, firstUserEmail,
+            cy.fillSignupForm(`${destination}?utm_campaign=solo&market_sub_type=TEST#signup`,
+                firstUserName, firstUserEmail,
                 userPassword);
             // Wait for a read on Cognito of the signup
             cy.wait(8000);
