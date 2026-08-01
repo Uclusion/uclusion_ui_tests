@@ -41,7 +41,7 @@ describe('Authenticator:', function() {
                 cy.get(`li[data-value="${secondUserEmail}"],li[data-value="${secondUserName}"]`).click();
                 cy.get('#OnboardingWizardOtherNext').click();
                 // Make sure done with operation before click anything
-                cy.get(debatable, { timeout: 20000 }).should('exist');
+                cy.get('[id^=commentReplyButton]', { timeout: 20000 }).should('exist');
                 cy.get(`[data-value="${secondUserEmail}"],[data-value="${secondUserName}"]`, { timeout: 8000 });
                 cy.get('#0TesterOneUclusion').click();
                 cy.navigateIntoJob('Null safety');
