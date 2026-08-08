@@ -140,8 +140,9 @@ describe('Authenticator:', function() {
         cy.get('#inboxId').click();
         // We are a member of this view so should get the critical bugs
         cy.get('[id^=workListItemUNASSIGNED]').click();
+        // J-all-392: Move is a drop down carrying the old first step's choices
         cy.get('[id^=moveComment]').click();
-        cy.get('#OnboardingWizardNext').click();
+        cy.get('[id^=moveNewJob]').click();
         cy.get('#OnboardingWizardNext').click();
         cy.get('#OnboardingWizardTerminate').contains('Skip', { timeout: 30000 }).click();
         cy.get('#Overview', {timeout: 10000}).should('be.visible');
@@ -152,8 +153,9 @@ describe('Authenticator:', function() {
         cy.get('#inboxId').click();
         cy.get('[id^=workListItemUNREAD_COMMENT]').contains(blockingIssue).click();
         cy.contains(blockingIssue, {timeout: 10000}).click();
+        // J-all-392: Convert to bug now runs straight from the Move drop down
         cy.get('[id^=moveComment]').click();
-        cy.get('#OnboardingWizardTerminate').click();
+        cy.get('[id^=moveBug]').click();
         cy.get('#Bugs', { timeout: 30000 }).should('be.visible');
       });
     });
