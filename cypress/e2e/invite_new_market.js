@@ -26,6 +26,8 @@ describe('Authenticator:', function() {
       const reviewJobName = 'Job getting a review on.';
       const blockingIssue = 'This is my issue with this progress.';
       const reportText = 'This is my report yea!';
+      const taskText = 'Root task for sub task resolve.';
+      const subTaskText = 'This sub task gets resolved directly.';
       const voteReason = 'My vote for option reason.';
       const thirdUserEmailNamePart = thirdUserEmail.substring(0, thirdUserEmail.indexOf('@'));
       cy.fillSignupForm(`${destination}?utm_campaign=team&market_sub_type=TEST#signup`,
@@ -74,6 +76,18 @@ describe('Authenticator:', function() {
         cy.get('#OnboardingWizardNext').click();
         cy.get('[id^=commentReplyButton]', {timeout: 10000}).should('be.visible');
         cy.contains(reportText, {timeout: 10000}).should('be.visible');
+        // B-all-552: resolving a sub task promotes it to a resolved top level task
+        cy.get('#newTask').click();
+        cy.get('[id^=editorBox-jobCommentTODOJobCommentAdd]').type(taskText);
+        cy.get('#OnboardingWizardNext').click();
+        cy.contains(taskText, {timeout: 30000}).should('be.visible');
+        cy.replyToComment(taskText, subTaskText);
+        cy.get('[id^=subTaskResolve]', {timeout: 30000}).click();
+        cy.get('[id^=subTaskResolve]').should('not.exist');
+        cy.get('#investibleCondensedTodos').within(() => {
+          cy.contains('Resolved').click();
+          cy.contains(subTaskText, {timeout: 30000}).should('be.visible');
+        });
         cy.get('#Addcollaborators').click();
         // If switch to Chrome then try realClick() below
         cy.get('#copyInviteLink').click();
