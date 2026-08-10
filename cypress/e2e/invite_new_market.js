@@ -78,13 +78,25 @@ describe('Authenticator:', function() {
         cy.contains(reportText, {timeout: 10000}).should('be.visible');
         // B-all-552: resolving a sub task promotes it to a resolved top level task
         cy.get('#newTask').click();
-        cy.get('[id^=editorBox-jobCommentTODOJobCommentAdd]').type(taskText);
+        cy.get('[id^=editorBox-jobCommentTODOJobCommentAdd]', {timeout: 10000}).type(taskText);
         cy.get('#OnboardingWizardNext').click();
         cy.contains(taskText, {timeout: 30000}).should('be.visible');
-        cy.replyToComment(taskText, subTaskText);
+        // On your own task the reply button is the Grouped drop down (J-all-392) whose
+        // Task item opens the reply wizard - no #commentSendButton in this flow
+        cy.contains('p', taskText, {timeout: 30000}).closest('[id^=c]').within(() => {
+          cy.get('[id^=commentReplyButton]').click();
+        });
+        cy.get('[id^=groupedTask]', {timeout: 10000}).click();
+        cy.wait(1000);
+        // focus is not reliable in React so have to use get even though should be focussed
+        cy.get('[id^=editorBox-replyCommentAddReply]', {timeout: 10000}).type(subTaskText);
+        cy.get('#OnboardingWizardNext').click();
         cy.get('[id^=subTaskResolve]', {timeout: 30000}).click();
         cy.get('[id^=subTaskResolve]').should('not.exist');
-        cy.get('#investibleCondensedTodos').within(() => {
+        // Comment creation leaves the job on the tasks section; the resolved list
+        // asserted below is in the Overview's condensed todos
+        cy.get('#Overview').click();
+        cy.get('#investibleCondensedTodos', {timeout: 10000}).within(() => {
           cy.contains('Resolved').click();
           cy.contains(subTaskText, {timeout: 30000}).should('be.visible');
         });
