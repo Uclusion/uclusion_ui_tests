@@ -292,6 +292,8 @@ Cypress.Commands.add("createJob", (description, assigneeName, certainty, justifi
 
 Cypress.Commands.add("createWorkspace", (name, participants=[]) => {
     cy.get('#createWorkspaceId', { timeout: 10000 }).click()
+    // J-all-400: the workspace wizard now leads with the Connect AI choice - skip AI here
+    cy.get('#OnboardingWizardTerminate', { timeout: 10000 }).click();
     cy.get('#workspaceName').type(name);
     // Third button to get team view
     cy.get('#OnboardingWizardTerminate').click();

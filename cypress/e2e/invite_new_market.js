@@ -115,6 +115,9 @@ describe('Authenticator:', function() {
         cy.getVerificationUrl('04', apiDestination, inviteUrl.substring(destination.length + 1));
       }).then((url) => {
         cy.signIn(url, secondUserEmail, userPassword);
+        // J-all-400 (C-all-1505): invited users get the AI first offer before the tour
+        cy.contains('Connect your AI', { timeout: 60000 }).should('be.visible');
+        cy.get('#OnboardingWizardTerminate').click();
         // Will be on workspace notification
         cy.get('#Engineering', { timeout: 30000 }).click();
         cy.get('#NotesDiscussion', { timeout: 60000 }).click();
