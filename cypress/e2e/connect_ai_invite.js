@@ -38,8 +38,11 @@ describe('Authenticator:', function() {
         cy.contains('secret_key_id', { timeout: 60000 }).should('be.visible');
         cy.get('#OnboardingWizardTerminate').contains('Go to workspace').click();
         cy.get('#workspaceMenuButton', { timeout: 30000 }).contains(workspaceName);
-        // Invite the second human through the UI
+        // Invite the second human through the UI. A single person workspace first offers
+        // creating a view for the collaborator, so skip that step.
         cy.get('#Addcollaborators').click();
+        cy.contains('Do you want a view', { timeout: 10000 }).should('be.visible');
+        cy.get('#OnboardingWizardSkip').click();
         cy.get('#copyInviteLink', { timeout: 8000 }).click();
         return cy.window().then((win) => {
           return win.navigator.clipboard.readText();
