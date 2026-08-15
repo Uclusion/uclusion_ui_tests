@@ -26,6 +26,9 @@ describe('Authenticator:', function() {
       cy.wait(8000);
       cy.getVerificationUrl('06', apiDestination).then((url) => {
         cy.signIn(url, userEmail, userPassword);
+        // Wait for the sign in handler's delayed replace to /demo so it cannot yank the
+        // wizard back mid flow (same race connect_ai_invite hit)
+        cy.url({ timeout: 60000 }).should('include', '/demo');
         // Brand new user with no demo gets the AI choice with all three buttons
         cy.contains('How do you want to start?', { timeout: 60000 }).should('be.visible');
         cy.get('#OnboardingWizardNext').contains('Connect AI first');

@@ -30,6 +30,10 @@ describe('Authenticator:', function() {
       cy.wait(8000);
       cy.getVerificationUrl('07', apiDestination).then((url) => {
         cy.signIn(url, firstUserEmail, userPassword);
+        // The sign in handler polls for the fresh account then window replaces to /demo,
+        // which can yank a started wizard back mid flow. Wait for that redirect to land
+        // before interacting; only the handler navigates to /demo after sign in.
+        cy.url({ timeout: 60000 }).should('include', '/demo');
         cy.contains('How do you want to start?', { timeout: 60000 }).should('be.visible');
         // Creator goes down the connect AI first route
         cy.get('#OnboardingWizardNext').contains('Connect AI first').click();
@@ -56,6 +60,9 @@ describe('Authenticator:', function() {
         cy.getVerificationUrl('08', apiDestination, inviteUrl.substring(destination.length + 1));
       }).then((url) => {
         cy.signIn(url, secondUserEmail, userPassword);
+        // The sign in handler's delayed window replace reloads the invite path; wait it
+        // out so the reload cannot eat the Generate click
+        cy.wait(8000);
         // The invited user gets the AI first offer and connects too
         cy.contains('Connect your AI', { timeout: 60000 }).should('be.visible');
         cy.get('#OnboardingWizardNext').contains('Generate').click();
