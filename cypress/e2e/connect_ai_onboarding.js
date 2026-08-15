@@ -33,14 +33,15 @@ describe('Authenticator:', function() {
         // See a demo first goes to the existing solo/team demo choice
         cy.get('#OnboardingWizardOtherNext').contains('See a demo first').click();
         cy.contains('Which demo would you like?', { timeout: 10000 }).should('be.visible');
-        // No demo chosen so reloading returns to the AI choice
-        cy.visit(destination, {failOnStatusCode: false});
+        // No demo chosen, so the onboarding route returns to the AI choice. The root path
+        // is not used here because it does not redirect an already signed in user.
+        cy.visit(`${destination}/demo`, {failOnStatusCode: false});
         cy.contains('How do you want to start?', { timeout: 60000 }).should('be.visible');
         // Skip AI and demo goes straight to the classic name step with no AI choice repeat
         cy.get('#OnboardingWizardTerminate').click();
         cy.get('#workspaceName', { timeout: 10000 }).should('be.visible');
         cy.contains('Connect AI first').should('not.exist');
-        cy.visit(destination, {failOnStatusCode: false});
+        cy.visit(`${destination}/demo`, {failOnStatusCode: false});
         cy.contains('How do you want to start?', { timeout: 60000 }).should('be.visible');
         // Connect AI first shows name input plus the install selectors and Generate
         cy.get('#OnboardingWizardNext').click();
