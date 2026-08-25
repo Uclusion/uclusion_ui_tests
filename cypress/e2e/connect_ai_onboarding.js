@@ -56,7 +56,7 @@ describe('Authenticator:', function() {
         cy.contains('secret_key_id').should('be.visible');
         cy.contains('install.sh').should('be.visible');
         cy.contains('--project').should('be.visible');
-        cy.contains('uclusion codex').should('be.visible');
+        cy.contains('uclusion -e stage codex').should('be.visible');
         cy.get('#OnboardingWizardTerminate').contains('Go to workspace').click();
         cy.get('#workspaceMenuButton', { timeout: 30000 }).contains(workspaceName);
       });
