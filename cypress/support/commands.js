@@ -254,6 +254,9 @@ Cypress.Commands.add("createJob", (description, assigneeName, certainty, justifi
     cy.get('#addJob', { timeout: 10000 }).click();
     cy.get('[id^=editorBox-addJobWizard]', { timeout: 5000 }).type(description, { timeout: 5000 });
     if (assigneeName) {
+        if (!isSingleUser) {
+            cy.get('#IMMEDIATE').click();
+        }
         cy.get('#OnboardingWizardNext').click();
         if (!isSingleUser) {
             cy.get('#addressBook', {timeout: 5000}).contains(assigneeName.replace('@', ' ')).click();
