@@ -173,7 +173,6 @@ describe('Authenticator:', function() {
         cy.get('[id^=moveComment]').click();
         cy.get('[id^=moveNewJob]').click();
         cy.get('#OnboardingWizardNext').click();
-        cy.get('#OnboardingWizardTerminate').contains('Skip', { timeout: 30000 }).click();
         cy.get('#Overview', {timeout: 10000}).should('be.visible');
         cy.get('#inboxId').click();
         cy.get('[id^=linkUNREAD_JOB_APPROVAL_REQUEST]').click();
