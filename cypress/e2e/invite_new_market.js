@@ -28,6 +28,7 @@ describe('Authenticator:', function() {
       const reportText = 'This is my report yea!';
       const taskText = 'Root task for sub task resolve.';
       const subTaskText = 'This sub task gets resolved directly.';
+      const linkedTaskText = 'Task an approval links to.';
       const voteReason = 'My vote for option reason.';
       const thirdUserEmailNamePart = thirdUserEmail.substring(0, thirdUserEmail.indexOf('@'));
       cy.fillSignupForm(`${destination}?utm_campaign=team&market_sub_type=TEST#signup`,
@@ -152,6 +153,29 @@ describe('Authenticator:', function() {
         // add a story for second user with vote
         cy.get('#Engineering').click();
         cy.createJob(jobName, thirdUserEmail, 75);
+        // J-all-486: this approval links to a task on its own job, for the third user to follow below
+        cy.get('#Overview').click();
+        cy.get('#newTask').click();
+        cy.get('[id^=editorBox-jobCommentTODOJobCommentAdd]', {timeout: 10000}).type(linkedTaskText);
+        cy.get('#OnboardingWizardNext').click();
+        cy.contains('p', linkedTaskText, {timeout: 30000}).parents()
+          .filter((index, element) => /^c[0-9a-f-]{36}$/.test(element.id)).first().invoke('attr', 'id')
+          .then((taskAnchor) => {
+            cy.location().then((location) => {
+              const taskUrl = `${location.origin}${location.pathname}#${taskAnchor}`;
+              cy.get('#Overview').click();
+              cy.get('[id^=cv]', {timeout: 10000}).click();
+              // A pasted link to this site becomes a named link, as when a person pastes one
+              cy.get('[id^=editorBox-jobapproveeditor] .ql-editor', {timeout: 10000}).then(($editor) => {
+                const clipboardData = new DataTransfer();
+                clipboardData.setData('text/plain', taskUrl);
+                $editor[0].dispatchEvent(new ClipboardEvent('paste',
+                  {bubbles: true, cancelable: true, clipboardData}));
+              });
+              cy.get('#OnboardingWizardNext').click();
+              cy.get('[id^=cv] a', {timeout: 30000}).should('be.visible');
+            });
+          });
         cy.logOut();
         cy.wait(8000);
         return cy.getInviteUrl('05', '03', apiDestination);
@@ -166,6 +190,15 @@ describe('Authenticator:', function() {
         cy.wait(10000);
         cy.get('#Overview').click();
         cy.get('span').filter(':visible').contains('Certain');
+        // J-all-486: following that link in someone else's approval, header Back returns to the approval
+        cy.location('pathname').then((jobPath) => {
+          cy.get('[id^=cv] a').filter(':visible').first().click();
+          // The task opens in the tasks section, which hides the Overview and its approvals
+          cy.get('[id^=cv] a', {timeout: 10000}).filter(':visible').should('have.length', 0);
+          cy.get('#backNavigation').click();
+          cy.location('pathname').should('eq', jobPath);
+          cy.get('[id^=cv] a', {timeout: 10000}).filter(':visible').should('have.length', 1);
+        });
         cy.get('#inboxId').click();
         // We are a member of this view so should get the critical bugs
         cy.get('[id^=workListItemUNASSIGNED]').click();
