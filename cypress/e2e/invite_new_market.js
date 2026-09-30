@@ -41,18 +41,25 @@ describe('Authenticator:', function() {
       cy.getVerificationUrl('03', apiDestination).then((url) => {
         cy.signIn(url, firstUserEmail, userPassword);
         cy.confirmDemoMarketInbox(true);
-        // verify next button does something
+        // Next message opens a direct job link or a single-notification page.
         cy.get('#nextNavigation').click();
-        cy.get('[id^=workListItem]').should('exist');
-        cy.get('#nextNavigation').click();
-        cy.get('[id^=workListItem]').should('exist');
+        cy.location('pathname').should('match', /^\/(dialog\/[^/]+\/[^/]+|inbox\/[^/]+)$/);
+        cy.location('href').then((firstMessageUrl) => {
+          cy.get('#nextNavigation').click();
+          cy.location('href').should('not.eq', firstMessageUrl);
+          cy.location('pathname').should('match', /^\/(dialog\/[^/]+\/[^/]+|inbox\/[^/]+)$/);
+        });
         cy.get('#inboxId').click();
-        // Now process an inbox item to get the workspace from demo banner
-        cy.get('[id^=workListItemUNREAD_REPLY]', { timeout: 10000 }).click();
-        cy.get('#OnboardingWizardOtherNext').click();
-        cy.get('#typeOther', { timeout: 10000 }).click();
-        cy.get('#OnboardingWizardNext').click();
-        cy.contains('h6', 'You are converting', {timeout: 8000}).should('exist');
+        // Open the notified reply, promote it to a task, then move it to a new job.
+        cy.get('[id^=workListItemUNREAD_REPLY]', { timeout: 10000 }).first().invoke('attr', 'id')
+          .then((rowId) => {
+            const replyId = rowId.substring('workListItemUNREAD_REPLY_'.length);
+            cy.get(`#${rowId}`).click();
+            cy.get(`#c${replyId} #storyFromComment`, { timeout: 10000 }).click();
+            cy.get(`#moveTask${replyId}`).click();
+            cy.get(`#c${replyId} [id^=moveComment]`, { timeout: 10000 }).click();
+            cy.get(`#moveTask${replyId}`).click();
+          });
         cy.get('#OnboardingWizardNext').click();
         cy.get('#READY').click();
         cy.get('#OnboardingWizardNext').click();
@@ -70,7 +77,7 @@ describe('Authenticator:', function() {
         cy.createJob(reviewJobName, firstUserName, undefined, undefined, undefined, true, true);
         cy.get('#Engineering').click();
         cy.navigateIntoJob(reviewJobName);
-        cy.get('#Overview').click();
+        cy.get('#Overview').contains('Overview').click();
         cy.get('#reportsToggleId').click();
         cy.get('#newReport').click();
         cy.get('[id^=editorBox-jobCommentREPORTJobCommentAdd]').type(reportText);
@@ -96,7 +103,7 @@ describe('Authenticator:', function() {
         cy.get('[id^=subTaskResolve]').should('not.exist');
         // Comment creation leaves the job on the tasks section; the resolved list
         // asserted below is in the Overview's condensed todos
-        cy.get('#Overview').click();
+        cy.get('#Overview').contains('Overview').click();
         cy.get('#investibleCondensedTodos', {timeout: 10000}).within(() => {
           cy.contains('Resolved').click();
           cy.contains(subTaskText, {timeout: 30000}).should('be.visible');
@@ -121,12 +128,12 @@ describe('Authenticator:', function() {
         cy.get('#OnboardingWizardTerminate').click();
         // Will be on workspace notification
         cy.get('#Engineering', { timeout: 30000 }).click();
-        cy.get('#NotesDiscussion', { timeout: 60000 }).click();
+        cy.get('#NotesDiscussion', { timeout: 60000 }).contains('Notes').click();
         cy.get('#commentBox', { timeout: 120000 }).contains(optionText, { timeout: 60000 });
         cy.get('#approvalButton').click();
         cy.vote(75, voteReason, true);
         cy.get('#approvals', {timeout: 10000}).should('be.visible');
-        cy.contains(voteReason, {timeout: 10000}).should('be.visible');
+        cy.contains('[id^=cv]', voteReason, {timeout: 10000}).should('be.visible');
         cy.createAdditionalUser(thirdUserEmail);
         cy.get('#Engineering').click();
         cy.get('#endEngineering').click();
@@ -154,24 +161,28 @@ describe('Authenticator:', function() {
         cy.get('#Engineering').click();
         cy.createJob(jobName, thirdUserEmail, 75);
         // J-all-486: this approval links to a task on its own job, for the third user to follow below
-        cy.get('#Overview').click();
+        cy.get('#Overview').contains('Overview').click();
         cy.get('#newTask').click();
         cy.get('[id^=editorBox-jobCommentTODOJobCommentAdd]', {timeout: 10000}).type(linkedTaskText);
         cy.get('#OnboardingWizardNext').click();
-        cy.contains('p', linkedTaskText, {timeout: 30000}).parents()
+        cy.contains('p:visible', linkedTaskText, {timeout: 30000}).parents()
           .filter((index, element) => /^c[0-9a-f-]{36}$/.test(element.id)).first().invoke('attr', 'id')
           .then((taskAnchor) => {
             cy.location().then((location) => {
               const taskUrl = `${location.origin}${location.pathname}#${taskAnchor}`;
-              cy.get('#Overview').click();
+              cy.get('#Overview').contains('Overview').click();
               cy.get('[id^=cv]', {timeout: 10000}).click();
               // A pasted link to this site becomes a named link, as when a person pastes one
-              cy.get('[id^=editorBox-jobapproveeditor] .ql-editor', {timeout: 10000}).then(($editor) => {
-                const clipboardData = new DataTransfer();
+              cy.get('[id^=editorBox-jobapproveeditor] .ql-editor', {timeout: 10000}).click().then(($editor) => {
+                const win = $editor[0].ownerDocument.defaultView;
+                const clipboardData = new win.DataTransfer();
                 clipboardData.setData('text/plain', taskUrl);
-                $editor[0].dispatchEvent(new ClipboardEvent('paste',
+                $editor[0].dispatchEvent(new win.ClipboardEvent('paste',
                   {bubbles: true, cancelable: true, clipboardData}));
               });
+              cy.get('[id^=editorBox-jobapproveeditor] .ql-editor a').should('have.attr', 'href', taskUrl);
+              // The editor debounces its change callback by 50ms before updating the approval form.
+              cy.wait(100);
               cy.get('#OnboardingWizardNext').click();
               cy.get('[id^=cv] a', {timeout: 30000}).should('be.visible');
             });
@@ -188,16 +199,16 @@ describe('Authenticator:', function() {
         cy.navigateIntoJob(jobName);
         // Have to use wait here because otherwise contains can find the inbox not visible or job visible
         cy.wait(10000);
-        cy.get('#Overview').click();
+        cy.get('#Overview').contains('Overview').click();
         cy.get('span').filter(':visible').contains('Certain');
         // J-all-486: following that link in someone else's approval, header Back returns to the approval
         cy.location('pathname').then((jobPath) => {
-          cy.get('[id^=cv] a').filter(':visible').first().click();
+          cy.get('[id^=cv] a:visible').first().click();
           // The task opens in the tasks section, which hides the Overview and its approvals
-          cy.get('[id^=cv] a', {timeout: 10000}).filter(':visible').should('have.length', 0);
+          cy.get('[id^=cv] a:visible', {timeout: 10000}).should('not.exist');
           cy.get('#backNavigation').click();
           cy.location('pathname').should('eq', jobPath);
-          cy.get('[id^=cv] a', {timeout: 10000}).filter(':visible').should('have.length', 1);
+          cy.get('[id^=cv] a:visible', {timeout: 10000}).should('have.length', 1);
         });
         cy.get('#inboxId').click();
         // We are a member of this view so should get the critical bugs
