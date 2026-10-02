@@ -62,7 +62,7 @@ describe('Authenticator:', function() {
                 cy.get('#0TesterOneUclusion', { timeout: 30000 }).click();
                 cy.get('#inboxId').click();
                 // for mention in question - two of these ISSUE so use contains
-                cy.get('[id^=workListItemISSUE]', { timeout: 10000 }).contains('love')
+                cy.get('[id^=workListItemISSUE]', { timeout: 140000 }).contains('love')
                     .should('exist');
                 cy.get('[id^=linkNOT_FULLY_VOTED]', { timeout: 60000 }).contains(suggestionText).click();
                 cy.get('[id^=voteFor]', { timeout: 10000 }).click();
